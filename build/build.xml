@@ -31,6 +31,8 @@
     <filter token="RESOURCE_LOGGING_LEVEL" value="${resource.logging.level}"/>
     <filter token="SCHEDULING_LOGGING_LEVEL" value="${scheduling.logging.level}"/>
     <filter token="PROCLET_LOGGING_LEVEL" value="${proclet.logging.level}"/>
+    <filter token="MAIL_LOGGING_LEVEL" value="${mail.logging.level}"/>
+	<filter token="TOMCAT_PORT" value="${tomcat.port}"/>
 
     <property name="app.version" value="4.2"/>
     <property name="developer.name" value="Michael Adams, Lachlan Aldred, Andrew Hastie,
@@ -1132,9 +1134,11 @@
               file="${classes.dir}${packageRoot}/cost/interfce/CostGatewayClient.class"/>
 
         <copy todir="${temp.dir}/${engine.app.name}/WEB-INF"
+        	filtering="true"
               file="${build.dir}/engine/web.xml"/>
 
         <copy todir="${temp.dir}/${engine.app.name}/WEB-INF/classes"
+        	filtering="true"
               file="${classes.dir}${packageRoot}/engine/defaultClients.properties"/>
 
         <antcall target="updateBuildProperties">
@@ -1233,7 +1237,7 @@
                 <include name="*.jsp"/>
             </fileset>
         </copy>
-        <copy todir="${temp.dir}/${wsInvoker.app.name}/WEB-INF">
+        <copy todir="${temp.dir}/${wsInvoker.app.name}/WEB-INF" filtering="true">
             <fileset file="${build.dir}/${wsInvoker.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${wsInvoker.app.name}.war">
@@ -1312,7 +1316,7 @@
             <fileset dir="${classes.dir}${packageRoot}/exceptions"
                      includes="YAWLException.class"/>
         </copy>
-        <copy todir="${temp.dir}/${smsInvoker.app.name}/WEB-INF">
+        <copy todir="${temp.dir}/${smsInvoker.app.name}/WEB-INF" filtering="true">
             <fileset file="${build.dir}/${smsInvoker.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${smsInvoker.app.name}.war">
@@ -1456,6 +1460,7 @@
         <copy file="${build.dir}/${worklet.app.name}/version.properties"
               tofile="${temp.dir}/${worklet.app.name}/WEB-INF/classes/version.properties"/>
         <copy todir="${temp.dir}/${worklet.app.name}/WEB-INF"
+        	filtering="true"
               file="${build.dir}/${worklet.app.name}/web.xml"/>
         <jar destfile="${output.dir}/${worklet.app.name}.war">
             <fileset dir="${temp.dir}/${worklet.app.name}"/>
@@ -1613,6 +1618,7 @@
 
         <!-- 5. Copy web.xml file into dir structure -->
         <copy todir="${temp.dir}/${resource.app.name}/WEB-INF"
+        	filtering="true"
               file="${build.dir}/${resource.app.name}/web.xml"/>
 
         <!-- 6. create Web Archive file -->
@@ -1859,6 +1865,7 @@
         <copy file="${build.dir}/${monitor.app.name}/version.properties"
               tofile="${temp.dir}/${monitor.app.name}/WEB-INF/classes/version.properties"/>
         <copy todir="${temp.dir}/${monitor.app.name}/WEB-INF"
+        	filtering="true"
               file="${build.dir}/${monitor.app.name}/web.xml"/>
         <jar destfile="${output.dir}/${monitor.app.name}.war">
             <fileset dir="${temp.dir}/${monitor.app.name}"/>
@@ -1975,7 +1982,7 @@
         <copy todir="${temp.dir}/${test.app.name}/graphics">
             <fileset dir="${graphics.dir}"/>
         </copy>
-        <copy todir="${temp.dir}/${test.app.name}/WEB-INF">
+        <copy todir="${temp.dir}/${test.app.name}/WEB-INF" filtering="true">
             <fileset file="${build.dir}/${test.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${test.app.name}.war">
@@ -2063,7 +2070,7 @@
         <copy todir="${temp.dir}/${cost.app.name}/xsd">
              <fileset dir="${src.dir}${packageRoot}/cost/xsd"/>
          </copy>
-        <copy todir="${temp.dir}/${cost.app.name}/WEB-INF">
+        <copy todir="${temp.dir}/${cost.app.name}/WEB-INF" filtering="true">
             <fileset file="${build.dir}/${cost.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${cost.app.name}.war">
@@ -2132,6 +2139,7 @@
             <fileset dir="${classes.dir}${packageRoot}/${twitter.app.name}"/>
         </copy>
         <copy todir="${temp.dir}/${twitter.app.name}/WEB-INF"
+        	filtering="true"
               file="${build.dir}/${twitter.app.name}/web.xml"/>
         <copy todir="${temp.dir}/${twitter.app.name}/WEB-INF/classes"
               file="${build.dir}/${twitter.app.name}/twitter4j.properties"/>
@@ -2169,6 +2177,7 @@
              depends="compile, build_balancer_SharedTomcat">
          
          <copy todir="${temp.dir}/balancer/WEB-INF"
+         	filtering="true"
                file="${build.dir}/balancer/web.xml"/>
 
          <jar destfile="${output.dir}/balancer.war">
@@ -2236,6 +2245,7 @@
             <fileset dir="${classes.dir}${packageRoot}/${mail.app.name}"/>
         </copy>
         <copy todir="${temp.dir}/${mail.app.name}/WEB-INF"
+        	filtering="true"
               file="${build.dir}/${mail.app.name}/web.xml"/>
 
         <jar destfile="${output.dir}/${mail.app.name}.war">
@@ -2312,15 +2322,17 @@
         <copy todir="${temp.dir}/${scheduling.app.name}">
             <fileset dir="${build.dir}/${scheduling.app.name}/resources"/>
         </copy>
-        <copy todir="${temp.dir}/${scheduling.app.name}/WEB-INF/classes">
+        <copy todir="${temp.dir}/${scheduling.app.name}/WEB-INF/classes" 
+        	filtering="true">
             <fileset dir="${build.dir}/${scheduling.app.name}/properties"/>
             <fileset dir="${build.dir}/${scheduling.app.name}/schema"/>
         </copy>
         <copy todir="${temp.dir}/${scheduling.app.name}/WEB-INF"
+        	filtering="true"
                file="${build.dir}/${scheduling.app.name}/web.xml"/>
 
         <war destfile="${output.dir}/${scheduling.app.name}.war"
-             webxml="${build.dir}/${scheduling.app.name}/web.xml">
+             webxml="${temp.dir}/${scheduling.app.name}/WEB-INF/web.xml">
             <fileset dir="${temp.dir}/${scheduling.app.name}"/>
         </war>
         <checkSums rootdir="${basedir}" todir="${checksums.dir}"
@@ -2395,7 +2407,7 @@
                 <include name="*.class"/>
             </fileset>
         </copy>
-        <copy todir="${temp.dir}/${digitalSignature.app.name}/WEB-INF">
+        <copy todir="${temp.dir}/${digitalSignature.app.name}/WEB-INF" filtering="true">
             <fileset file="${build.dir}/${digitalSignature.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${digitalSignature.app.name}.war">
@@ -2467,7 +2479,7 @@
                 <include name="*.class"/>
             </fileset>
         </copy>
-        <copy todir="${temp.dir}/${mailSender.app.name}/WEB-INF">
+        <copy todir="${temp.dir}/${mailSender.app.name}/WEB-INF" filtering="true">
             <fileset file="${build.dir}/${mailSender.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${mailSender.app.name}.war">
@@ -2523,7 +2535,7 @@
                      includes="StringUtil.class CharsetFilter.class Sessions*.class
                           JDOMUtil.class PasswordEncryptor.class HibernateEngine.class"/>
         </copy>
-        <copy todir="${temp.dir}/${docStore.app.name}/WEB-INF">
+        <copy todir="${temp.dir}/${docStore.app.name}/WEB-INF" filtering="true">
             <fileset file="${build.dir}/${docStore.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${docStore.app.name}.war">
@@ -2586,6 +2598,7 @@
             <fileset dir="${classes.dir}${packageRoot}/util"/>
         </copy>
         <copy todir="${temp.dir}/${proclet.app.name}/WEB-INF"
+        	filtering="true"
               file="${build.dir}/${proclet.app.name}/web.xml"/>
 
         <copy todir="${temp.dir}/${proclet.app.name}"

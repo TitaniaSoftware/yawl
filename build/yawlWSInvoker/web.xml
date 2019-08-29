@@ -24,7 +24,7 @@
 
     <context-param>
         <param-name>InterfaceB_BackEnd</param-name>
-        <param-value>http://localhost:8080/yawl/ib</param-value>
+        <param-value>http://localhost:@TOMCAT_PORT@/yawl/ib</param-value>
         <description>
             The URL of the engine's interface B.
         </description>
@@ -99,7 +99,7 @@
          parameters.  With Tomcat, you can also send requests
          to servlets not listed here with a request like this:
 
-           http://localhost:8080/{context-path}/servlet/{classname}
+           http://localhost:@TOMCAT_PORT@/{context-path}/servlet/{classname}
 
          but this usage is not guaranteed to be portable.  It also
          makes relative references to images and other resources
@@ -173,11 +173,11 @@
          particular servlet.  The examples below correspond to the
          servlet descriptions above.  Thus, a request URI like:
 
-           http://localhost:8080/{contextpath}/graph
+           http://localhost:@TOMCAT_PORT@/{contextpath}/graph
 
          will be mapped to the "graph" servlet, while a request like:
 
-           http://localhost:8080/{contextpath}/saveCustomer.do
+           http://localhost:@TOMCAT_PORT@/{contextpath}/saveCustomer.do
 
          will be mapped to the "controller" servlet.
 

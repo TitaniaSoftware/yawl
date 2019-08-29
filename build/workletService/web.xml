@@ -17,7 +17,7 @@
 
     <context-param>
         <param-name>InterfaceB_BackEnd</param-name>
-        <param-value>http://localhost:8080/yawl/ib</param-value>
+        <param-value>http://localhost:@TOMCAT_PORT@/yawl/ib</param-value>
         <description>
             The URL of the engine's interface B.
         </description>
@@ -117,7 +117,7 @@
 
     <context-param>
         <param-name>ResourceServiceURL</param-name>
-        <param-value>http://localhost:8080/resourceService</param-value>
+        <param-value>http://localhost:@TOMCAT_PORT@/resourceService</param-value>
         <description>
             The base URL of the resource service, used for communication
             between the worklet service and the resource service's default

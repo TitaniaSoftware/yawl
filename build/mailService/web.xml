@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!--
   ~ Copyright (c) 2004-2014 The YAWL Foundation. All rights reserved.
@@ -25,7 +25,7 @@
     <display-name>YAWL Simple Mail Service</display-name>
     <description>
         This custom YAWL Service allows a process to send an email.
-        Copyright © 2011 The YAWL Foundation. All rights reserved.
+        Copyright Â© 2011 The YAWL Foundation. All rights reserved.
         Author: Michael Adams
         For more information about the YAWL SOFTWARE LICENCE refer to the 'downloads' section under
         http://www.yawlfoundation.org/.
@@ -33,7 +33,7 @@
 
     <context-param>
         <param-name>InterfaceB_BackEnd</param-name>
-        <param-value>http://localhost:8080/yawl/ib</param-value>
+        <param-value>http://localhost:@TOMCAT_PORT@/yawl/ib</param-value>
         <description>
             The URL of the engine's interface B.
         </description>
@@ -65,7 +65,7 @@
 
     <context-param>
         <param-name>host</param-name>
-        <param-value>smtp.gmail.com</param-value>
+        <param-value>smtp4dev</param-value>
         <description>
            The mail host. Can be left empty, to be provided at runtime.
         </description>
@@ -73,7 +73,7 @@
 
     <context-param>
         <param-name>port</param-name>
-        <param-value>465</param-value>
+        <param-value>25</param-value>
         <description>
            The port number for smtp on the specified host. Can be left empty, to be
             provided at runtime.
@@ -82,7 +82,7 @@
 
     <context-param>
          <param-name>transportStrategy</param-name>
-         <param-value>SSL</param-value>
+         <param-value>PLAIN</param-value>
          <description>
             The transport encryption used for connecting to the host. Choose between
              PLAIN, SSL (default) and TLS.
