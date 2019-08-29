@@ -55,6 +55,14 @@
                 <TimeBasedTriggeringPolicy />
             </Policies>
         </RollingFile>
+        <RollingFile name="FILE_MAIL"
+                     fileName="logs/yawl_mailService.log"
+                     filePattern="logs/yawl_mailService.%d{yyyy-dd-MM}.log">
+            <PatternLayout pattern="${layout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
         <RollingFile name="FILE_YAWL"
                      fileName="logs/yawl_engine.log"
                      filePattern="logs/yawl_engine.%d{yyyy-dd-MM}.log">
@@ -105,6 +113,12 @@
                 level="@WORKLET_LOGGING_LEVEL@"
                 additivity="false">
             <AppenderRef ref="FILE_WORKLET"/>
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+        <Logger name="org.yawlfoundation.yawl.mailService"
+                level="@MAIL_LOGGING_LEVEL@"
+                additivity="false">
+            <AppenderRef ref="FILE_MAIL"/>
             <AppenderRef ref="STDOUT"/>
         </Logger>
         <Root level="@ROOT_LOGGING_LEVEL@">
