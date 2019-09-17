@@ -18,13 +18,13 @@
 
 package org.yawlfoundation.yawl.resourcing.codelets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Michael Adams
@@ -33,45 +33,55 @@ import java.util.List;
 public class SupervisorInfo extends AbstractCodelet {
 
     public SupervisorInfo() {
-        super();
-        setDescription("This codelet gets the userid of the participant who is the<br> " +
-                       "supervisor of the participant with the userid specified.<br> " +
-                       "Input: userid (string type).<br>" +
-                       "Output: supervisorid (string type)");
+	super();
+	setDescription("This codelet gets the userid of the participant who is the<br> "
+		+ "supervisor of the participant with the userid specified.<br> " + "Input: userid (string type).<br>"
+		+ "Output: supervisorid (string type)");
     }
 
-
-    public Element execute(Element inData, List<YParameter> inParams,
-                           List<YParameter> outParams) throws CodeletExecutionException {
-        ResourceManager rm = ResourceManager.getInstance();
-        setInputs(inData, inParams, outParams);
-        String userid = getValue("userid");
-        Participant p = rm.getParticipantFromUserID(userid);
-        if (p == null) {
-            throw new CodeletExecutionException("Unknown userid: " + userid);
-        }
-        Participant supervisor = rm.getOrgDataSet().getImmediateSupervisor(p);
-        if (supervisor == null) {
-            throw new CodeletExecutionException("No supervisor found for userid: " + userid);
-        }
-        setParameterValue("supervisorid", supervisor.getUserID());
-        return getOutputData();
+    public Element execute(Element inData, List<YParameter> inParams, List<YParameter> outParams)
+	    throws CodeletExecutionException {
+	ResourceManager rm = ResourceManager.getInstance();
+	setInputs(inData, inParams, outParams);
+	String userid = getValue("userid");
+	Participant p = rm.getParticipantFromUserID(userid);
+	if (p == null) {
+	    throw new CodeletExecutionException("Unknown userid: " + userid);
+	}
+	Participant supervisor = rm.getOrgDataSet().getImmediateSupervisor(p);
+	if (supervisor == null) {
+	    throw new CodeletExecutionException("No supervisor found for userid: " + userid);
+	}
+	setParameterValue("supervisorid", supervisor.getUserID());
+	setParameterValue("supervisorname", supervisor.getFullName());
+	setParameterValue("supervisormail", supervisor.getMail());
+	return getOutputData();
     }
-
 
     public List<YParameter> getRequiredParams() {
-        List<YParameter> params = new ArrayList<YParameter>();
+	List<YParameter> params = new ArrayList<YParameter>();
 
-        YParameter param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);
-        param.setDataTypeAndName("string", "userid", XSD_NAMESPACE);
-        param.setDocumentation("The userid of a participant");
-        params.add(param);
+	YParameter param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "userid", XSD_NAMESPACE);
+	param.setDocumentation("The userid of a participant");
+	params.add(param);
 
-        param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
-        param.setDataTypeAndName("string", "supervisorid", XSD_NAMESPACE);
-        param.setDocumentation("The userid of the given participant's supervisor");
-        params.add(param);
-        return params;
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "supervisorid", XSD_NAMESPACE);
+	param.setDocumentation("The userid of the given participant's supervisor");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "supervisorname", XSD_NAMESPACE);
+	param.setDocumentation("The full name of the given participant's supervisor");
+	params.add(param);
+	
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "supervisormail", XSD_NAMESPACE);
+	param.setDocumentation("The email address of the given participant's supervisor");
+	params.add(param);
+	
+	return params;
     }
 
 }

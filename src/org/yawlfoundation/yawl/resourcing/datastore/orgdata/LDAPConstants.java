@@ -18,9 +18,10 @@
 
 package org.yawlfoundation.yawl.resourcing.datastore.orgdata;
 
-import javax.naming.directory.SearchControls;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.directory.SearchControls;
 
 /**
  * Constants for the LDAPSourceExtended class.
@@ -43,6 +44,7 @@ class LDAPConstants {
     static final String ATTR_PRIVILEGE_CAN_MANAGE_CASES = "yawlPrivilegeCanManageCases";
     static final String ATTR_UID = "uid";
     static final String ATTR_COMMON_NAME = "cn";
+    static final String ATTR_MAIL = "mail";
     static final String ATTR_SURNAME = "sn";
     static final String ATTR_GIVENNAME = "givenName";
     static final String ATTR_DISPLAYNAME = "displayName";

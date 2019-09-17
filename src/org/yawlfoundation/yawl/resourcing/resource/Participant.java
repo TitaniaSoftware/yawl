@@ -18,6 +18,9 @@
 
 package org.yawlfoundation.yawl.resourcing.resource;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.resourcing.QueueSet;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
@@ -26,9 +29,6 @@ import org.yawlfoundation.yawl.resourcing.rsInterface.ResourceGatewayException;
 import org.yawlfoundation.yawl.util.JDOMUtil;
 import org.yawlfoundation.yawl.util.PasswordEncryptor;
 import org.yawlfoundation.yawl.util.StringUtil;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Represents a single participant (i.e. human) resource. Also manages the participant's
@@ -45,6 +45,7 @@ public class Participant extends AbstractResource implements Cloneable {
     private String _firstname ;
     private String _userID ;
     private String _password ;
+    private String _mail;
     private boolean _isAdministrator;
     private Set<Position> _positions = new HashSet<Position>();
     private Set<Role> _roles = new HashSet<Role>();
@@ -475,6 +476,14 @@ public class Participant extends AbstractResource implements Cloneable {
         setFirstName(JDOMUtil.decodeEscapes(e.getChildText("firstname")));
         setLastName(JDOMUtil.decodeEscapes(e.getChildText("lastname")));
         setAdministrator(e.getChildText("isAdministrator").equals("true"));
+    }
+
+    public void setMail(String mail) {
+	this._mail = mail;
+    }
+    
+    public String getMail() {
+	return _mail;
     }
 
 }
