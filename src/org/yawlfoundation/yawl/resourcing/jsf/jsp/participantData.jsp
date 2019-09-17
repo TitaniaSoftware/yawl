@@ -82,7 +82,7 @@
                         <ui:panelLayout binding="#{participantData.pnlPrivileges}"
                                         id="pnlPrivileges"
                                         styleClass="orgDataPanel"
-                                        style="position: absolute; height: 333px; left: 411px; width: 255px">
+                                        style="position: absolute; height: 369px; left: 411px; width: 255px">
 
                             <ui:staticText binding="#{participantData.staticText1}"
                                            id="staticText1"
@@ -144,7 +144,7 @@
                         <ui:panelLayout binding="#{participantData.pnlUserDetails}"
                                         id="pnlUserDetails"
                                         styleClass="orgDataPanel"
-                                        style="position: absolute; height: 293px; top: 40px; left: 0">
+                                        style="position: absolute; height: 326px; top: 40px; left: 0">
 
                             <ui:label binding="#{participantData.lblFirstName}"
                                       for="txtFirstName"
@@ -164,16 +164,22 @@
                                       style="left: 12px; top: 84px; position: absolute"
                                       text="User ID:"/>
 
+                            <ui:label binding="#{participantData.lblMail}"
+                                      for="txtMail"
+                                      id="lblMail"
+                                      style="left: 12px; top: 120px; position: absolute"
+                                      text="Email:"/>
+
                             <ui:label binding="#{participantData.lblDesc}"
                                       for="txtDesc"
                                       id="lblDesc"
-                                      style="left: 12px; top: 126px; position: absolute"
+                                      style="left: 12px; top: 162px; position: absolute"
                                       text="Description:"/>
 
                             <ui:label binding="#{participantData.lblNotes}"
                                       for="txtNotes"
                                       id="lblNotes"
-                                      style="left: 12px; top: 210px; position: absolute"
+                                      style="left: 12px; top: 246px; position: absolute"
                                       text="Notes:"/>
 
                             <ui:textField binding="#{participantData.txtFirstName}"
@@ -197,20 +203,25 @@
                                          labelLevel="2"
                                          style="left: 270px; top: 84px; position: absolute"/>
 
+                            <ui:textField binding="#{participantData.txtMail}"
+                                          id="txtMail"
+                                          onKeyPress="return disableEnterKey(event);"
+                                          style="left: 100px; top: 120px; width: 280px; position: absolute"/>
+
                             <ui:textArea binding="#{participantData.txtDesc}"
                                          id="txtDesc"
-                                         style="left: 100px; top: 126px; width: 285px; height: 60px; position: absolute"/>
+                                         style="left: 100px; top: 162px; width: 285px; height: 60px; position: absolute"/>
 
                             <ui:textArea binding="#{participantData.txtNotes}"
                                          id="txtNotes"
-                                         style="left: 100px; top: 210px; width: 285px; height: 60px; position: absolute"/>
+                                         style="left: 100px; top: 246px; width: 285px; height: 60px; position: absolute"/>
                         </ui:panelLayout>
 
 
                         <ui:tabSet binding="#{participantData.tabSetAttributes}"
                                    id="tabSetAttributes"
                                    selected="tabRoles"
-                                   style="border: 2px solid gray; height: 200px; top: 339px; left: 0; position: absolute; width: 406px">
+                                   style="border: 2px solid gray; height: 200px; top: 375px; left: 0; position: absolute; width: 406px">
 
                             <ui:tab binding="#{participantData.tabRoles}"
                                     action="#{participantData.tabRoles_action}"
@@ -251,7 +262,7 @@
                         <ui:panelLayout binding="#{participantData.pnlNewPassword}"
                                         id="pnlNewPassword"
                                         styleClass="orgDataPanel"
-                                        style="position: absolute; height: 110px; top: 339px; left: 411px; width: 255px">
+                                        style="position: absolute; height: 110px; top: 375px; left: 411px; width: 255px">
 
                             <ui:staticText binding="#{participantData.sttPassword}"
                                            id="sttPassword"
@@ -305,7 +316,7 @@
                                    binding="#{participantData.btnSave}"
                                    id="btnSave"
                                    styleClass="orgDataButton"
-                                   style="left: 431px; top: 466px"
+                                   style="left: 431px; top: 502px"
                                    toolTip="Save changes for the current participant"
                                    text="Save"/>
 
@@ -313,21 +324,21 @@
                                    binding="#{participantData.btnAdd}"
                                    id="btnAdd"
                                    styleClass="orgDataButton"
-                                   style="left: 551px; top: 466px"
+                                   style="left: 551px; top: 502px"
                                    text="New"/>
 
                         <ui:button action="#{participantData.btnReset_action}"
                                    binding="#{participantData.btnReset}"
                                    id="btnReset"
                                    styleClass="orgDataButton"
-                                   style="left:431px; top: 509px"
+                                   style="left:431px; top: 545px"
                                    text="Reset"/>
                         
                         <ui:button action="#{participantData.btnRemove_action}"
                                    binding="#{participantData.btnRemove}"
                                    id="btnRemove"
                                    styleClass="orgDataButton"
-                                   style="left: 551px;top: 509px"
+                                   style="left: 551px;top: 545px"
                                    toolTip="Permanently remove the current participant"
                                    onClick="return confirmDelete()"
                                    text="Remove"/>

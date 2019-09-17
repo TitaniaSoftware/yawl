@@ -63,6 +63,11 @@
                   type="string"
                   access="field"/>
 
+         <property name="_mail"
+                  column="Mail"
+                  type="string"
+                  access="field"/>
+
         <property name="_userID"
                   column="UserID"
                   unique="true"

@@ -129,6 +129,7 @@ public class Participant extends AbstractResource implements Cloneable {
         setUserID(p.getUserID());
         _isAdministrator = p.isAdministrator();
         _password = p.getPassword();
+        _mail = p.getMail();
         setRoles(p.getRoles());
         setPositions(p.getPositions());
         setCapabilities(p.getCapabilities());
@@ -448,6 +449,7 @@ public class Participant extends AbstractResource implements Cloneable {
         xml.append(StringUtil.wrapEscaped(_firstname, "firstname"));
         xml.append(StringUtil.wrapEscaped(_lastname, "lastname"));
         xml.append(StringUtil.wrapEscaped(String.valueOf(_isAdministrator), "isAdministrator")) ;
+        xml.append(StringUtil.wrapEscaped(String.valueOf(_mail), "mail")) ;
 
         xml.append("<roles>");
         for (Role role : _roles) xml.append(role.toXML()) ;
@@ -476,6 +478,7 @@ public class Participant extends AbstractResource implements Cloneable {
         setFirstName(JDOMUtil.decodeEscapes(e.getChildText("firstname")));
         setLastName(JDOMUtil.decodeEscapes(e.getChildText("lastname")));
         setAdministrator(e.getChildText("isAdministrator").equals("true"));
+        setMail(e.getChildText("mail"));
     }
 
     public void setMail(String mail) {

@@ -19,12 +19,21 @@
 package org.yawlfoundation.yawl.resourcing.datastore.orgdata;
 
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
-import org.yawlfoundation.yawl.resourcing.resource.*;
+import org.yawlfoundation.yawl.resourcing.resource.Capability;
+import org.yawlfoundation.yawl.resourcing.resource.OrgGroup;
+import org.yawlfoundation.yawl.resourcing.resource.Participant;
+import org.yawlfoundation.yawl.resourcing.resource.Position;
+import org.yawlfoundation.yawl.resourcing.resource.Role;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanCategory;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanResource;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanSubCategory;
@@ -33,11 +42,6 @@ import org.yawlfoundation.yawl.util.JDOMUtil;
 import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.XNode;
 import org.yawlfoundation.yawl.util.XNodeParser;
-
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author Michael Adams
@@ -96,6 +100,7 @@ public class DataBackupEngine {
                 xml.append(StringUtil.wrapEscaped(p.getPassword(), "password")) ;
                 xml.append(StringUtil.wrapEscaped(p.getFirstName(), "firstname"));
                 xml.append(StringUtil.wrapEscaped(p.getLastName(), "lastname"));
+                xml.append(StringUtil.wrapEscaped(p.getMail(), "mail"));
                 xml.append(StringUtil.wrapEscaped(p.getDescription(), "description"));
                 xml.append(StringUtil.wrapEscaped(p.getNotes(), "notes"));
 
