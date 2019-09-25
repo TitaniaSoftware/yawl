@@ -9,7 +9,7 @@
         This is the YAWL Web Service Invoker Interface.
         It performs invokations of previously specified web services by dynamically looking
         up and binding to them.   The web service needs to be described by WSDL.
-        Copyright © 2003 Queensland University of Technology. All rights reserved.
+        Copyright ï¿½ 2003 Queensland University of Technology. All rights reserved.
         Author: Lachlan Aldred
         Date: 28/1/2004
         Time: 15:44:01
@@ -24,7 +24,7 @@
 
     <context-param>
         <param-name>InterfaceB_BackEnd</param-name>
-        <param-value>http://localhost:@TOMCAT_PORT@/yawl/ib</param-value>
+        <param-value>http://localhost:${yawl.tomcat.port}/yawl/ib</param-value>
         <description>
             The URL of the engine's interface B.
         </description>
@@ -99,7 +99,7 @@
          parameters.  With Tomcat, you can also send requests
          to servlets not listed here with a request like this:
 
-           http://localhost:@TOMCAT_PORT@/{context-path}/servlet/{classname}
+           http://localhost:${yawl.tomcat.port}/{context-path}/servlet/{classname}
 
          but this usage is not guaranteed to be portable.  It also
          makes relative references to images and other resources
@@ -173,11 +173,11 @@
          particular servlet.  The examples below correspond to the
          servlet descriptions above.  Thus, a request URI like:
 
-           http://localhost:@TOMCAT_PORT@/{contextpath}/graph
+           http://localhost:${yawl.tomcat.port}/{contextpath}/graph
 
          will be mapped to the "graph" servlet, while a request like:
 
-           http://localhost:@TOMCAT_PORT@/{contextpath}/saveCustomer.do
+           http://localhost:${yawl.tomcat.port}/{contextpath}/saveCustomer.do
 
          will be mapped to the "controller" servlet.
 

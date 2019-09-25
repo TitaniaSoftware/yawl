@@ -8,7 +8,7 @@
 
     <context-param>
         <param-name>InterfaceB_BackEnd</param-name>
-        <param-value>http://localhost:@TOMCAT_PORT@/yawl/ib</param-value>
+        <param-value>http://localhost:${yawl.tomcat.port}/yawl/ib</param-value>
     </context-param>
     
 	<context-param>

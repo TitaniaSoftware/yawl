@@ -31,7 +31,7 @@
 
     <context-param>
         <param-name>InterfaceA_Backend</param-name>
-        <param-value>http://localhost:@TOMCAT_PORT@/yawl/ia</param-value>
+        <param-value>http://localhost:${yawl.tomcat.port}/yawl/ia</param-value>
         <description>
             The URL of the engine's interface A.
         </description>
