@@ -1,4 +1,8 @@
 .idea/*
+.classpath
+.project
+exampleSpecs/
+src/**/*.xsd
 classes/
 output/
 temp/
