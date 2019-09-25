@@ -38,20 +38,27 @@ import java.io.IOException;
   */
 
 public class MailServiceGateway extends HttpServlet {
+	
+	private String getSetting(String name) {
+		String val = System.getProperty("yawl.mail." + name);
+		if (val == null) {
+			val = getServletContext().getInitParameter(name);
+		}
+		return val;
+	}
 
 
     /** Read settings from web.xml and use them to initialise the service */
     public void init() {
         try {
             MailService service = MailService.getInstance();
-            ServletContext context = getServletContext();
-            service.setHost(context.getInitParameter("host"));
-            service.setUser(context.getInitParameter("mailUserName"));
-            service.setPassword(context.getInitParameter("mailPassword"));
-            service.setFromName(context.getInitParameter("senderName"));
-            service.setFromAddress(context.getInitParameter("senderAddress"));
-            service.setPort(StringUtil.strToInt(context.getInitParameter("port"), 25));
-            service.setTransportStrategy(context.getInitParameter("transportStrategy"));
+            service.setHost(getSetting("host"));
+            service.setUser(getSetting("mailUserName"));
+            service.setPassword(getSetting("mailPassword"));
+            service.setFromName(getSetting("senderName"));
+            service.setFromAddress(getSetting("senderAddress"));
+            service.setPort(StringUtil.strToInt(getSetting("port"), 25));
+            service.setTransportStrategy(getSetting("transportStrategy"));
         }
         catch (Exception e) {
             LogManager.getLogger(MailServiceGateway.class).error(
