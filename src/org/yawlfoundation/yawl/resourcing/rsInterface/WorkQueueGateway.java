@@ -18,6 +18,18 @@
 
 package org.yawlfoundation.yawl.resourcing.rsInterface;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.yawlfoundation.yawl.elements.YAWLServiceReference;
 import org.yawlfoundation.yawl.engine.YSpecificationID;
 import org.yawlfoundation.yawl.engine.interfce.Marshaller;
@@ -37,17 +49,6 @@ import org.yawlfoundation.yawl.util.PasswordEncryptor;
 import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.XNode;
 import org.yawlfoundation.yawl.util.XNodeParser;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * The WorkQueue Gateway provides a gateway (or a set of API) between the Resource
@@ -256,6 +257,9 @@ public class WorkQueueGateway extends HttpServlet {
             result = _marshaller.marshallSpecificationData(specData);
         } else if (action.equals("getRunningCases")) {
             result = _rm.getClients().getRunningCases(
+                    new YSpecificationID(specid, specversion, specuri));
+        } else if (action.equals("getCases")) {
+            result = _rm.getClients().getCases(
                     new YSpecificationID(specid, specversion, specuri));
         } else if (action.equals("getDecompID")) {
             WorkItemRecord wir = _rm.getWorkItemCache().get(itemid);
