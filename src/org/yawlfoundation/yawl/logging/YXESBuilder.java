@@ -18,6 +18,11 @@
 
 package org.yawlfoundation.yawl.logging;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yawlfoundation.yawl.engine.YSpecificationID;
@@ -26,11 +31,6 @@ import org.yawlfoundation.yawl.schema.XSDType;
 import org.yawlfoundation.yawl.util.JDOMUtil;
 import org.yawlfoundation.yawl.util.XNode;
 import org.yawlfoundation.yawl.util.XNodeParser;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  * Author: Michael Adams
@@ -271,7 +271,12 @@ public class YXESBuilder {
 
 
     private Map<String, String> parseComplexTypeDefinition(String typeDef) {
-        return parseComplexTypeDefinition(new XNodeParser().parse(typeDef));
+	XNode typeNode = new XNodeParser().parse(typeDef);
+	if (null == typeNode) {
+	    _log.error(String.format("failed to parse type definition '%s'", typeDef));
+	    return new Hashtable<String, String>();
+	}
+        return parseComplexTypeDefinition(typeNode);
     }
 
 
