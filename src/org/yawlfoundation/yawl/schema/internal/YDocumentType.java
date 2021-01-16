@@ -11,7 +11,7 @@ import org.jdom2.Element;
 class YDocumentType implements YDataType {
 
     private static final String SCHEMA =
-            "\n\t<xs:complexType name=\"YDocumentType\">\n" +
+            "\n\t<xs:complexType name=\"YDocumentType\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n" +
                     "\t\t<xs:sequence>\n" +
                     "\t\t\t<xs:element name=\"id\" type=\"xs:long\" minOccurs=\"0\"/>\n" +
                     "\t\t\t<xs:element name=\"name\" type=\"xs:string\"/>\n" +

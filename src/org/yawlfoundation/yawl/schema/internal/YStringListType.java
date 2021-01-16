@@ -11,7 +11,7 @@ import org.jdom2.Element;
 class YStringListType implements YDataType {
 
     private static final String SCHEMA =
-            "\n\t<xs:complexType name=\"YStringListType\">\n" +
+            "\n\t<xs:complexType name=\"YStringListType\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n" +
                     "\t\t<xs:sequence>\n" +
                     "\t\t\t<xs:element name=\"item\" type=\"xs:string\"" +
                     " minOccurs=\"0\" maxOccurs=\"unbounded\"/>\n" +
