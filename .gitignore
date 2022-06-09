@@ -6,5 +6,6 @@ src/**/*.xsd
 classes/
 output/
 temp/
+**/build.log
 
 !/src/org/yawlfoundation/yawl/balancer/output/
