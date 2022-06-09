@@ -19,13 +19,22 @@
 package org.yawlfoundation.yawl.mailService;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.mail.Message;
+import javax.mail.Message.RecipientType;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Element;
 import org.simplejavamail.MailException;
 import org.simplejavamail.email.Email;
+import org.simplejavamail.email.EmailBuilder;
+import org.simplejavamail.email.EmailPopulatingBuilder;
+import org.simplejavamail.email.Recipient;
 import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.mailer.config.TransportStrategy;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
@@ -149,6 +158,7 @@ public class MailService extends InterfaceBWebsideController {
 
     private String sendMail(WorkItemRecord wir) {
 	_logger.debug(String.format("enter sendMail(WorkItemRecord) with workitemId=%s", wir.getID()));
+
 	MailSettings settings;
 	try {
 	    settings = buildSettings(wir);
@@ -158,19 +168,25 @@ public class MailService extends InterfaceBWebsideController {
 	}
 
 	Email email = buildEmail(settings);
+
 	return sendMail(email, settings);
     }
 
     private String sendMail(Email email, MailSettings settings) {
 	_logger.debug(String.format("Sending mail with host=%s, port=%s, user=%s, password=%s, strategy=%s",
-		settings.host, settings.port, settings.user, settings.password, settings.strategy));
+		settings.host, settings.port, settings.user,
+		StringUtils.isNotEmpty(settings.password) ? "***SECRET***" : "", settings.strategy));
 	try {
-	    new Mailer(settings.host, settings.port, settings.user, settings.password/* , settings.strategy */)
-		    .sendMail(email);
-	    return "Mail successfully sent.";
+	    Mailer m = MailerBuilder.withSMTPServer(settings.host, settings.port, settings.user, settings.password)
+		    .withTransportStrategy(settings.strategy).buildMailer();
+	    m.sendMail(email);
+	    return String.format("Mail id <%s> successfully sent.", email.getId());
 	} catch (MailException me) {
 	    _logger.error("exception sending mail", me);
 	    return me.getMessage();
+	} catch (Exception e) {
+	    _logger.error("unknown exception sending mail", e);
+	    return e.getMessage();
 	}
     }
 
@@ -198,34 +214,42 @@ public class MailService extends InterfaceBWebsideController {
     }
 
     private Email buildEmail(MailSettings settings) {
-	Email email = new Email();
-	addRecipients(email, settings);
-	email.setFromAddress(settings.fromName, settings.fromAddress);
-	email.setSubject(settings.subject);
-	if (settings.content.contains("<")) {
-	    email.setTextHTML(settings.content);
-	} else {
-	    email.setText(settings.content); // plain text
-	}
-	_logger.debug(String.format("Built email as:\n%s", email.toString()));
-	return email;
-    }
 
-    private void addRecipients(Email email, MailSettings settings) {
-	addRecipients(email, settings.toName, settings.toAddress, Message.RecipientType.TO);
-	addRecipients(email, null, settings.ccAddress, Message.RecipientType.CC);
-	addRecipients(email, null, settings.bccAddress, Message.RecipientType.BCC);
-    }
+	_logger.debug("start buildEmail(MailSettings)");
 
-    private void addRecipients(Email email, String name, String address, Message.RecipientType mailType) {
-	if (!StringUtil.isNullOrEmpty(address)) {
-	    String[] addresses = address.split(";");
-	    if (name == null || addresses.length > 1)
-		name = "";
-	    for (int i = 0; i < addresses.length; i++) {
-		email.addRecipient(name, addresses[i], mailType);
+	Recipient fromRecipient = new Recipient(settings.fromName, settings.fromAddress, null);
+	String toName = StringUtils.defaultString(settings.toName);
+	List<String> toAddresses = Arrays.asList(settings.toAddress.split(";")).stream().collect(Collectors.toList());
+	List<Recipient> ccRecipients = StringUtils.isNotEmpty(settings.ccAddress)
+		? Arrays.asList(settings.ccAddress.split(";")).stream().map((s) -> {
+		    return new Recipient(null, s, RecipientType.CC);
+		}).collect(Collectors.toList())
+		: Collections.emptyList();
+	List<Recipient> bccRecipients = StringUtils.isNotEmpty(settings.bccAddress)
+		? Arrays.asList(settings.bccAddress.split(";")).stream().map((s) -> {
+		    return new Recipient(null, s, RecipientType.BCC);
+		}).collect(Collectors.toList())
+		: Collections.emptyList();
+
+	_logger.debug(String.format("Building email with from=%s, to=%s, cc=%s, bcc=%s, subject=%s",
+		fromRecipient.getAddress(), toName + "<" + toAddresses.stream().collect(Collectors.joining(",")) + ">",
+		"<" + ccRecipients.stream().map(r -> r.getAddress()).collect(Collectors.joining(",")) + ">",
+		"<" + bccRecipients.stream().map(r -> r.getAddress()).collect(Collectors.joining(",")) + ">",
+		StringUtils.defaultString(settings.subject)));
+
+	EmailPopulatingBuilder emailBuilder = EmailBuilder.startingBlank().from(fromRecipient).to(toName, toAddresses)
+		.withRecipients(ccRecipients).withRecipients(bccRecipients).withSubject(settings.subject);
+
+	if (StringUtils.isNotEmpty(settings.content)) {
+	    if (settings.content.contains("<")) {
+		emailBuilder = emailBuilder.withHTMLText(settings.content);
+	    } else {
+		emailBuilder = emailBuilder.withPlainText(settings.content); // plain text
 	    }
 	}
+
+	_logger.debug("returning from buildEmail(MailSettings)");
+	return emailBuilder.buildEmail();
     }
 
     // settings not optional by default
@@ -255,9 +279,9 @@ public class MailService extends InterfaceBWebsideController {
 	if (StringUtil.isNullOrEmpty(strategyString))
 	    return _defaults.strategy;
 	if ("PLAIN".equalsIgnoreCase(strategyString))
-	    return TransportStrategy.SMTP_PLAIN;
+	    return TransportStrategy.SMTP;
 	if ("SSL".equalsIgnoreCase(strategyString))
-	    return TransportStrategy.SMTP_SSL;
+	    return TransportStrategy.SMTPS;
 	if ("TLS".equalsIgnoreCase(strategyString))
 	    return TransportStrategy.SMTP_TLS;
 
@@ -296,7 +320,7 @@ public class MailService extends InterfaceBWebsideController {
     private class MailSettings {
 	String host = null;
 	int port = 25;
-	TransportStrategy strategy = TransportStrategy.SMTP_SSL;
+	TransportStrategy strategy = TransportStrategy.SMTPS;
 	String user = null;
 	String password = null;
 	String fromName = null;
@@ -336,6 +360,8 @@ public class MailService extends InterfaceBWebsideController {
     }
 
     private class MailSettingsException extends Exception {
+	private static final long serialVersionUID = 1L;
+
 	MailSettingsException(String msg) {
 	    super(msg);
 	}
