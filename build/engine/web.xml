@@ -166,15 +166,15 @@
         </description>
 	</context-param>
 
-    <!--<context-param>-->
-        <!--<param-name>ObserverGateway</param-name>-->
-        <!--<param-value></param-value>-->
-        <!--<description>-->
-            <!--The class name of an ObserverGateway implementation. Multiple-->
-            <!--implementations can be separated with semi-colons ';'-->
-        <!--</description>-->
-    <!--</context-param>-->
-
+    <context-param>
+        <param-name>ObserverGateway</param-name>
+        <!-- param-value>com.titania.harp.workflow.TitaniaObserver</param-value -->
+        <param-value></param-value>
+        <description>
+            The class name of an ObserverGateway implementation. Multiple
+            implementations can be separated with semi-colons ';'
+        </description>
+    </context-param>
 
     <!--<context-param>-->
         <!--<param-name>InterfaceXListener</param-name>-->
