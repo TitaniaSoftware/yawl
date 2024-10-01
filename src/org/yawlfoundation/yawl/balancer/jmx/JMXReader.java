@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
+ * The YAWL Foundation is a collaboration of individuals and
+ * organisations who are committed to improving workflow technology.
+ *
+ * This file is part of YAWL. YAWL is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation.
+ *
+ * YAWL is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with YAWL. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.yawlfoundation.yawl.balancer.jmx;
 
 import org.json.JSONException;
@@ -30,7 +48,9 @@ public class JMXReader extends Interface_Client {
             null);
 
     private static final String REQ_BODY_TEMPLATE = buildParams("Catalina:type=GlobalRequestProcessor," +
-            "name=\"http-bio-%d\"", null);
+            "name=\"http-nio-%d\"", null);
+//    "name=\"http-bio-%d\"", null);
+
 
     private static final String EXEC_BODY = buildParams("Catalina:type=Executor," +
             "name=tomcatThreadPool", null);
@@ -39,9 +59,9 @@ public class JMXReader extends Interface_Client {
             null);
 
 
-    private String _jolokiaURL;
-    private String _threadBody;
-    private String _reqBody;
+    private final String _jolokiaURL;
+    private final String _threadBody;
+    private final String _reqBody;
 
 
     public JMXReader(String host, int port) {
@@ -106,7 +126,7 @@ public class JMXReader extends Interface_Client {
     }
 
 
-    private String execute(String body) throws IOException {
+    protected String execute(String body) throws IOException {
         HttpURLConnection connection = initPostConnection(_jolokiaURL);
         connection.setReadTimeout(500);
         connection.setConnectTimeout(500);
@@ -125,7 +145,7 @@ public class JMXReader extends Interface_Client {
     }
 
     
-    private static String buildParams(String mbean, List<String> attributes) {
+    protected static String buildParams(String mbean, List<String> attributes) {
         JSONObject json = new JSONObject();
         try {
             json.put("mbean", mbean);

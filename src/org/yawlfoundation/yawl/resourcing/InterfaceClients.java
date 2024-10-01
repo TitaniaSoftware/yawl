@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -47,7 +47,7 @@ public class InterfaceClients extends AbstractEngineClient {
 
     // client reference objects
     private YLogGatewayClient _interfaceEClient;
-    private ResourceGatewayServer _gatewayServer;
+    private final ResourceGatewayServer _gatewayServer;
     private CostClient _costServiceClient;
     private DocStoreClient _docStoreClient;
 
@@ -215,10 +215,11 @@ public class InterfaceClients extends AbstractEngineClient {
 
     // Interface E methods //
 
-    public String getEngineXESLog(YSpecificationID specID, boolean withData) {
+    public String getEngineXESLog(YSpecificationID specID, boolean withData,
+                                  boolean ignoreUnknownLabels) {
         try {
             return _interfaceEClient.getSpecificationXESLog(specID, withData,
-                                                     getSessionHandle());
+                    ignoreUnknownLabels, getSessionHandle());
         }
         catch (IOException ioe) {
             return null;

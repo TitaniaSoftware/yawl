@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -154,7 +154,7 @@ public class ProcletService extends InterfaceBWebsideController  {
 	            // change taskid back again
 	        	wir.setCaseID(caseID);
 	            wir.setTaskID(taskID);
-	            checkInWorkItem(wir.getID(), wir.getDataList(), wir.getDataList(), _handle);
+	            checkInWorkItem(wir.getID(), wir.getDataList(), wir.getDataList(), null, _handle);
                 myLog.debug("PROCLETSERVICE: checking in workitem done");
                 myLog.debug("spec id: " + wir.getSpecURI());
                 myLog.debug("case id: " + wir.getCaseID());

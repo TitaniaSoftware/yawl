@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -28,7 +28,6 @@ import javax.mail.Message.RecipientType;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Element;
-import org.simplejavamail.MailException;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.email.EmailPopulatingBuilder;
@@ -42,7 +41,7 @@ import org.yawlfoundation.yawl.engine.interfce.interfaceB.InterfaceBWebsideContr
 import org.yawlfoundation.yawl.util.StringUtil;
 
 /**
- * A simple service that provides for status updates to the YAWL Twitter account
+ * A service that provides for emails to be sent by tasks
  *
  * @author Michael Adams
  * @date 25/07/2009
@@ -173,21 +172,16 @@ public class MailService extends InterfaceBWebsideController {
     }
 
     private String sendMail(Email email, MailSettings settings) {
-	_logger.debug(String.format("Sending mail with host=%s, port=%s, user=%s, password=%s, strategy=%s",
-		settings.host, settings.port, settings.user,
-		StringUtils.isNotEmpty(settings.password) ? "***SECRET***" : "", settings.strategy));
-	try {
-	    Mailer m = MailerBuilder.withSMTPServer(settings.host, settings.port, settings.user, settings.password)
-		    .withTransportStrategy(settings.strategy).buildMailer();
-	    m.sendMail(email);
-	    return String.format("Mail id <%s> successfully sent.", email.getId());
-	} catch (MailException me) {
-	    _logger.error("exception sending mail", me);
-	    return me.getMessage();
-	} catch (Exception e) {
-	    _logger.error("unknown exception sending mail", e);
-	    return e.getMessage();
-	}
+        try {
+            new Mailer(settings.host, settings.port, settings.user,
+                    settings.password, settings.strategy)
+                    .sendMail(email);
+            return "Mail successfully sent.";
+        }
+        catch (Exception e) {
+            _logger.error("Error sending mail.", e.getCause());
+            return e.getMessage();
+        }
     }
 
     private MailSettings buildSettings(WorkItemRecord wir) throws MailSettingsException {
@@ -251,6 +245,23 @@ public class MailService extends InterfaceBWebsideController {
 	_logger.debug("returning from buildEmail(MailSettings)");
 	return emailBuilder.buildEmail();
     }
+
+
+    private void addRecipients(Email email, MailSettings settings) {
+        addRecipients(email, settings.toName, settings.toAddress, Message.RecipientType.TO);
+        addRecipients(email, null, settings.ccAddress, Message.RecipientType.CC);
+        addRecipients(email, null, settings.bccAddress, Message.RecipientType.BCC);
+    }
+
+
+    private void addRecipients(Email email, String name, String address,
+                              Message.RecipientType mailType) {
+        if (! StringUtil.isNullOrEmpty(address)) {
+            if (name == null) name = "";
+            email.addRecipients(name, mailType, address);
+        }
+    }
+
 
     // settings not optional by default
     private String getSetting(Element data, String name) throws MailSettingsException {

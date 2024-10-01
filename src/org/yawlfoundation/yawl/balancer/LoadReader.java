@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
+ * The YAWL Foundation is a collaboration of individuals and
+ * organisations who are committed to improving workflow technology.
+ *
+ * This file is part of YAWL. YAWL is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation.
+ *
+ * YAWL is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with YAWL. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.yawlfoundation.yawl.balancer;
 
 import org.json.JSONException;
@@ -17,7 +35,7 @@ import java.util.Map;
  */
 public class LoadReader {
 
-    private final JMXReader _jmxReader;
+    private JMXReader _jmxReader;
     private int _prevReqCount = 0;
     private double _prevProcTime = 0;
     private BusynessOutputter _outputter;
@@ -34,6 +52,8 @@ public class LoadReader {
         _jmxReader = new JMXReader(host, port);
         _engineName = host + ":" + port;
     }
+
+    public void setJMXReader(JMXReader reader) { _jmxReader = reader; }
 
 
     public double getBusyNess() throws IOException, JSONException {
@@ -93,6 +113,8 @@ public class LoadReader {
             verboseValues.put("requests_factor", String.format("%.3f", reqFactor));
             verboseValues.put("threads_factor", String.format("%.3f", threadFactor));
             verboseValues.put("busyness", String.format("%.3f", score));
+            verboseValues.put("process_time", String.format("%.3f", meanTime));
+            verboseValues.put("requests_count", String.format("%d", netReqCount));
             getOutputter().add(verboseValues);
 
             if (_arffWriter != null) {

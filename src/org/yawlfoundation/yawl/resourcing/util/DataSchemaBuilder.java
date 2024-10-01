@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -302,6 +302,12 @@ public class DataSchemaBuilder {
     private Element cloneElement(Element element, Namespace defNS) {
         Element cloned = new Element(element.getName(), defNS);
         cloned.setAttributes(cloneAttributes(element, defNS));
+
+        // clone appinfo children literally
+        Element parent = element.getParentElement();
+        if (parent != null && parent.getName().equals("appinfo")) {
+            cloned.setText(element.getText());
+        }
         return cloned;
     }
 

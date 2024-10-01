@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -147,7 +147,7 @@ public final class YCompositeTask extends YTask {
             String predicate = logPredicate.getParsedStartPredicate(_decompositionPrototype);
             if (predicate != null) {
                 logData = new YLogDataItemList(new YLogDataItem("Predicate",
-                             "OnStart", predicate, "string"));
+                             "OnNetStart", predicate, "string"));
             }
         }
         YEventLogger.getInstance().logSubNetCreated(specID, netRunner,

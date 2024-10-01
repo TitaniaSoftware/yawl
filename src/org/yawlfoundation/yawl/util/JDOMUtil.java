@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -109,6 +109,18 @@ public class JDOMUtil {
         }
         return null ;
     }
+
+    
+    public synchronized static Document stringToDocumentUncaught(String s)
+            throws IOException, JDOMException {
+        if (s == null) {
+            throw new JDOMException("Attempt to convert null string to document");
+        }
+        if (s.startsWith(UTF8_BOM)) s = s.substring(1);   // remove BOM if any
+        _builder.setIgnoringBoundaryWhitespace(true);
+        return _builder.build(new StringReader(s));
+    }
+
 
     /****************************************************************************/
 

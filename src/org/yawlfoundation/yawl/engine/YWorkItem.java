@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -56,9 +56,8 @@ import static org.yawlfoundation.yawl.engine.YWorkItemStatus.*;
  */
 public class YWorkItem {
 
-    private static DateFormat _df = new SimpleDateFormat("MMM:dd, yyyy H:mm:ss");
-    private static YEngine _engine = YEngine.getInstance();
-    private YWorkItemRepository _workItemRepository = _engine.getWorkItemRepository();
+    private static final DateFormat _df = new SimpleDateFormat("MMM:dd, yyyy H:mm:ss");
+    private YEngine _engine;
     private YWorkItemID _workItemID;
     private String _thisID = null;
     private YSpecificationID _specID;
@@ -89,7 +88,8 @@ public class YWorkItem {
     private URL _customFormURL ;
     private String _codelet ;
     private String _documentation;
-    private String _externalLogPredicate;                 // set by services on checkin
+    private String _externalStartingLogPredicate;         // set by services on checkout
+    private String _externalCompletionLogPredicate;       // set by services on checkin
 
 
     private final YEventLogger _eventLog = YEventLogger.getInstance();
@@ -146,6 +146,7 @@ public class YWorkItem {
                                 YWorkItemID workItemID, YWorkItemStatus status,
                                 boolean allowsDynamicInstanceCreation)
                                 throws YPersistenceException {
+        _engine = YEngine.getInstance();
         _workItemID = workItemID;
         addToRepository();
         set_thisID(_workItemID.toString() + "!" + _workItemID.getUniqueID());
@@ -252,8 +253,14 @@ public class YWorkItem {
 
     // MISC METHODS //
 
+    // called only from YEngineRestorer, since a restored work item is created via
+    // the empty constructor
+    public void setEngine(YEngine engine) {
+        _engine = engine;
+    }
+
     public void addToRepository() {
-        _workItemRepository.add(this);
+        _engine.getWorkItemRepository().add(this);
         _engine.getInstanceCache().addWorkItem(this);
     }
 
@@ -286,6 +293,7 @@ public class YWorkItem {
             childItem.setTimerParameters(getTimerParameters());
             childItem.setCustomFormURL(getCustomFormURL());
             childItem.setCodelet(getCodelet());
+            childItem.setExternalStartingLogPredicate(_externalStartingLogPredicate);
 
             _children.add(childItem);
             if (pmgr != null) pmgr.updateObject(this);
@@ -295,9 +303,15 @@ public class YWorkItem {
     }
 
     // set by custom service on checkin, and immediately before workitem completes 
-    public void setExternalLogPredicate(String predicate) {
-        _externalLogPredicate = predicate;
+    public void setExternalCompletionLogPredicate(String predicate) {
+        _externalCompletionLogPredicate = predicate;
     }
+
+    // set by custom service on checkout, and immediately before workitem starts
+    public void setExternalStartingLogPredicate(String predicate) {
+        _externalStartingLogPredicate = predicate;
+    }
+
 
     /** write data input values to event log */
     public void setData(YPersistenceManager pmgr, Element data)
@@ -824,7 +838,7 @@ public class YWorkItem {
     public String getTimerStatus() {
         if (_timerParameters == null) return "Nil";
         if (_timerExpiry == 0) return "Dormant";
-        return "Active";
+        return System.currentTimeMillis() < _timerExpiry ? "Active" : "Expired";
     }
 
     public boolean allowsDynamicCreation() { return _allowsDynamicCreation; }
@@ -933,8 +947,7 @@ public class YWorkItem {
                     _externalClient.getUserName(), "string"));
         }
         if (tag.equals(statusExecuting.name())) {
-            YLogDataItem dataItem = getDecompLogPredicate(YWorkItemStatus.valueOf(tag));
-            if (dataItem != null) itemList.add(dataItem);
+            itemList.addAll(getStartingPredicates());
         }
         else if (tag.equals(statusComplete.name()) || tag.equals(statusForcedComplete.name())) {
             itemList.addAll(getCompletionPredicates());
@@ -943,39 +956,53 @@ public class YWorkItem {
     }
 
 
-    private YLogDataItemList getCompletionPredicates() {
-        YLogDataItemList completionList = new YLogDataItemList();
-        YLogDataItem completionItem = null;
-        if (_externalLogPredicate != null) {
-            if (_externalLogPredicate.startsWith("<logdataitemlist>")) {
-                completionList.fromXML(_externalLogPredicate);
-                for (YLogDataItem item : completionList) {
-                    if (item.getName().equals("Complete")) {
-                        completionItem = item;
+    private YLogDataItemList getLogPredicates(String predicate, YWorkItemStatus itemStatus) {
+        YLogDataItemList itemList = new YLogDataItemList();
+        String name = itemStatus.equals(statusExecuting) ? "Start" : "Complete";
+        YLogDataItem externalItem = null;
+        if (predicate != null) {
+            if (predicate.startsWith("<logdataitemlist>")) {
+                itemList.fromXML(_externalCompletionLogPredicate);
+                for (YLogDataItem item : itemList) {
+                    if (item.getName().equals(name)) {
+                        externalItem = item;
                         break;
                     }
                 }
             }
-            else if (_externalLogPredicate.startsWith("<logdataitem>")) {
-                YLogDataItem item = new YLogDataItem(_externalLogPredicate);
-                completionList.add(item);
-                if (item.getName().equals("Complete")) completionItem = item;
+            else if (predicate.startsWith("<logdataitem>")) {
+                YLogDataItem item = new YLogDataItem(predicate);
+                itemList.add(item);
+                if (item.getName().equals(name)) externalItem = item;
             }
             else {
-                completionItem = new YLogDataItem("Predicate", "External",
-                        _externalLogPredicate, "string");
-                completionList.add(completionItem);
+                externalItem = new YLogDataItem("Predicate", name,
+                         predicate, "string");
+                itemList.add(externalItem);
             }
         }
-        if (completionItem != null) {
-            completionItem.setValue(
-                    new YLogPredicateWorkItemParser(this).parse(completionItem.getValue()));
+
+        // external predicate takes precedence over the internal one
+        if (externalItem != null) {
+            externalItem.setValue(
+                    new YLogPredicateWorkItemParser(this).parse(externalItem.getValue()));
         }
         else {
-            completionItem = getDecompLogPredicate(YWorkItemStatus.statusComplete);
-            if (completionItem != null) completionList.add(completionItem);
+            YLogDataItem decompCompletionItem = getDecompLogPredicate(itemStatus);
+            if (decompCompletionItem != null) {
+                itemList.add(decompCompletionItem);
+            }
         }
-        return completionList;
+        return itemList;
+    }
+
+    private YLogDataItemList getStartingPredicates() {
+        return getLogPredicates(_externalStartingLogPredicate, statusExecuting);
+    }
+
+    
+    private YLogDataItemList getCompletionPredicates() {
+        return getLogPredicates(_externalCompletionLogPredicate, statusComplete);
     }
 
 
@@ -991,7 +1018,7 @@ public class YWorkItem {
                predicate = logPredicate.getParsedCompletionPredicate(this);
            }
            if (predicate != null) {
-                dataItem = new YLogDataItem("Predicate", itemStatus.name(),
+                dataItem = new YLogDataItem("Predicate", itemStatus.toString(),
                             predicate, "string");
             }
         }
@@ -1012,7 +1039,9 @@ public class YWorkItem {
             String predicate = input ? logPredicate.getParsedStartPredicate(param) :
                     logPredicate.getParsedCompletionPredicate(param);
             if (predicate != null) {
-                dataItem = new YLogDataItem("Predicate", param.getPreferredName(), predicate, "string");
+                String prefix = input ? "StartPredicate#" : "CompletionPredicate#";
+                dataItem = new YLogDataItem("Predicate",
+                        prefix + param.getPreferredName(), predicate, "string");
             }
         }
         return dataItem ;

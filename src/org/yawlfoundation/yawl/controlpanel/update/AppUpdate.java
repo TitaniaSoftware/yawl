@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
+ * The YAWL Foundation is a collaboration of individuals and
+ * organisations who are committed to improving workflow technology.
+ *
+ * This file is part of YAWL. YAWL is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation.
+ *
+ * YAWL is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with YAWL. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.yawlfoundation.yawl.controlpanel.update;
 
 import org.yawlfoundation.yawl.controlpanel.util.FileUtil;
@@ -51,6 +69,9 @@ public class AppUpdate {
         return isAppList() && ! _appName.equals("orderfulfillment");
     }
 
+    protected boolean isUIApp() {
+        return isAppList() && _appName.equals("yawlui");
+    }
 
     protected boolean hasDownloads() { return ! _downloads.isEmpty(); }
 
@@ -117,8 +138,15 @@ public class AppUpdate {
     private String fixPath(String path) {
         char sep = FileUtil.SEP;
         if (sep == '\\') path = path.replace('/', sep);
-        return (isAppList() ? _appName.equals("controlpanel") ? "controlpanel" :
-                "webapps" + sep + _appName : "lib") + sep + path;
+        String prefix = "lib";
+        if (isAppList()) {
+            switch (_appName) {
+                case "yawlui" : prefix = ""; break;
+                case "controlpanel" : prefix = "controlpanel"; break;
+                default : prefix = "webapps" + sep + _appName; break;
+            }
+        }
+        return prefix + sep + path;
     }
 
 

@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
+ * The YAWL Foundation is a collaboration of individuals and
+ * organisations who are committed to improving workflow technology.
+ *
+ * This file is part of YAWL. YAWL is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation.
+ *
+ * YAWL is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with YAWL. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.yawlfoundation.yawl.controlpanel.update;
 
 import org.yawlfoundation.yawl.controlpanel.util.FileUtil;
@@ -19,6 +37,7 @@ public class Differ {
     private ChecksumsReader _current;
     private AppUpdate _mandatory;
     private PathResolver _pathResolver;
+    private YawlUiUpdater _uiUpdater;
 
 
     public Differ(File latest, File current) {
@@ -47,13 +66,29 @@ public class Differ {
 
 
     public String getLatestBuild(String appName) {
-        return _latest != null ? _latest.getBuildNumber(appName) : "";
+        if (_latest != null) {
+            if (appName.equals("yawlui")) {
+                return getUIUpdater().getRemoteBuildNumber();
+            }
+            return _latest.getBuildNumber(appName);
+        }
+        return "";
     }
 
     public String getCurrentBuild(String appName) {
+        if (appName.equals("yawlui")) {
+            return getUIUpdater().getLocalBuildNumber();
+        }
         return _current.getBuildNumber(appName);
     }
 
+
+    public YawlUiUpdater getUIUpdater() {
+        if (_uiUpdater == null) {
+            _uiUpdater = new YawlUiUpdater();
+        }
+        return _uiUpdater;
+    }
 
     public boolean isNewVersion() {
         return ! getLatestVersion().equals(getCurrentVersion());
@@ -70,6 +105,9 @@ public class Differ {
 
 
     public boolean hasUpdate(String appName) {
+        if (appName.equals("yawlui")) {
+            return getUIUpdater().hasUpdate();
+        }
         return isDifferent(getCurrentBuild(appName), getLatestBuild(appName));
     }
 
@@ -129,6 +167,7 @@ public class Differ {
             String name = f.getName();
             if (available.contains(name)) installed.add(name);
         }
+        installed.add("yawlui");
         return installed;
     }
 
@@ -200,6 +239,9 @@ public class Differ {
             compareWebApps(updates);
             compareControlPanel(updates);
             if (hasMandatoryUpdates()) updates.add(_mandatory);
+            if (getUIUpdater().hasUpdate()) {
+                updates.add(getUIUpdater().getAppUpdate());
+            }
         }
         return updates;
     }
@@ -236,6 +278,9 @@ public class Differ {
     private void compareWebApps(List<AppUpdate> updates) throws IllegalStateException {
         List<String> installedWebAppNames = getInstalledWebAppNames();
         for (String appName : installedWebAppNames) {
+            if (appName.equals("yawlui")) {
+                continue;
+            }
             if (hasUpdate(appName)) {
                 AppUpdate appUpdate = compareFileLists(
                         _latest.getAppFileList(appName),

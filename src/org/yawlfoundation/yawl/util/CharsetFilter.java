@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -44,7 +44,8 @@ public class CharsetFilter implements Filter {
 
         // security check: suppress stack trace if faces path browsed
         String requestURI = ((HttpServletRequest) request).getRequestURI();
-        if (requestURI != null && requestURI.endsWith("/faces/")) {
+        if (requestURI != null && 
+                requestURI.contains("/faces/") && requestURI.endsWith("/")) {
             ((HttpServletRequest) request).getSession();
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             return;

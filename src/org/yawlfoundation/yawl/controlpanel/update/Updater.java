@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
+ * The YAWL Foundation is a collaboration of individuals and
+ * organisations who are committed to improving workflow technology.
+ *
+ * This file is part of YAWL. YAWL is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation.
+ *
+ * YAWL is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with YAWL. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.yawlfoundation.yawl.controlpanel.update;
 
 import org.yawlfoundation.yawl.controlpanel.components.ComponentsPane;
@@ -258,7 +276,10 @@ public class Updater implements PropertyChangeListener, EngineStatusListener {
         if (updatesList == null) return null;
         Map<String,String> map = new HashMap<String, String>();
         for (AppUpdate list : updatesList) {
-             map.putAll(list.getMd5Map());
+            if (list.isUIApp()) {
+                continue;
+            }
+            map.putAll(list.getMd5Map());
         }
         return map;
     }
@@ -374,13 +395,18 @@ public class Updater implements PropertyChangeListener, EngineStatusListener {
         File tmpDir = FileUtil.getTmpDir();
         int port = TomcatUtil.getTomcatServerPort();
         for (FileNode fileNode : _downloads) {
-            String fileName = fileNode.getDiskFilePath();
-            if (! isControlPanelFileName(fileName)) {            // do CP last
-                File source = FileUtil.makeFile(tmpDir.getAbsolutePath(), fileName);
-                File target = getCopyTarget(tomcatDir, fileName);
-                copy(source, target);
-                if (port != 8080 && fileName.endsWith("web.xml")) {
-                    updatePort(target, port);
+            if (fileNode instanceof YawlUiUpdater.UIFileNode) {
+                ((YawlUiUpdater.UIFileNode) fileNode).doUpdate(tmpDir);
+            }
+            else {
+                String fileName = fileNode.getDiskFilePath();
+                if (!isControlPanelFileName(fileName)) {            // do CP last
+                    File source = FileUtil.makeFile(tmpDir.getAbsolutePath(), fileName);
+                    File target = getCopyTarget(tomcatDir, fileName);
+                    copy(source, target);
+                    if (port != 8080 && fileName.endsWith("web.xml")) {
+                        updatePort(target, port);
+                    }
                 }
             }
         }

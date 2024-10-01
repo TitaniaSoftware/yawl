@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -25,11 +25,10 @@ import org.yawlfoundation.yawl.engine.interfce.Marshaller;
 import org.yawlfoundation.yawl.engine.interfce.ServletUtils;
 import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
 import org.yawlfoundation.yawl.engine.interfce.YHttpServlet;
-import org.yawlfoundation.yawl.util.JDOMUtil;
-import org.yawlfoundation.yawl.util.Sessions;
-import org.yawlfoundation.yawl.util.StringUtil;
-import org.yawlfoundation.yawl.util.XNode;
+import org.yawlfoundation.yawl.util.*;
 import org.yawlfoundation.yawl.worklet.WorkletService;
+import org.yawlfoundation.yawl.worklet.admin.AdminTasksManager;
+import org.yawlfoundation.yawl.worklet.admin.AdministrationTask;
 import org.yawlfoundation.yawl.worklet.exception.ExceptionService;
 import org.yawlfoundation.yawl.worklet.exception.ExletValidationError;
 import org.yawlfoundation.yawl.worklet.exception.ExletValidator;
@@ -43,6 +42,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
 import java.util.List;
@@ -62,6 +62,8 @@ public class WorkletGateway extends YHttpServlet {
 
     private WorkletService _ws;
     private Rdr _rdr;
+    private AdminTasksManager _adminTasksMgr;
+    private YBuildProperties _buildProps;
     private Sessions _sessions;            // maintains sessions with external services
 
     public void init() {
@@ -91,6 +93,11 @@ public class WorkletGateway extends YHttpServlet {
                 _sessions = new Sessions();
                 _sessions.setupInterfaceA(engineURI.replaceFirst("/ib", "/ia"),
                         engineLogonName, engineLogonPassword);
+
+                // read the current version properties
+                initBuildProperties(context.getResourceAsStream(
+                                   "/WEB-INF/classes/version.properties"));
+
 
                 _ws.completeInitialisation();
             } catch (Exception e) {
@@ -206,6 +213,31 @@ public class WorkletGateway extends YHttpServlet {
                 else if (action.equalsIgnoreCase("updateRdrSetTaskIDs")) {
                     result = updateRdrSetTaskIDs(req);
                 }
+                else if (action.equalsIgnoreCase("updateRdrSetTaskIDs")) {
+                    result = updateRdrSetTaskIDs(req);
+                }
+                else if (action.equalsIgnoreCase("getAdministrationTasks")) {
+                    result = getAdministrationTasks();
+                }
+                else if (action.equalsIgnoreCase("getAdministrationTask")) {
+                    result = getAdministrationTask(req);
+                }
+                else if (action.equalsIgnoreCase("addAdministrationTask")) {
+                    result = addAdministrationTask(req);
+                }
+                else if (action.equalsIgnoreCase("removeAdministrationTask")) {
+                    result = removeAdministrationTask(req);
+                }
+                else if (action.equalsIgnoreCase("raiseExternalException")) {
+                    result = raiseExternalException(req);
+                }
+                else if (action.equalsIgnoreCase("getExternalTriggers")) {
+                    result = getExternalTriggers(req);
+                }
+                else if (action.equalsIgnoreCase("getBuildProperties")) {
+                     result = _buildProps.toXML();
+                 }
+
                 else {
                     result = fail("Unrecognised action: " + action);
                 }
@@ -230,6 +262,12 @@ public class WorkletGateway extends YHttpServlet {
     }
 
 
+    public void initBuildProperties(InputStream stream) {
+        _buildProps = new YBuildProperties();
+        _buildProps.load(stream);
+    }
+
+
     private YSpecificationID makeSpecID(HttpServletRequest req) {
         String specIdentifier = req.getParameter("specidentifier");
         String specVersion = req.getParameter("specversion");
@@ -238,6 +276,14 @@ public class WorkletGateway extends YHttpServlet {
         if (!(specIdentifier == null && specURI == null)) {
             return new YSpecificationID(specIdentifier, specVersion, specURI);
         } else return null;
+    }
+
+
+    private AdminTasksManager getAdminTasksMgr() {
+        if (_adminTasksMgr == null) {
+            _adminTasksMgr = new AdminTasksManager();
+        }
+        return _adminTasksMgr;
     }
 
 
@@ -690,6 +736,98 @@ public class WorkletGateway extends YHttpServlet {
         }
 
         return refreshedWir;
+    }
+
+
+    private String getAdministrationTask(HttpServletRequest req) {
+        int id = StringUtil.strToInt(req.getParameter("id"), -1);
+        if (id > -1) {
+            AdministrationTask task = getAdminTasksMgr().getTask(id);
+            if (task != null) {
+                return task.toXML();
+            }
+        }
+        return fail("Failed to retrieve task; missing or invalid task id");
+    }
+
+
+    private String getAdministrationTasks() {
+        StringBuilder xml = new StringBuilder("<tasks>");
+        for (AdministrationTask task : getAdminTasksMgr().getAllTasksAsList()) {
+            xml.append(task.toXML());
+        }
+        xml.append("</tasks>");
+        return xml.toString();
+    }
+    
+
+    private String addAdministrationTask(HttpServletRequest req) {
+        String caseID = req.getParameter("caseid");
+        String itemID = req.getParameter("itemid");
+        String title = req.getParameter("title");
+        String scenario = req.getParameter("scenario");
+        String process = req.getParameter("process");
+        int taskType = StringUtil.strToInt(req.getParameter("tasktype"), -1);
+
+        AdministrationTask task;
+        if (itemID != null) {
+            task = getAdminTasksMgr().addTask(caseID, itemID, title, scenario, process, taskType);
+        }
+        else {
+            task = getAdminTasksMgr().addTask(caseID, title, scenario, process, taskType);
+        }
+        return task.toXML();
+    }
+
+
+    private String removeAdministrationTask(HttpServletRequest req) {
+        int id = StringUtil.strToInt(req.getParameter("id"), -1);
+        if (id > -1) {
+            AdministrationTask task = getAdminTasksMgr().removeTask(id);
+            if (task != null) {
+                return "<success/>";
+            }
+        }
+        return fail("Failed to remove task; missing or invalid task id");
+    }
+
+
+    private String raiseExternalException(HttpServletRequest req) {
+        String caseID = req.getParameter("caseid");
+        String itemID = req.getParameter("itemid");
+        String trigger = req.getParameter("trigger");
+        if (caseID != null) {
+            _ws.getExceptionService().raiseExternalException("case", caseID, trigger);
+        }
+        else if (itemID != null) {
+            _ws.getExceptionService().raiseExternalException("item", itemID, trigger);
+        }
+        return "<success/>";
+    }
+
+
+    private String getExternalTriggers(HttpServletRequest req) {
+        String caseID = req.getParameter("caseid");
+        String itemID = req.getParameter("itemid");
+
+        List<String> triggers = null;
+        if (caseID != null) {
+            triggers = _ws.getExceptionService().getExternalTriggersForCase(caseID);
+        }
+        else if (itemID != null) {
+            triggers = _ws.getExceptionService().getExternalTriggersForItem(itemID);
+        }
+
+        if (triggers == null) {
+            return fail("Failed to retrieve triggers; Missing parameter: id");
+        }
+
+        StringBuilder xml = new StringBuilder("<triggers>");
+        for (String trigger : triggers) {
+            xml.append(StringUtil.wrap(trigger, "trigger"));
+        }
+        xml.append("</triggers>");
+        return xml.toString();
     }
 
 }

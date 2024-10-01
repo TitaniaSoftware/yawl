@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -87,10 +87,11 @@ public class ResourceGatewayClient extends Interface_Client {
      * @throws IOException
      *             if the service can't be reached
      */
-    private String executeBooleanGet(String action, String id, String handle) throws IOException {
-	Map<String, String> params = prepareParamMap(action, handle);
-	params.put("id", id);
-	return executeGet(_serviceURI, params);
+    private String executeBooleanGet(String action, String id, String handle)
+                                                             throws IOException {
+        Map<String, String> params = prepareParamMap(action, handle);
+        if (id != null) params.put("id", id);
+        return executeGet(_serviceURI, params) ;
     }
 
     /**
@@ -285,6 +286,7 @@ public class ResourceGatewayClient extends Interface_Client {
     public String getAllNonHumanResourceNames(String handle) throws IOException {
 	return performGet("getAllNonHumanResourceNames", handle);
     }
+
 
     /**
      * Gets an XML list of the Participants that are currently logged on to the
@@ -1018,6 +1020,25 @@ public class ResourceGatewayClient extends Interface_Client {
     }
 
     /**
+     * Gets all the NonHumanResources belonging to a category
+     * @param categoryID the id of the category
+     * @param subCategory a sub-category name. If provided, will return members only with
+     *                    that category + sub-category combination. If null, all the
+     *                    members of the category are returned
+     * @param handle a valid session handle
+     * @return an XML string describing the members, or an appropriate error message
+     * @throws IOException if the service can't be reached
+     */
+    public String getNonHumanCategoryMembers(String categoryID, String subCategory,
+                                             String handle) throws IOException {
+        Map<String, String> params = prepareParamMap("getNonHumanCategoryMembers", handle);
+        params.put("id", categoryID);
+        params.put("subcategory", subCategory);
+        return executeGet(_serviceURI, params) ;
+    }
+
+
+    /**
      * Checks the user credentials passed against those stored
      * 
      * @param userid
@@ -1199,6 +1220,12 @@ public class ResourceGatewayClient extends Interface_Client {
     public String isKnownNonHumanCategory(String id, String handle) throws IOException {
 	return executeBooleanGet("isKnownNonHumanCategory", id, handle);
     }
+
+
+    public String isOrgDataSetModifiable(String handle) throws IOException {
+        return executeBooleanGet("isOrgDataSetModifiable", null, handle);
+    }
+
 
     /*******************************************************************************/
 
@@ -1669,16 +1696,17 @@ public class ResourceGatewayClient extends Interface_Client {
      * @throws IOException
      *             if the service can't be reached
      */
-    public String updateNonHumanResource(String resourceID, String name, String category, String subcategory,
-	    String description, String notes, String handle) throws IOException {
-	Map<String, String> params = prepareParamMap("updateNonHumanResource", handle);
-	params.put("resourceID", resourceID);
-	params.put("name", name);
-	params.put("category", category);
-	params.put("subcategory", subcategory);
-	params.put("description", description);
-	params.put("notes", notes);
-	return executeGet(_serviceURI, params);
+    public String updateNonHumanResource(String resourceID, String name, String category,
+                    String subcategory, String description, String notes, String handle)
+            throws IOException {
+        Map<String, String> params = prepareParamMap("updateNonHumanResource", handle);
+        params.put("resourceid", resourceID);
+        params.put("name", name);
+        params.put("category", category);
+        params.put("subcategory", subcategory);
+        params.put("description", description);
+        params.put("notes", notes);
+        return executeGet(_serviceURI, params) ;
     }
 
     /**
@@ -1825,14 +1853,15 @@ public class ResourceGatewayClient extends Interface_Client {
      * @throws IOException
      *             if the service can't be reached
      */
-    public String updateNonHumanCategory(String categoryID, String name, String description, String notes,
-	    String handle) throws IOException {
-	Map<String, String> params = prepareParamMap("updateNonHumanCategory", handle);
-	params.put("categoryID", categoryID);
-	params.put("name", name);
-	params.put("description", description);
-	params.put("notes", notes);
-	return executeGet(_serviceURI, params);
+    public String updateNonHumanCategory(String categoryID, String name,
+                                         String description, String notes, String handle)
+            throws IOException {
+        Map<String, String> params = prepareParamMap("updateNonHumanCategory", handle);
+        params.put("categoryid", categoryID);
+        params.put("name", name);
+        params.put("description", description);
+        params.put("notes", notes);
+        return executeGet(_serviceURI, params) ;
     }
 
     /**
@@ -2283,12 +2312,33 @@ public class ResourceGatewayClient extends Interface_Client {
     /******************************************************************************/
 
     /**
-     * Triggers a reload of org data
-     * 
-     * @param handle
-     *            a valid session handle with admin access
-     * @throws IOException
-     *             if the service can't be reached
+     * Imports the org data from a .ybkp file
+     * @param xml the file content
+     * @param handle  a current sessionhandle with admin privileges
+     * @return a message indicating success, or otherwise
+     * @throws IOException if the service can't be reached
+     */
+    public String importOrgData(String xml, String handle) throws IOException {
+        Map<String, String> params = prepareParamMap("importOrgData", handle);
+        params.put("xml", xml);
+        return executeGet(_serviceURI, params) ;
+    }
+
+
+    /**
+     * Exports the current org data to xml for writing to a .ybkp file
+     * @param handle a current sessionhandle with admin privileges
+     * @return the xml representation of the current org data, or an error message
+     * @throws IOException if the service can't be reached
+     */
+    public String exportOrgData(String handle) throws IOException {
+        return executeGet(_serviceURI, prepareParamMap("exportOrgData", handle));
+    }
+
+
+    /** Triggers a reload of org data
+     * @param handle a valid session handle with admin access
+     * @throws IOException if the service can't be reached
      */
     public void refreshOrgDataSet(String handle) throws IOException {
 	executePost(_serviceURI, prepareParamMap("refreshOrgDataSet", handle));
@@ -2308,6 +2358,39 @@ public class ResourceGatewayClient extends Interface_Client {
 	Map<String, String> params = prepareParamMap("resetOrgDataRefreshRate", handle);
 	params.put("rate", String.valueOf(minutes));
 	executePost(_serviceURI, params);
+    }
+
+
+    /**************************************************************************/
+
+    public String getSecondaryResources(String itemID, String handle) throws IOException {
+        Map<String,String> params = prepareParamMap("getSecondaryResources", handle);
+        params.put("id", itemID);
+        return executeGet(_serviceURI, params);
+    }
+
+
+    public String setSecondaryResources(String itemID, String resourcesXML, String handle)
+            throws IOException {
+        Map<String,String> params = prepareParamMap("setSecondaryResources", handle);
+        params.put("id", itemID);
+        params.put("xml", resourcesXML);
+        return executePost(_serviceURI, params);
+    }
+
+    
+    public String checkSecondaryResourcesAvailability(String itemID, String handle)
+            throws IOException {
+        Map<String,String> params = prepareParamMap(
+                "checkSecondaryResourcesAvailability", handle);
+        params.put("id", itemID);
+        return executeGet(_serviceURI, params);
+    }
+
+
+    public String getBuildProperties(String handle) throws IOException {
+        Map<String,String> params = prepareParamMap( "getBuildProperties", handle);
+        return executeGet(_serviceURI, params);
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -1036,7 +1036,7 @@ public class ExceptionService {
      * @param caseID - the id of the case to get the triggers for
      * @return the (String) list of triggers
      */
-    public List getExternalTriggersForCase(String caseID) {
+    public List<String> getExternalTriggersForCase(String caseID) {
         YSpecificationID specID = getSpecIDForCaseID(caseID);
         if (specID != null) {
             RdrTree tree = _wService.getRdrEvaluator().getTree(specID, null,

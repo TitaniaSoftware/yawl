@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -18,7 +18,7 @@
 
 package org.yawlfoundation.yawl.engine.interfce.interfaceB;
 
-import org.yawlfoundation.yawl.elements.data.external.ExternalDBGatewayFactory;
+import org.yawlfoundation.yawl.elements.data.external.ExternalDataGatewayFactory;
 import org.yawlfoundation.yawl.elements.predicate.PredicateEvaluatorFactory;
 import org.yawlfoundation.yawl.engine.ObserverGateway;
 import org.yawlfoundation.yawl.engine.YEngine;
@@ -67,7 +67,7 @@ public class InterfaceB_EngineBasedServer extends YHttpServlet {
 
             // set the path to external db gateway plugin classes (if any)
             String pluginPath = context.getInitParameter("ExternalPluginsPath");
-            ExternalDBGatewayFactory.setExternalPaths(pluginPath);
+            ExternalDataGatewayFactory.setExternalPaths(pluginPath);
             PredicateEvaluatorFactory.setExternalPaths(pluginPath);
 
             // init engine reference
@@ -278,7 +278,8 @@ public class InterfaceB_EngineBasedServer extends YHttpServlet {
                     msg.append(_engine.disconnect(sessionHandle));
                 }
                 else if (action.equals("checkout")) {
-                    msg.append(_engine.startWorkItem(workItemID, sessionHandle));
+                    String logPredicate = request.getParameter("logPredicate");
+                    msg.append(_engine.startWorkItem(workItemID, logPredicate, sessionHandle));
                 }
                 else if (action.equals("checkin")) {
                     String data = request.getParameter("data");
@@ -331,7 +332,7 @@ public class InterfaceB_EngineBasedServer extends YHttpServlet {
                 }
                 else if (action.equals("startOne")) {
                     String userID = request.getParameter("user");
-                    msg.append(_engine.startWorkItem(userID, sessionHandle));
+                    msg.append(_engine.startWorkItem(userID, null, sessionHandle));
                 }
                 else if (action.equals("getLiveItems")) {
                     msg.append(_engine.describeAllWorkItems(sessionHandle));

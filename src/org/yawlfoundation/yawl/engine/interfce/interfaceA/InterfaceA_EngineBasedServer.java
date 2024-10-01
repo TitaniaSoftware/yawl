@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -74,6 +74,7 @@ public class InterfaceA_EngineBasedServer extends YHttpServlet {
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if ("HEAD".equals(request.getMethod())) return;
         doPost(request, response);                       // all gets redirected as posts
     }
 
@@ -170,6 +171,19 @@ public class InterfaceA_EngineBasedServer extends YHttpServlet {
                 else if ("getExternalDBGateways".equals(action)) {
                     msg.append(_engine.getExternalDBGateways(sessionHandle));
                 }
+                else if ("reannounceEnabledWorkItems".equals(action)) {
+                    msg.append(_engine.reannounceEnabledWorkItems(sessionHandle));
+                }
+                else if ("reannounceExecutingWorkItems".equals(action)) {
+                     msg.append(_engine.reannounceExecutingWorkItems(sessionHandle));
+                 }
+                else if ("reannounceFiredWorkItems".equals(action)) {
+                     msg.append(_engine.reannounceFiredWorkItems(sessionHandle));
+                 }
+                else if ("reannounceWorkItem".equals(action)) {
+                     String itemID = request.getParameter("id");
+                     msg.append(_engine.reannounceWorkItem(itemID, sessionHandle));
+                 }
                 else if ("unload".equals(action)) {
                     String specIdentifier = request.getParameter("specidentifier");
                     String version = request.getParameter("specversion");
@@ -218,14 +232,12 @@ public class InterfaceA_EngineBasedServer extends YHttpServlet {
 
     private void debug(HttpServletRequest request, String service) {
         if (logger.isDebugEnabled()) {
-            logger.debug("\nInterfaceA_EngineBasedServer::do{}() request.getRequestURL={}",
-                    service, request.getRequestURL());
-            logger.debug("\nInterfaceA_EngineBasedServer::do{}() request.parameters:",
-                    service);
+            logger.debug("do{}() request.getRequestURL={}", service, request.getRequestURL());
+            logger.debug("do{}() request.parameters:", service);
             Enumeration paramNms = request.getParameterNames();
             while (paramNms.hasMoreElements()) {
                 String name = (String) paramNms.nextElement();
-                logger.debug("\trequest.getParameter({}) = {}", name,request.getParameter(name));
+                logger.debug("request.getParameter({}) = {}", name,request.getParameter(name));
             }
         }
     }

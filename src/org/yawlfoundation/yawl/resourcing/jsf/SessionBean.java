@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -2504,7 +2504,7 @@ public class SessionBean extends AbstractSessionBean {
     public void setCalMgtMinDate(Date date) { calMgtMinDate = date; }
 
 
-    private Date calMgtMaxDate = createDate("2020-01-01");
+    private Date calMgtMaxDate = createDate("2030-01-01");
 
     public Date getCalMgtMaxDate() { return calMgtMaxDate; }
 
@@ -2688,6 +2688,16 @@ public class SessionBean extends AbstractSessionBean {
     public String getCalDataTableStyle() {
         int height = 20 * (calendarRows.size() + 1);
         return String.format("height: %dpx", Math.min(height, 330));
+    }
+
+    public String stripXMLChars(String s) {
+        if (StringUtil.isNullOrEmpty(s)) return s;
+
+        StringBuilder sb = new StringBuilder(s.length());
+        for (char c : s.toCharArray()) {
+            if (! (c == '<' || c == '>' || c == '&')) sb.append(c);
+        }
+        return sb.toString();
     }
     
     /******************************************************************************/

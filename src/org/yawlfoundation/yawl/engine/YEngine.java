@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -606,25 +606,25 @@ public class YEngine implements InterfaceADesign,
 
         _logger.debug("--> unloadSpecification: URI={}", specID.toString());
 
-        if (_specifications.contains(specID)) {
-            YSpecification specToUnload = _specifications.getSpecification(specID);
+        YSpecification specToUnload = _specifications.getSpecification(specID);
 
-            // Reject unload request if we have active cases using it
-            if (_runningCaseIDToSpecMap.values().contains(specToUnload)) {
-                throw new YStateException("Cannot unload specification '" + specID +
-                            "' as one or more cases are currently active against it.");
-            }
-
-            _logger.info("Removing process specification {}", specID);
-            _specifications.unloadSpecification(specToUnload);
-            _yawllog.removeSpecificationFromCache(specID);
-            deleteObject(specToUnload);
-        }
-        else {
-            // the spec's not in the engine
+        // reject request if the spec's not in the engine
+        if (specToUnload == null) {
             throw new YStateException("Engine contains no such specification with id '"
                     + specID + "'.");
         }
+
+        // reject request if there are active cases using the spec
+        if (_runningCaseIDToSpecMap.containsValue(specToUnload)) {
+            throw new YStateException("Cannot unload specification '" + specID +
+                    "' as one or more cases are currently active against it.");
+        }
+
+        _logger.info("Removing process specification {}", specID.toString());
+        _specifications.unloadSpecification(specToUnload);
+        _yawllog.removeSpecificationFromCache(specID);
+        deleteObject(specToUnload);
+
         _logger.debug("<-- unloadSpecification");
     }
 
@@ -1373,11 +1373,12 @@ public class YEngine implements InterfaceADesign,
     }
 
 
-    public YWorkItem startWorkItem(String itemID, YClient client)
+    public YWorkItem startWorkItem(String itemID, YClient client, String logPredicate)
             throws YStateException, YDataStateException, YQueryException,
                    YPersistenceException, YEngineStateException {
         YWorkItem item = getWorkItem(itemID);
         if (item != null) {
+            item.setExternalStartingLogPredicate(logPredicate);
             return startWorkItem(item, client);
         }
         throw new YStateException("No work item found with id = " + itemID);
@@ -1585,7 +1586,7 @@ public class YEngine implements InterfaceADesign,
                                            WorkItemCompletion completionType)
             throws YStateException, YDataStateException, YQueryException,
                    YPersistenceException, YEngineStateException {
-        workItem.setExternalLogPredicate(logPredicate);
+        workItem.setExternalCompletionLogPredicate(logPredicate);
         workItem.cancelTimer();                              // if any
         announceIfTimeServiceTimeout(netRunner, workItem);
         workItem.setStatusToComplete(_pmgr, completionType);

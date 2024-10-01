@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -560,9 +560,7 @@ public class StringUtil {
         if (msecs > -1) {
             try {
                 return DatatypeFactory.newInstance().newDuration(msecs);
-            } catch (DatatypeConfigurationException dce) {
-                // nothing to do - null will be returned
-            } catch (IllegalArgumentException dce) {
+            } catch (DatatypeConfigurationException | IllegalArgumentException dce) {
                 // nothing to do - null will be returned
             }
         }
@@ -574,7 +572,7 @@ public class StringUtil {
         try {
             DatatypeFactory.newInstance().newDuration(s);
             return true;
-        } catch (DatatypeConfigurationException dce) {
+        } catch (DatatypeConfigurationException | IllegalArgumentException e) {
             return false;
         }
     }
@@ -697,12 +695,12 @@ public class StringUtil {
     }
 
 
-    public static String join(List<String> strList, char separator) {
-        if (strList == null || strList.isEmpty()) return "";
-        if (strList.size() == 1) return strList.get(0);
+    public static String join(List<?> list, char separator) {
+        if (list == null || list.isEmpty()) return "";
+        if (list.size() == 1) return list.get(0).toString();
         StringBuilder sb = new StringBuilder();
-        for (String s : strList) {
-            if (sb.length() > 0) sb.append(separator);
+        for (Object s : list) {
+            if (sb.length() > 0) sb.append(separator);     
             sb.append(s);
         }
         return sb.toString();

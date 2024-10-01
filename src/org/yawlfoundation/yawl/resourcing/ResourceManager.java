@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -73,7 +73,6 @@ import org.yawlfoundation.yawl.resourcing.datastore.orgdata.util.OrgDataRefreshe
 import org.yawlfoundation.yawl.resourcing.datastore.persistence.Persister;
 import org.yawlfoundation.yawl.resourcing.interactions.AbstractInteraction;
 import org.yawlfoundation.yawl.resourcing.interactions.AllocateInteraction;
-import org.yawlfoundation.yawl.resourcing.jsf.ApplicationBean;
 import org.yawlfoundation.yawl.resourcing.jsf.dynform.FormParameter;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
 import org.yawlfoundation.yawl.resourcing.resource.SecondaryResources;
@@ -86,13 +85,20 @@ import org.yawlfoundation.yawl.resourcing.util.PluginFactory;
 import org.yawlfoundation.yawl.resourcing.util.RandomOrgDataGenerator;
 import org.yawlfoundation.yawl.resourcing.util.ResourceMapCache;
 import org.yawlfoundation.yawl.schema.YDataValidator;
-import org.yawlfoundation.yawl.util.HttpURLValidator;
-import org.yawlfoundation.yawl.util.JDOMUtil;
-import org.yawlfoundation.yawl.util.PasswordEncryptor;
-import org.yawlfoundation.yawl.util.StringUtil;
-import org.yawlfoundation.yawl.util.XNode;
-import org.yawlfoundation.yawl.util.XNodeParser;
-import org.yawlfoundation.yawl.util.YBuildProperties;
+import org.yawlfoundation.yawl.util.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.datatype.Duration;
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.*;
 
 /**
  * The ResourceManager singleton manages all aspects of the resource
@@ -144,7 +150,7 @@ public final class ResourceManager extends InterfaceBWebsideController {
     private boolean _orgDataRefreshing = false; // flag during auto-refresh
     public static boolean serviceInitialised = false; // flag for init on restore
 
-    private ApplicationBean _jsfApplicationReference; // ref to jsf app manager bean
+//    private ApplicationBean _jsfApplicationReference;   // ref to jsf app manager bean
 
     private boolean _blockIfSecondaryResourcesUnavailable = false;
     private boolean _persistPiling;
@@ -299,9 +305,9 @@ public final class ResourceManager extends InterfaceBWebsideController {
 	return _workItemCache;
     }
 
-    public void registerJSFApplicationReference(ApplicationBean app) {
-	_jsfApplicationReference = app;
-    }
+//    public void registerJSFApplicationReference(ApplicationBean app) {
+//        _jsfApplicationReference = app;
+//    }
 
     public boolean hasOrgDataSource() {
 	return (_orgdb != null);
@@ -395,18 +401,18 @@ public final class ResourceManager extends InterfaceBWebsideController {
     }
 
     public void handleCancelledCaseEvent(String caseID) {
-	if (_serviceEnabled) {
-	    synchronized (_ibEventMutex) {
-		removeCaseFromAllQueues(caseID); // workqueues
-		_cache.removeCaseFromTaskCompleters(caseID);
-		_cache.cancelCodeletRunnersForCase(caseID);
-		_cache.removeDeferredGroupForCase(caseID);
-		freeSecondaryResourcesForCase(caseID);
-		removeChain(caseID);
-		removeActiveCalendarEntriesForCase(caseID);
-		_services.removeCaseFromDocStore(caseID);
-	    }
-	}
+        if (_serviceEnabled) {
+  //          synchronized (_ibEventMutex) {
+                removeCaseFromAllQueues(caseID);                          // workqueues
+                _cache.removeCaseFromTaskCompleters(caseID);
+                _cache.cancelCodeletRunnersForCase(caseID);
+                _cache.removeDeferredGroupForCase(caseID);
+                freeSecondaryResourcesForCase(caseID);
+                removeChain(caseID);
+                removeActiveCalendarEntriesForCase(caseID);
+                _services.removeCaseFromDocStore(caseID);
+  //          }
+        }
     }
 
     public void handleDeadlockedCaseEvent(String caseID, String tasks) {
@@ -425,12 +431,14 @@ public final class ResourceManager extends InterfaceBWebsideController {
 
     // here we are only interested in items the service knows about, being updated
     // by services other than this one
-    public void handleWorkItemStatusChangeEvent(WorkItemRecord wir, String oldStatus, String newStatus) {
-	synchronized (_ibEventMutex) {
-	    WorkItemRecord cachedWir = _workItemCache.get(wir.getID());
+    public void handleWorkItemStatusChangeEvent(WorkItemRecord wir,
+                                                String oldStatus, String newStatus) {
+        WorkItemRecord cachedWir = _workItemCache.get(wir.getID());
 
-	    // if its a status change this service didn't cause
-	    if (!(cachedWir == null || newStatus.equals(cachedWir.getStatus()))) {
+        // if its a status change this service didn't cause
+        if (!(cachedWir == null || newStatus.equals(cachedWir.getStatus()))) {
+
+            synchronized (_ibEventMutex) {
 
 		// if it has been 'finished', remove it from all queues
 		if ((newStatus.equals(WorkItemRecord.statusComplete))
@@ -1153,20 +1161,21 @@ public final class ResourceManager extends InterfaceBWebsideController {
      */
     public boolean start(Participant p, WorkItemRecord wir) {
 
-	// if 'executing', it's already been started so move queues & we're done
-	if (wir.getStatus().equals(WorkItemRecord.statusExecuting)) {
-	    p.getWorkQueues().movetoStarted(wir);
-	    return true;
-	}
+        // if 'executing', it's already been started so move queues & we're done
+        if (wir.getStatus().equals(WorkItemRecord.statusExecuting)) {
+            wir.setResourceStatus(WorkItemRecord.statusResourceStarted);
+            p.getWorkQueues().movetoStarted(wir);
+            return true;
+        }
 
 	if (_blockIfSecondaryResourcesUnavailable && (!secondaryResourcesAvailable(wir, p))) {
 	    return false;
 	}
 
-	if (checkOutWorkItem(wir)) {
-	    WorkItemRecord oneToStart = getStartedChild(wir);
-	    if (oneToStart == null)
-		return false; // problem: no executing children
+        if (checkOutWorkItem(wir, getStartingLogPredicate(p, wir))) {
+            WorkItemRecord oneToStart = getStartedChild(wir);
+            if (oneToStart == null)
+                return false;      // problem: no executing children
 
 	    // add the executing child to the cache
 	    oneToStart.setResourceStatus(WorkItemRecord.statusResourceStarted);
@@ -1438,56 +1447,70 @@ public final class ResourceManager extends InterfaceBWebsideController {
     }
 
     public String updateWorkItemData(String itemID, String data) {
-	String result;
-	if ((data != null) && (data.length() > 0)) {
-	    WorkItemRecord wir = _workItemCache.get(itemID);
-	    if (wir != null) {
-		if (wir.getStatus().equals(WorkItemRecord.statusExecuting)) {
-		    Element dataElem = JDOMUtil.stringToElement(data);
-		    if (dataElem != null) {
-			String validate = checkWorkItemDataAgainstSchema(wir, dataElem);
-			if (validate.startsWith("<success")) {
-			    wir.setUpdatedData(dataElem); // all's good
-			    _workItemCache.update(wir);
-			    result = "<success/>";
-			} else
-			    result = fail("Data failed validation: " + validate);
-		    } else
-			result = fail("Data XML is malformed");
-		} else
-		    result = fail("Workitem '" + itemID + "' has a status of '" + wir.getStatus()
-			    + "' - data may only be updated for a workitem with 'Executing' status.");
-	    } else
-		result = fail(WORKITEM_ERR + ": " + itemID);
-	} else
-	    result = fail("Data is null or empty.");
+        String result;
+        if ((data != null) && (data.length() > 0)) {
+            WorkItemRecord wir = _workItemCache.get(itemID);
+            if (wir != null) {
+                if (wir.getStatus().equals(WorkItemRecord.statusExecuting)) {
+                    Element dataElem = JDOMUtil.stringToElement(data);
+                    if (dataElem != null) {
+                        String validate = checkWorkItemDataAgainstSchema(wir, dataElem);
+                        if (validate.startsWith("<success")) {
+                            wir.setUpdatedData(dataElem);                  // all's good
+                            _workItemCache.update(wir);
+                            result = "<success/>";
+                        }
+                        else result = fail("Data failed validation: " + validate);
+                    }
+                    else result = fail("Data XML is malformed");
+                }
+                else result = fail(
+                        "Workitem '" + itemID + "' has a status of '" + wir.getStatus() +
+                                "' - data may only be updated for a workitem with 'Executing' status.");
+            }
+            else result = fail(WORKITEM_ERR + ": " + itemID);
+        }
+        else result = fail("Data is null or empty.");
 
 	return result;
     }
 
     public String checkWorkItemDataAgainstSchema(WorkItemRecord wir, Element data) {
-	String result = "<success/>";
-	if (!data.getName().equals(wir.getTaskName().replace(' ', '_'))) {
-	    result = fail("Invalid data structure: root element name doesn't match task name");
-	} else {
-	    YSpecificationID specID = new YSpecificationID(wir);
-	    SpecificationData specData = getSpecData(specID);
-	    try {
-		String schema = specData.getSchemaLibrary();
-		YDataValidator validator = new YDataValidator(schema);
-		if (validator.validateSchema()) {
-		    TaskInformation taskInfo = getTaskInformation(specID, wir.getTaskID());
+        String result = "<success/>";
+        YSpecificationID specID = new YSpecificationID(wir);
+        try {
+            TaskInformation taskInfo = getTaskInformation(specID, wir.getTaskID());
+            if (! isValidDataName(wir, data, taskInfo.getDecompositionID())) {
+                return fail("Invalid data structure: root element name " +
+                        "must match decomposition ID, task ID or task name");
+            }
+            SpecificationData specData = getSpecData(specID);
+            String schema = specData.getSchemaLibrary();
+            YDataValidator validator = new YDataValidator(schema);
+            if (validator.validateSchema()) {
 
-		    // a YDataValidationException is thrown here if validation fails
-		    validator.validate(taskInfo.getParamSchema().getCombinedParams(), data, "");
-		} else
-		    result = fail("Invalid data schema");
-	    } catch (Exception e) {
-		result = fail(e.getMessage());
-	    }
-	}
-	return result;
+                // a YDataValidationException is thrown here if validation fails
+                validator.validate(taskInfo.getParamSchema().getCombinedParams(), data, "");
+            }
+            else {
+                result = fail("Invalid data schema");
+            }
+        }
+        catch (Exception e) {
+                result = fail(e.getMessage());
+        }
+        return result;
     }
+
+
+    // checks for valid root data element name - includes backwards compatibility
+    private boolean isValidDataName(WorkItemRecord wir, Element data, String decompID) {
+        String name = data.getName();
+        String taskID = wir.getTaskID();
+        String taskName = wir.getTaskName().replace(' ', '_');
+        return name.equals(decompID) || name.equals(taskID) || name.equals(taskName);
+    }
+
 
     /**
      * *************************************************************************
@@ -1823,22 +1846,22 @@ public final class ResourceManager extends InterfaceBWebsideController {
      *            - the workitem to check out
      * @return true if checkout was successful
      */
-    protected boolean checkOutWorkItem(WorkItemRecord wir) {
-	try {
-	    if (null != checkOut(wir.getID(), getEngineSessionHandle())) {
-		_log.info("   checkout successful: {}", wir.getID());
-		return true;
-	    } else {
-		_log.info("   checkout unsuccessful: {}", wir.getID());
-		return false;
-	    }
-	} catch (YAWLException ye) {
-	    _log.error("YAWL Exception with checkout: " + wir.getID(), ye);
-	    return false;
-	} catch (IOException ioe) {
-	    _log.error("IO Exception with checkout: " + wir.getID(), ioe);
-	    return false;
-	}
+    protected boolean checkOutWorkItem(WorkItemRecord wir, String logPredicate) {
+        try {
+            if (null != checkOut(wir.getID(), logPredicate, getEngineSessionHandle())) {
+                _log.info("   checkout successful: {}", wir.getID());
+                return true;
+            } else {
+                _log.info("   checkout unsuccessful: {}", wir.getID());
+                return false;
+            }
+        } catch (YAWLException ye) {
+            _log.error("YAWL Exception with checkout: " + wir.getID(), ye);
+            return false;
+        } catch (IOException ioe) {
+            _log.error("IO Exception with checkout: " + wir.getID(), ioe);
+            return false;
+        }
     }
 
     // ***************************************************************************//
@@ -1952,12 +1975,22 @@ public final class ResourceManager extends InterfaceBWebsideController {
 	return decompPredicate;
     }
 
-    private String parseCompletionLogPredicate(Participant p, WorkItemRecord wir) {
-	String predicate = wir.getLogPredicateCompletion();
-	return (predicate != null) ? new LogPredicateParser(p, wir).parse(predicate) : null;
+
+    private String getStartingLogPredicate(Participant p, WorkItemRecord wir) {
+         return parseLogPredicate(p, wir, wir.getLogPredicateStarted());
     }
 
-    // ***************************************************************************//
+
+    private String parseCompletionLogPredicate(Participant p, WorkItemRecord wir) {
+        return parseLogPredicate(p, wir, wir.getLogPredicateCompletion());
+    }
+
+
+    private String parseLogPredicate(Participant p, WorkItemRecord wir, String predicate) {
+        return (predicate != null) ? new LogPredicateParser(p, wir).parse(predicate) : null;
+    }
+
+    //***************************************************************************//
 
     /**
      * Checks out all the child workitems of the parent item specified
@@ -1970,10 +2003,10 @@ public final class ResourceManager extends InterfaceBWebsideController {
 	for (int i = 0; i < children.size(); i++) {
 	    WorkItemRecord itemRec = (WorkItemRecord) children.get(i);
 
-	    // if its 'fired' check it out
-	    if (WorkItemRecord.statusFired.equals(itemRec.getStatus()))
-		checkOutWorkItem(itemRec);
-	}
+            // if its 'fired' check it out
+            if (WorkItemRecord.statusFired.equals(itemRec.getStatus()))
+                checkOutWorkItem(itemRec, null);
+        }
 
 	// update child item list after checkout (to capture status changes) & return
 	return getChildren(wir.getID());
@@ -1982,6 +2015,12 @@ public final class ResourceManager extends InterfaceBWebsideController {
     public WorkItemRecord getExecutingChild(WorkItemRecord parent) {
 	return getExecutingChild(getChildren(parent.getID()));
     }
+
+
+    public WorkItemRecord getEngineStoredWorkItem(String wirID) throws IOException {
+        return getEngineStoredWorkItem(wirID, getEngineSessionHandle());
+    }
+
 
     private WorkItemRecord getExecutingChild(List<WorkItemRecord> children) {
 	for (WorkItemRecord itemRec : children) {
@@ -2412,9 +2451,9 @@ public final class ResourceManager extends InterfaceBWebsideController {
     }
 
     public void announceModifiedQueue(String pid) {
-	if (_jsfApplicationReference != null) {
-	    _jsfApplicationReference.refreshUserWorkQueues(pid);
-	}
+//        if (_jsfApplicationReference != null) {
+//            _jsfApplicationReference.refreshUserWorkQueues(pid);
+//        }
     }
 
     public String addRegisteredService(YAWLServiceReference service) throws IOException {
@@ -2614,40 +2653,47 @@ public final class ResourceManager extends InterfaceBWebsideController {
     public void reassignWorklistedItem(WorkItemRecord wir, String[] pidList, String action) {
 	removeFromAll(wir);
 
-	// a reoffer can be made to several participants
-	if (action.equals("Reoffer")) {
-	    ResourceMap rMap = getResourceMap(wir);
-	    if (rMap != null) {
-		if (wir.getResourceStatus().equals(WorkItemRecord.statusResourceOffered)) {
-		    withdrawOffer(rMap, wir);
-		}
-		for (String pid : pidList) {
-		    Participant p = _orgDataSet.getParticipant(pid);
-		    if (p != null) {
-			rMap.addToOfferedSet(wir, p);
-			p.getWorkQueues().addToQueue(wir, WorkQueue.OFFERED);
-		    }
-		}
-	    }
-	    wir.resetDataState();
-	    wir.setResourceStatus(WorkItemRecord.statusResourceOffered);
-	} else {
-	    // a reallocate or restart is made to exactly one participant
-	    Participant p = _orgDataSet.getParticipant(pidList[0]);
-	    if (action.equals("Reallocate")) {
-		wir.resetDataState();
-		wir.setResourceStatus(WorkItemRecord.statusResourceAllocated);
-		p.getWorkQueues().addToQueue(wir, WorkQueue.ALLOCATED);
-	    } else if (action.equals("Restart")) {
-		if (wir.getStatus().equals(WorkItemRecord.statusEnabled))
-		    start(p, wir);
-		else {
-		    p.getWorkQueues().addToQueue(wir, WorkQueue.STARTED);
-		    wir.setResourceStatus(WorkItemRecord.statusResourceStarted);
-		}
-	    }
-	}
-	_workItemCache.update(wir);
+    public void reassignWorklistedItem(WorkItemRecord wir, String[] pidList,
+                                       String action) {
+        if (pidList == null || pidList.length == 0) {
+            return;                           // no-one to reassign item to
+        }
+        removeFromAll(wir);
+
+        // a reoffer can be made to several participants
+        if (action.equals("Reoffer")) {
+            ResourceMap rMap = getResourceMap(wir);
+            if (rMap != null) {
+                if (wir.getResourceStatus().equals(WorkItemRecord.statusResourceOffered)) {
+                    withdrawOffer(rMap, wir);
+                }
+                for (String pid : pidList) {
+                    Participant p = _orgDataSet.getParticipant(pid);
+                    if (p != null) {
+                        rMap.addToOfferedSet(wir, p);
+                        p.getWorkQueues().addToQueue(wir, WorkQueue.OFFERED);
+                    }
+                }
+            }
+            wir.resetDataState();
+            wir.setResourceStatus(WorkItemRecord.statusResourceOffered);
+        } else {
+            // a reallocate or restart is made to exactly one participant
+            Participant p = _orgDataSet.getParticipant(pidList[0]);
+            if (action.equals("Reallocate")) {
+                wir.resetDataState();
+                wir.setResourceStatus(WorkItemRecord.statusResourceAllocated);
+                p.getWorkQueues().addToQueue(wir, WorkQueue.ALLOCATED);
+            } else if (action.equals("Restart")) {
+                if (wir.getStatus().equals(WorkItemRecord.statusEnabled))
+                    start(p, wir);
+                else {
+                    p.getWorkQueues().addToQueue(wir, WorkQueue.STARTED);
+                    wir.setResourceStatus(WorkItemRecord.statusResourceStarted);
+                }
+            }
+        }
+        _workItemCache.update(wir);
     }
 
     private void handleAutoTask(WorkItemRecord wir, boolean timedOut) {
@@ -2658,9 +2704,9 @@ public final class ResourceManager extends InterfaceBWebsideController {
 
 	synchronized (_autoTaskMutex) {
 
-	    // check out the auto workitem
-	    if (checkOutWorkItem(wir)) {
-		List children = getChildren(wir.getID());
+            // check out the auto workitem
+            if (checkOutWorkItem(wir, null)) {
+                List children = getChildren(wir.getID());
 
 		if ((children != null) && (!children.isEmpty())) {
 		    wir = (WorkItemRecord) children.get(0); // get executing child

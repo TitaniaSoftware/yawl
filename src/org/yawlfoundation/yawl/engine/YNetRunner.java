@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -96,7 +96,7 @@ public class YNetRunner {
 
 
     public YNetRunner(YPersistenceManager pmgr, YNet netPrototype, Element paramsData,
-                      String caseID) throws YDataStateException, YPersistenceException {
+                      String caseID) throws YStateException, YDataStateException, YPersistenceException {
          this();
 
         // initialise and persist case identifier - if caseID is null, a new one is supplied
@@ -166,8 +166,11 @@ public class YNetRunner {
 
 
     public Set<YAnnouncement> refreshAnnouncements() {
-         Set<YAnnouncement> current = _announcements;
-        _announcements = new HashSet<YAnnouncement>();
+        Set<YAnnouncement> current = new HashSet<>();
+        if (_announcements != null) {
+            current.addAll(_announcements);
+        }
+        _announcements = new HashSet<>();
         return current;
     }
 
@@ -826,7 +829,7 @@ public class YNetRunner {
                                             dataDoc);
 
                                 _logger.debug("YNetRunner::completeTask() finished local task: {}," +
-                                        " composite task: {}, caseid for decomposed net: {}" +
+                                        " composite task: {}, caseid for decomposed net: {}",
                                         atomicTask, _containingCompositeTask, _caseIDForNet);
                             }
                         }
@@ -1183,7 +1186,7 @@ public class YNetRunner {
 
     private YTimerVariable getTimerVariable(String taskName) {
         for (YTask task : _netTasks) {
-            if (task.getName().equals(taskName)) {
+            if (task.getName() != null && task.getName().equals(taskName)) {
                 return task.getTimerVariable();
             }
         }

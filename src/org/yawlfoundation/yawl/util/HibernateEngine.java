@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -33,15 +33,21 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.c3p0.internal.C3P0ConnectionProvider;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.exception.JDBCConnectionException;
-import org.hibernate.internal.SessionFactoryImpl;
-import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
+import org.hibernate.tool.schema.TargetType;
+
+import java.io.Serializable;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+
 
 /**
  * This singleton class provides db & persistence support via Hibernate.
@@ -81,37 +87,29 @@ public class HibernateEngine {
     }
 
     /** initialises hibernate and the required tables */
-    private void initialise(Set<Class> classes, Properties props) throws HibernateException {
-	try {
-	    Configuration _cfg = new Configuration();
+    private void initialise(Set<Class> classes, Properties props) {
+        StandardServiceRegistryBuilder standardRegistryBuilder = new StandardServiceRegistryBuilder()
+            .configure();
+        if (props != null) {
+            standardRegistryBuilder.applySettings(props);
+        }
+        StandardServiceRegistry standardRegistry = standardRegistryBuilder.build();
 
-	    // if props supplied, use them instead of hibernate.properties
-	    if (props != null) {
-		_cfg.setProperties(props);
-	    }
+        MetadataSources metadataSources = new MetadataSources(standardRegistry);
+        for (Class clazz : classes) {
+            metadataSources.addClass(clazz);
+        }
 
-	    // add each persisted class to config
-	    for (Class persistedClass : classes) {
-		_cfg.addClass(persistedClass);
-	    }
+        Metadata metadata = metadataSources.buildMetadata();
+        _factory = metadata.buildSessionFactory();
 
-	    // get a session context
-	    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(_cfg.getProperties())
-		    .build();
-	    _factory = _cfg.buildSessionFactory(serviceRegistry);
-
-	    // check tables exist and are of a matching format to the persisted objects
-	    new SchemaUpdate(_cfg).execute(false, true);
-
-	} catch (MappingException me) {
-	    _log.error("Could not initialise database connection.", me);
-	}
+        EnumSet<TargetType> targetTypes = EnumSet.of(TargetType.DATABASE);
+        new SchemaUpdate().execute(targetTypes, metadata);
     }
 
-    /**
-     * @return true if a table of 'tableName' currently exists and has at least one
-     *         row
-     */
+
+
+    /** @return true if a table of 'tableName' currently exists and has at least one row */
     public boolean isAvailable(String tableName) {
 	try {
 	    getOrBeginTransaction();
@@ -383,17 +381,9 @@ public class HibernateEngine {
     }
 
     public void closeFactory() {
-	if (_factory != null) {
-	    if (_factory instanceof SessionFactoryImpl) {
-		SessionFactoryImpl sf = (SessionFactoryImpl) _factory;
-		ConnectionProvider conn = sf.getConnectionProvider();
-		if (conn instanceof C3P0ConnectionProvider) {
-		    ((C3P0ConnectionProvider) conn).stop();
-		}
-	    }
-
-	    _factory.close();
-	}
+        if (_factory != null) {
+            _factory.close();
+        }
     }
 
     /**
