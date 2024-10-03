@@ -205,23 +205,11 @@
     <!-- hbn -->
     <property name="hsql" value="hsqldb.jar"/>
     <!-- hbn -->
-<<<<<<< HEAD
-    <property name="http-core" value="httpcore-4.4.11.jar"/>
-    <!-- obs -->
-    <property name="http-client" value="httpclient-4.5.7.jar"/>
-    <!-- obs -->
-    <property name="jakarta.activation" value="jakarta.activation-1.2.2.jar"/>
-    <!-- sml -->
-    <property name="jakarta.mail" value="jakarta.mail-1.6.7.jar"/>
-    <!-- sml -->
-    <property name="jandex" value="jandex-1.1.0.Final.jar"/>
-=======
     <property name="istack" value="istack-commons-runtime-4.1.1.jar"/>
     <!-- hbn -->
     <property name="jandex" value="jandex-2.4.2.Final.jar"/>
     <!-- eng, hbn -->
     <property name="jakarta-xml" value="jakarta.xml.bind-api-3.0.1.jar"/>
->>>>>>> upstream/master
     <!-- dbd -->
     <property name="javax-activation" value="javax.activation-api-1.2.0.jar"/>
     <!--hbn-->
@@ -504,13 +492,8 @@
 
     <property name="webapp_yawl.libs"
               value="${persistence.libs} ${xsd.libs} ${jdom} ${log4j.libs} ${xerces}
-<<<<<<< HEAD
-                     ${dbClient} ${saxon.libs} ${commonsLang}
-    	             ${commonsCodec} ${jaxen} ${http.libs} ${commonsLogging}" />
-=======
                      ${dbClient} ${saxon.libs} ${commonsLang} ${commonsCodec} ${jaxen}
                      ${jakarta-xml}"/>
->>>>>>> upstream/master
 
     <property name="webapp_resourceService.libs"
               value="${persistence.libs} ${xsd.libs} ${jdom} ${log4j.libs}
@@ -997,7 +980,8 @@
     <target name="compile" depends="init, configureDatabaseAccess">
         <javac srcdir="${src.dir}" debug="true" destdir="${classes.dir}"
                deprecation="true" verbose="false" includeantruntime="true"
-               encoding="UTF-8">
+               encoding="UTF-8"
+        	excludes="com/titania/harp/workflow/**/*">
             <classpath refid="cp.standard"/>
             <classpath refid="cp.compile"/>
             <classpath refid="cp.wsif"/>
@@ -2143,15 +2127,9 @@
             <fileset dir="${classes.dir}${packageRoot}/cost"/>
         </copy>
         <copy todir="${temp.dir}/${cost.app.name}/xsd">
-<<<<<<< HEAD
-             <fileset dir="${src.dir}${packageRoot}/cost/xsd"/>
-         </copy>
-        <copy todir="${temp.dir}/${cost.app.name}/WEB-INF" filtering="true">
-=======
             <fileset dir="${src.dir}${packageRoot}/cost/xsd"/>
         </copy>
         <copy todir="${temp.dir}/${cost.app.name}/WEB-INF">
->>>>>>> upstream/master
             <fileset file="${build.dir}/${cost.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${cost.app.name}.war">
@@ -2254,17 +2232,8 @@
          Build the Load Balancer servlet
      -->
 
-<<<<<<< HEAD
-     <target name="build_balancer.war"
-             depends="compile, build_balancer_SharedTomcat">
-         
-         <copy todir="${temp.dir}/balancer/WEB-INF"
-         	filtering="true"
-               file="${build.dir}/balancer/web.xml"/>
-=======
     <target name="build_balancer.war"
             depends="compile, build_balancer_SharedTomcat">
->>>>>>> upstream/master
 
         <copy todir="${temp.dir}/balancer/WEB-INF"
               file="${build.dir}/balancer/web.xml"/>
@@ -2417,12 +2386,7 @@
             <fileset dir="${build.dir}/${scheduling.app.name}/schema"/>
         </copy>
         <copy todir="${temp.dir}/${scheduling.app.name}/WEB-INF"
-<<<<<<< HEAD
-        	filtering="true"
-               file="${build.dir}/${scheduling.app.name}/web.xml"/>
-=======
               file="${build.dir}/${scheduling.app.name}/web.xml"/>
->>>>>>> upstream/master
 
         <war destfile="${output.dir}/${scheduling.app.name}.war"
              webxml="${temp.dir}/${scheduling.app.name}/WEB-INF/web.xml">
@@ -2628,13 +2592,9 @@
                      includes="StringUtil.class CharsetFilter.class Sessions*.class
                           JDOMUtil.class PasswordEncryptor.class HibernateEngine.class"/>
         </copy>
-<<<<<<< HEAD
-        <copy todir="${temp.dir}/${docStore.app.name}/WEB-INF" filtering="true">
-=======
         <copy file="${build.dir}/properties/hibernate.cfg.xml"
               todir="${temp.dir}/${docStore.app.name}/WEB-INF/classes"/>
         <copy todir="${temp.dir}/${docStore.app.name}/WEB-INF">
->>>>>>> upstream/master
             <fileset file="${build.dir}/${docStore.app.name}/web.xml"/>
         </copy>
         <jar destfile="${output.dir}/${docStore.app.name}.war">
