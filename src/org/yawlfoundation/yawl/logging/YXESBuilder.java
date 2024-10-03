@@ -21,6 +21,7 @@ package org.yawlfoundation.yawl.logging;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;

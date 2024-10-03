@@ -31,8 +31,8 @@ import org.yawlfoundation.yawl.resourcing.resource.Participant;
 import org.yawlfoundation.yawl.resourcing.resource.Position;
 
 /**
- * @author Michael Adams
- * @date 7/03/2011
+ * @author Paul Tyson paul.tyson@oberontech.com
+ * @date 2020-02-24
  */
 public class DirectReports extends AbstractCodelet {
 

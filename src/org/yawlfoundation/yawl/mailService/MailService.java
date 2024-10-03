@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 
 import org.apache.commons.lang3.StringUtils;
@@ -173,9 +174,9 @@ public class MailService extends InterfaceBWebsideController {
 
     private String sendMail(Email email, MailSettings settings) {
         try {
-            new Mailer(settings.host, settings.port, settings.user,
-                    settings.password, settings.strategy)
-                    .sendMail(email);
+            Mailer m = MailerBuilder.withSMTPServer(settings.host, settings.port, settings.user, settings.password)
+        	   	    .withTransportStrategy(settings.strategy).buildMailer();
+            m.sendMail(email);
             return "Mail successfully sent.";
         }
         catch (Exception e) {
@@ -258,7 +259,9 @@ public class MailService extends InterfaceBWebsideController {
                               Message.RecipientType mailType) {
         if (! StringUtil.isNullOrEmpty(address)) {
             if (name == null) name = "";
-            email.addRecipients(name, mailType, address);
+            EmailPopulatingBuilder builder = EmailBuilder.copying(email);
+            builder.withRecipient(name,address,mailType);
+//            email.addRecipients(name, mailType, address);
         }
     }
 

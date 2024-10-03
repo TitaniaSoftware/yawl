@@ -85,20 +85,13 @@ import org.yawlfoundation.yawl.resourcing.util.PluginFactory;
 import org.yawlfoundation.yawl.resourcing.util.RandomOrgDataGenerator;
 import org.yawlfoundation.yawl.resourcing.util.ResourceMapCache;
 import org.yawlfoundation.yawl.schema.YDataValidator;
-import org.yawlfoundation.yawl.util.*;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.datatype.Duration;
-import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.*;
+import org.yawlfoundation.yawl.util.HttpURLValidator;
+import org.yawlfoundation.yawl.util.JDOMUtil;
+import org.yawlfoundation.yawl.util.PasswordEncryptor;
+import org.yawlfoundation.yawl.util.StringUtil;
+import org.yawlfoundation.yawl.util.XNode;
+import org.yawlfoundation.yawl.util.XNodeParser;
+import org.yawlfoundation.yawl.util.YBuildProperties;
 
 /**
  * The ResourceManager singleton manages all aspects of the resource
@@ -2649,9 +2642,6 @@ public final class ResourceManager extends InterfaceBWebsideController {
 	if (rMap != null)
 	    rMap.addToOfferedSet(wir, p);
     }
-
-    public void reassignWorklistedItem(WorkItemRecord wir, String[] pidList, String action) {
-	removeFromAll(wir);
 
     public void reassignWorklistedItem(WorkItemRecord wir, String[] pidList,
                                        String action) {

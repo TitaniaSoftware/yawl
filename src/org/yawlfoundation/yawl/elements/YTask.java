@@ -229,30 +229,28 @@ public abstract class YTask extends YExternalNetElement {
     }
 
     protected void checkXQuery(String xQuery, String param, YVerificationHandler handler) {
-        if (!StringUtil.isNullOrEmpty(xQuery)) {
-            if (ExternalDataGatewayFactory.isExternalDataMappingExpression(xQuery)) {
-                checkExternalMapping(xQuery, handler);
-            } else {
-                try {
-                    SaxonUtil.compileXQuery(xQuery);
-                } catch (SaxonApiException e) {
-                    handler.error(this, this + " [id= " + this.getID() +
-                            "] the XQuery could not be successfully" +
-                            " parsed [" + e.getMessage() + "]");
-                }
-            }
-        } else handler.error(this, this + " [id= " + this.getID() +
-                "] the XQuery for param [" + param +
-                "] cannot be equal to null or the empty string.");
+	if (!StringUtil.isNullOrEmpty(xQuery)) {
+	    if (ExternalDataGatewayFactory.isExternalDataMappingExpression(xQuery)) {
+		checkExternalMapping(xQuery, handler);
+	    } else {
+		try {
+		    SaxonUtil.compileXQuery(xQuery);
+		} catch (SaxonApiException e) {
+		    handler.error(this, this + " [id= " + this.getID() + "] the XQuery could not be successfully"
+			    + " parsed [" + e.getMessage() + "]");
+		}
+	    }
+	} else
+	    handler.error(this, this + " [id= " + this.getID() + "] the XQuery for param [" + param
+		    + "] cannot be equal to null or the empty string.");
     }
 
     protected void checkExternalMapping(String query, YVerificationHandler handler) {
-        ExternalDataGateway dbClass = ExternalDataGatewayFactory.getInstance(query);
-        if (dbClass == null) {
-            handler.error(this, this +
-                    "(id= " + this.getID() + ") the mapping could not be successfully" +
-                    " parsed. External DB Class '" + query + "' was not found.");
-        }
+	ExternalDataGateway dbClass = ExternalDataGatewayFactory.getInstance(query);
+	if (dbClass == null) {
+	    handler.error(this, this + "(id= " + this.getID() + ") the mapping could not be successfully"
+		    + " parsed. External DB Class '" + query + "' was not found.");
+	}
     }
 
     protected Set<String> getParamNamesForTaskEnablement() {
@@ -452,13 +450,12 @@ public abstract class YTask extends YExternalNetElement {
 	    YDataValidator validator = spec.getDataValidator();
 	    validateOutputs(validator, decompositionOutputData);
 
-            for (String query : getQueriesForTaskCompletion()) {
-                if (ExternalDataGatewayFactory.isExternalDataMappingExpression(query)) {
-                    ExternalDataGateway gateway =
-                            ExternalDataGatewayFactory.getInstance(query);
-                    updateExternalFromTaskCompletion(gateway, query, decompositionOutputData);
-                    continue;
-                }
+	    for (String query : getQueriesForTaskCompletion()) {
+		if (ExternalDataGatewayFactory.isExternalDataMappingExpression(query)) {
+		    ExternalDataGateway gateway = ExternalDataGatewayFactory.getInstance(query);
+		    updateExternalFromTaskCompletion(gateway, query, decompositionOutputData);
+		    continue;
+		}
 
 		String localVarThatQueryResultGetsAppliedTo = getMIOutputAssignmentVar(query);
 		Element queryResultElement = evaluateTreeQuery(query, decompositionOutputData);
@@ -588,19 +585,16 @@ public abstract class YTask extends YExternalNetElement {
 	}
     }
 
-
-    private void updateExternalFromTaskCompletion(ExternalDataGateway gateway,
-                                                  String query,
-                                                  Document outputData) throws YStateException {
-        try {
-            String paramName = query.split(":")[2];
-            Element data = outputData.getRootElement().getChild(paramName);
-            Element netData = _net.getInternalDataDocument().getRootElement();
-            gateway.updateFromTaskCompletion(this, paramName, data, netData);
-        }
-        catch (Throwable t) {
-            throw new YStateException("Failed to update external data: " + t.getMessage());
-        }
+    private void updateExternalFromTaskCompletion(ExternalDataGateway gateway, String query, Document outputData)
+	    throws YStateException {
+	try {
+	    String paramName = query.split(":")[2];
+	    Element data = outputData.getRootElement().getChild(paramName);
+	    Element netData = _net.getInternalDataDocument().getRootElement();
+	    gateway.updateFromTaskCompletion(this, paramName, data, netData);
+	} catch (Throwable t) {
+	    throw new YStateException("Failed to update external data: " + t.getMessage());
+	}
     }
 
     private static void generateCompletingReport2(Element resultElem, String forNetVar, String query, Document data) {
@@ -760,13 +754,13 @@ public abstract class YTask extends YExternalNetElement {
     }
 
     private Set<String> getLocalVariablesForTaskCompletion() {
-        Set<String> localVars = new HashSet<String>();
-        for (String query : _dataMappingsForTaskCompletion.keySet()) {
-            if (!ExternalDataGatewayFactory.isExternalDataMappingExpression(query)) {
-                localVars.add(_dataMappingsForTaskCompletion.get(query));
-            }
-        }
-        return localVars;
+	Set<String> localVars = new HashSet<String>();
+	for (String query : _dataMappingsForTaskCompletion.keySet()) {
+	    if (!ExternalDataGatewayFactory.isExternalDataMappingExpression(query)) {
+		localVars.add(_dataMappingsForTaskCompletion.get(query));
+	    }
+	}
+	return localVars;
     }
 
     private void doXORSplit(YPersistenceManager pmgr, YIdentifier tokenToSend)
@@ -984,19 +978,18 @@ public abstract class YTask extends YExternalNetElement {
 		    dataForChildCase.addContent(specificMIData.detach());
 		}
 	    } else {
-		Element result = ExternalDBGatewayFactory.isExternalDBMappingExpression(expression)
+		Element result = ExternalDataGatewayFactory.isExternalDataMappingExpression(expression)
 			? performExternalDataExtraction(expression, parameter)
 			: performDataExtraction(expression, parameter);
 
-                        // Add in attributes for input parameter
-                        specificMIData.setAttributes(parameter.getAttributes().toJDOM());
-                    }
-                    dataForChildCase.addContent(specificMIData.detach());
-                }
-            } else {
-                Element result = ExternalDataGatewayFactory.isExternalDataMappingExpression(expression) ?
-                        performExternalDataExtraction(expression, parameter) :
-                        performDataExtraction(expression, parameter);
+		if (result != null) {
+		    if (YEngine.getInstance().generateUIMetaData()) {
+			result.setAttributes(parameter.getAttributes().toJDOM());
+		    }
+		    dataForChildCase.addContent(result.clone());
+		}
+	    }
+	}
 
 	if (YEngine.getInstance().generateUIMetaData()) {
 	    /**
@@ -1095,32 +1088,29 @@ public abstract class YTask extends YExternalNetElement {
     }
 
     protected Element performExternalDataExtraction(String expression, YParameter inputParam)
-            throws YStateException, YDataStateException {
-        Element result = null;
-        try {
-            ExternalDataGateway extractor =
-                    ExternalDataGatewayFactory.getInstance(expression);
-            if (extractor != null) {
-                Element netData = _net.getInternalDataDocument().getRootElement();
-                result = extractor.populateTaskParameter(this, inputParam, netData);
-            }
-        }
-        catch (Throwable t) {
-            throw new YStateException("External data pull failure: " + t.getMessage());
-        }
+	    throws YStateException, YDataStateException {
+	Element result = null;
+	try {
+	    ExternalDataGateway extractor = ExternalDataGatewayFactory.getInstance(expression);
+	    if (extractor != null) {
+		Element netData = _net.getInternalDataDocument().getRootElement();
+		result = extractor.populateTaskParameter(this, inputParam, netData);
+	    }
+	} catch (Throwable t) {
+	    throw new YStateException("External data pull failure: " + t.getMessage());
+	}
 
-        if (result == null) {
-            throw new YStateException("External data pull failure: No data");
-        }
+	if (result == null) {
+	    throw new YStateException("External data pull failure: No data");
+	}
 
-        if (_net.getSpecification().getSchemaVersion().isSchemaValidating() &&
-                !skipOutboundSchemaChecks()) {
+	if (_net.getSpecification().getSchemaVersion().isSchemaValidating() && !skipOutboundSchemaChecks()) {
 
-            // remove any dynamic attributes for schema checking
-            Element resultSansAttributes = JDOMUtil.stripAttributes((Element) result.clone());
-            performSchemaValidationOverExtractionResult(expression, inputParam, resultSansAttributes);
-        }
-        return result;
+	    // remove any dynamic attributes for schema checking
+	    Element resultSansAttributes = JDOMUtil.stripAttributes((Element) result.clone());
+	    performSchemaValidationOverExtractionResult(expression, inputParam, resultSansAttributes);
+	}
+	return result;
     }
 
     protected void performSchemaValidationOverExtractionResult(String expression, YParameter param, Element result)
