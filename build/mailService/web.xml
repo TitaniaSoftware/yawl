@@ -65,7 +65,7 @@
 
     <context-param>
         <param-name>host</param-name>
-        <param-value>smtp4dev</param-value>
+        <param-value>${yawl.mail.host}</param-value>
         <description>
            The mail host. Can be left empty, to be provided at runtime.
         </description>
@@ -73,7 +73,7 @@
 
     <context-param>
         <param-name>port</param-name>
-        <param-value>25</param-value>
+        <param-value>${yawl.mail.port}</param-value>
         <description>
            The port number for smtp on the specified host. Can be left empty, to be
             provided at runtime.
@@ -82,7 +82,7 @@
 
     <context-param>
          <param-name>transportStrategy</param-name>
-         <param-value>PLAIN</param-value>
+         <param-value>${yawl.mail.transportStrategy}</param-value>
          <description>
             The transport encryption used for connecting to the host. Choose between
              PLAIN, SSL (default) and TLS.
@@ -91,7 +91,7 @@
 
     <context-param>
         <param-name>mailUserName</param-name>
-        <param-value></param-value>
+        <param-value>${yawl.mail.mailUserName}</param-value>
         <description>
            A user name registered on the specified host. Can be left empty, to be
             provided at runtime.
@@ -100,7 +100,7 @@
 
     <context-param>
         <param-name>mailPassword</param-name>
-        <param-value></param-value>
+        <param-value>${yawl.mail.mailPassword}</param-value>
         <description>
            The password of the user name specified above. Can be left empty, to be
             provided at runtime.
@@ -109,7 +109,7 @@
 
     <context-param>
         <param-name>senderName</param-name>
-        <param-value></param-value>
+        <param-value>${yawl.mail.senderName}</param-value>
         <description>
            The name of the sender. Can be left empty, to be provided at runtime.
         </description>
@@ -117,7 +117,7 @@
 
     <context-param>
         <param-name>senderAddress</param-name>
-        <param-value></param-value>
+        <param-value>${yawl.mail.senderAddress}</param-value>
         <description>
            A email address of the sender. Can be left empty, to be provided at runtime.
         </description>
