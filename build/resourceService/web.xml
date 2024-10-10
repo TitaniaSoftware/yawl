@@ -21,7 +21,7 @@
 
     <context-param>
         <param-name>InterfaceB_BackEnd</param-name>
-        <param-value>http://localhost:${yawl.tomcat.port}/yawl/ib</param-value>
+        <param-value>http://localhost:8080/yawl/ib</param-value>
         <description>
             The URL of the engine's interface B.
         </description>
@@ -295,7 +295,7 @@
 
      <context-param>
         <param-name>CostService_BackEnd</param-name>
-        <param-value>http://localhost:${yawl.tomcat.port}/costService/gateway</param-value>
+        <param-value>http://localhost:8080/costService/gateway</param-value>
         <description>
            The URL of the cost service.
         </description>
@@ -306,31 +306,18 @@
 
      <context-param>
         <param-name>DocStore_BackEnd</param-name>
-        <param-value>http://localhost:${yawl.tomcat.port}/documentStore/</param-value>
+        <param-value>http://localhost:8080/documentStore/</param-value>
         <description>
            The URL of the document store.
         </description>
      </context-param>
-
-    <!-- This param, when available, enables the worklet exception
-         service add-ins to the worklist. If the exception service
-         is enabled in the engine, then this param should also be
-         made available. If it is disabled in the engine, the
-         entire context-param should be commented out. -->
-    <context-param>
-       <param-name>InterfaceX_BackEnd</param-name>
-       <param-value>http://localhost:${yawl.tomcat.port}/workletService</param-value>
-       <description>
-          The URL of the worklet exception service.
-       </description>
-    </context-param>
 
     <!-- This param, when available, enables scheduling announcements to a
          scheduling service listening on Interface S. -->
 <!--
     <context-param>
        <param-name>InterfaceS_BackEnd</param-name>
-       <param-value>http://localhost:${yawl.tomcat.port}/schedulingService</param-value>
+       <param-value>http://localhost:8080/schedulingService</param-value>
        <description>
           The URL of the scheduling service.
        </description>

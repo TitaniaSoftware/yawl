@@ -45,7 +45,7 @@
 
     <context-param>
         <param-name>DefaultWorklist</param-name>
-        <param-value>http://localhost:${yawl.tomcat.port}/resourceService/ib#resource</param-value>
+        <param-value>http://localhost:8080/resourceService/ib#resource</param-value>
         <description>
             The URL and password (separated by a hash) of the default worklist handler
             (by default set to the Resource Service). This is the service that handles
@@ -166,19 +166,19 @@
         </description>
 	</context-param>
 
-    <context-param>
-        <param-name>ObserverGateway</param-name>
-        <!-- param-value>com.titania.harp.workflow.TitaniaObserver</param-value -->
-        <param-value></param-value>
-        <description>
-            The class name of an ObserverGateway implementation. Multiple
-            implementations can be separated with semi-colons ';'
-        </description>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>ObserverGateway</param-name>-->
+        <!--<param-value></param-value>-->
+        <!--<description>-->
+            <!--The class name of an ObserverGateway implementation. Multiple-->
+            <!--implementations can be separated with semi-colons ';'-->
+        <!--</description>-->
+    <!--</context-param>-->
+
 
     <!--<context-param>-->
         <!--<param-name>InterfaceXListener</param-name>-->
-        <!--<param-value>http://localhost:${yawl.tomcat.port}/costService/ix</param-value>-->
+        <!--<param-value>http://localhost:8080/costService/ix</param-value>-->
         <!--<description>-->
             <!--This value provides the URI of an Interface X listening service.-->
             <!--Multiple uris can be specified, separated by semi-colons ';'-->
