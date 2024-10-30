@@ -21,7 +21,6 @@ package org.yawlfoundation.yawl.mailService;
 import org.apache.logging.log4j.LogManager;
 import org.yawlfoundation.yawl.util.StringUtil;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,13 +38,6 @@ import java.io.IOException;
 
 public class MailServiceGateway extends HttpServlet {
 	
-	private String getSetting(String name) {
-		String val = System.getProperty("yawl.mail." + name);
-		if (val == null) {
-			val = getServletContext().getInitParameter(name);
-		}
-		return val;
-	}
 
 
     /** Read settings from web.xml and use them to initialise the service */
@@ -79,4 +71,13 @@ public class MailServiceGateway extends HttpServlet {
         doPost(req, res);                                // redirect all GETs to POSTs
     }
 
+
+    private String getSetting(String name) {
+        String value = System.getProperty("yawl.mail." + name);
+        if (value == null) {
+            value = getServletContext().getInitParameter(name);
+}
+        return value;
+    }
+    
 }

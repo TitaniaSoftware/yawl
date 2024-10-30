@@ -77,6 +77,7 @@ import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.YVerificationHandler;
 
 import net.sf.saxon.s9api.SaxonApiException;
+import java.util.stream.Collectors;
 
 /**
  * A superclass of any type of task in the YAWL language.
@@ -114,9 +115,11 @@ public abstract class YTask extends YExternalNetElement {
 
     // input data storage
     private final Map<YIdentifier, Element> _caseToDataMap = new HashMap<YIdentifier, Element>();
-    private Iterator _multiInstanceSpecificParamsIterator;
+    private Iterator<Content> _multiInstanceSpecificParamsIterator;
+
+    // output data storage
     private Map<String, Element> _localVariableNameToReplaceableOutputData;
-    private Document _groupedMultiInstanceOutputData;
+    private GroupedMIOutputData _groupedMultiInstanceOutputData;
 
     // Reset net association
     private E2WFOJNet _resetNet;
@@ -198,6 +201,12 @@ public abstract class YTask extends YExternalNetElement {
     public boolean isMultiInstance() {
 	return _multiInstAttr != null && _multiInstAttr.isMultiInstance();
     }
+
+    // called from YEngineRestorer
+    public void setGroupedMultiInstanceOutputData(GroupedMIOutputData data) {
+        _groupedMultiInstanceOutputData = data;
+    }
+
 
     public String getPredicate(YExternalNetElement netElement) {
 	YFlow flow = getPostsetFlow(netElement);
@@ -328,7 +337,7 @@ public abstract class YTask extends YExternalNetElement {
 
 	    childIdentifiers.add(childID);
 	}
-	prepareDataDocsForTaskOutput();
+        prepareDataDocsForTaskOutput(pmgr);
 
 	// contract: all task presetElements are conditions
 	switch (_joinType) {
@@ -361,15 +370,17 @@ public abstract class YTask extends YExternalNetElement {
     }
 
     /* changed to public for persistence */
-    public void prepareDataDocsForTaskOutput() {
+    public void prepareDataDocsForTaskOutput(YPersistenceManager pmgr) throws YPersistenceException {
 	if (null == getDecompositionPrototype()) {
 	    return;
 	}
-	_groupedMultiInstanceOutputData = new Document();
-
-	_groupedMultiInstanceOutputData
-		.setRootElement(new Element(getDecompositionPrototype().getRootDataElementName()));
-
+        if (isMultiInstance()) {
+            _groupedMultiInstanceOutputData = new GroupedMIOutputData(this._i, getID(),
+                    getDecompositionPrototype().getRootDataElementName());
+            if (pmgr != null) {               // null when called from YEngineRestorer
+                pmgr.storeObjectFromExternal(_groupedMultiInstanceOutputData);
+            }
+        }
 	_localVariableNameToReplaceableOutputData = new HashMap<String, Element>();
     }
 
@@ -380,7 +391,7 @@ public abstract class YTask extends YExternalNetElement {
 	    throw new RuntimeException(this + " does not allow dynamic instance creation.");
 	}
 	if (t_addEnabled(siblingWithPermission)) {
-	    List<Element> newData = new Vector<Element>();
+            List<Content> newData = new ArrayList<>();
 	    newData.add(newInstanceData);
 	    _multiInstanceSpecificParamsIterator = newData.iterator();
 	    YIdentifier newInstance = createFiredIdentifier(pmgr);
@@ -397,25 +408,23 @@ public abstract class YTask extends YExternalNetElement {
 		&& _mi_active.getIdentifiers().size() < _multiInstAttr.getMaxInstances();
     }
 
-    private long determineHowManyInstancesToCreate() throws YDataStateException, YQueryException {
+    // public because this is also called from YEngineRestorer to rebuild the iterator
+    public long determineHowManyInstancesToCreate() throws YDataStateException, YQueryException {
 	if (!isMultiInstance()) {
 	    return 1;
-	}
-	int max = _multiInstAttr.getMaxInstances();
-	int min = _multiInstAttr.getMinInstances();
-	String queryString = getPreSplittingMIQuery();
-	Element dataToSplit = evaluateTreeQuery(queryString, _net.getInternalDataDocument());
-	if (dataToSplit == null) {
-	    throw new YDataQueryException(queryString, dataToSplit, this.getID(),
-		    "No data available for MI splitting at task start");
 	}
 
 	generateBeginReport1();
 
-	List multiInstanceList = evaluateListQuery(_multiInstAttr.getMISplittingQuery(), dataToSplit);
+        List<Content> multiInstanceList = splitStartingDataForMultiInstances();
 	int listSize = multiInstanceList.size();
+        int max = _multiInstAttr.getMaxInstances();
+        int min = _multiInstAttr.getMinInstances();
 	if (listSize > max || listSize < min) {
-	    throw new YDataQueryException(_multiInstAttr.getMISplittingQuery(), dataToSplit, this.getID(),
+            Element dataToSplit = evaluateTreeQuery(getPreSplittingMIQuery(),
+                    _net.getInternalDataDocument());
+            throw new YDataQueryException(
+                    _multiInstAttr.getMISplittingQuery(), dataToSplit, this.getID(),
 		    String.format(
 			    "The number of instances produced by MI split (%d) is %s than "
 				    + "the %s instance bound specified (%d).",
@@ -426,6 +435,45 @@ public abstract class YTask extends YExternalNetElement {
 	return listSize;
     }
 
+
+    // on restore, work items are readded unordered. This method is called from
+    // YEngineRestorer to correctly order items with their starting data
+    public void sortMultiInstanceStartingData() {
+        try {
+            _multiInstanceSpecificParamsIterator = splitStartingDataForMultiInstances().iterator();
+
+            List<YIdentifier> sortedIDs = new ArrayList<>(_i.get_children())
+                    .stream().sorted(new Comparator<YIdentifier>() {
+                        @Override
+                        public int compare(YIdentifier o1, YIdentifier o2) {
+                            return o1.toString().compareTo(o2.toString());
+                        }
+                    }).collect(Collectors.toList());
+
+            for (YIdentifier id : sortedIDs) {
+                if (id.getLocations().isEmpty()) continue;     // don't include parents
+                _caseToDataMap.put(id, getStartingDataSnapshot());
+            }
+        }
+        catch (YQueryException | YDataStateException | YStateException e) {
+            logger.warn("Failed to sort restored MI starting data");
+        }
+    }
+
+
+    private List<Content> splitStartingDataForMultiInstances()
+            throws YQueryException, YDataQueryException {
+        String queryString = getPreSplittingMIQuery();
+        Element dataToSplit = evaluateTreeQuery(queryString, _net.getInternalDataDocument());
+        if (dataToSplit == null) {
+            throw new YDataQueryException(queryString, dataToSplit, this.getID(),
+                    "No data available for MI splitting at task start");
+        }
+
+        return evaluateListQuery(_multiInstAttr.getMISplittingQuery(), dataToSplit);
+    }
+
+    
     private void generateBeginReport1() {
 	logger.debug("\n\nYTask::firing");
 	logger.debug("\ttaskID = {}", getID());
@@ -475,8 +523,10 @@ public abstract class YTask extends YExternalNetElement {
 		}
 
 		if (query.equals(getPreJoiningMIQuery())) {
-		    _groupedMultiInstanceOutputData.getRootElement().addContent(queryResultElement.clone());
-		} else {
+                    _groupedMultiInstanceOutputData.addStaticContent(queryResultElement);
+                    pmgr.updateObjectExternal(_groupedMultiInstanceOutputData);
+                }
+                else {
 		    _localVariableNameToReplaceableOutputData.put(localVarThatQueryResultGetsAppliedTo,
 			    queryResultElement);
 		}
@@ -492,8 +542,7 @@ public abstract class YTask extends YExternalNetElement {
 			 * MF: Skip schema checking if we have an empty XQuery result to allow us to
 			 * effectively blank-out a net variable.
 			 */
-			if ((queryResultElement.getChildren().size() != 0
-				|| (queryResultElement.getContent().size() != 0))) {
+                        if ((!queryResultElement.getChildren().isEmpty() || (!queryResultElement.getContent().isEmpty()))) {
 			    validator.validate(var, tempRoot, getID());
 			}
 		    } catch (YDataValidationException e) {
@@ -683,6 +732,9 @@ public abstract class YTask extends YExternalNetElement {
 	}
 	i.removeLocation(pmgr, this);
 	_caseToDataMap.remove(i);
+        if (_groupedMultiInstanceOutputData != null) {
+            pmgr.deleteObjectFromExternal(_groupedMultiInstanceOutputData);
+        }
 	if (logger.isDebugEnabled()) {
 	    logger.debug("YTask::{}.exit() caseID({}) " + "_parentDecomposition.getInternalDataDocument() = {}",
 		    getID(), _i, JDOMUtil.documentToString(_net.getInternalDataDocument()));
@@ -705,7 +757,9 @@ public abstract class YTask extends YExternalNetElement {
 	if (this.isMultiInstance() && _multiInstAttr.getMIJoiningQuery() != null) {
 	    Element result;
 
-	    result = evaluateTreeQuery(_multiInstAttr.getMIJoiningQuery(), _groupedMultiInstanceOutputData);
+            result = evaluateTreeQuery(
+                    _multiInstAttr.getMIJoiningQuery(),
+                    _groupedMultiInstanceOutputData.getDataDoc());
 	    if (_net.getSpecification().getSchemaVersion().isSchemaValidating()) {
 		// if betaversion > beta3 then validate the results of the aggregation query
 		String uniqueInstanceOutputQuery = _multiInstAttr.getMIFormalOutputQuery();
@@ -719,7 +773,7 @@ public abstract class YTask extends YExternalNetElement {
 		} catch (YDataValidationException e) {
 
 		    YDataStateException f = new YDataStateException(_multiInstAttr.getMIJoiningQuery(),
-			    _groupedMultiInstanceOutputData.getRootElement(),
+                            _groupedMultiInstanceOutputData.getDataDoc().getRootElement(),
 			    _net.getSpecification().getDataValidator().getSchema(), result, e.getErrors(), getID(),
 			    "BAD PROCESS DEFINITION. "
 				    + "Data extraction failed schema validation at task completion.");
@@ -727,8 +781,10 @@ public abstract class YTask extends YExternalNetElement {
 		    throw f;
 		}
 	    }
-	    if (logger.isDebugEnabled())
-		generateExitReports2(_multiInstAttr.getMIJoiningQuery(), _groupedMultiInstanceOutputData, result);
+            if (logger.isDebugEnabled()) generateExitReports2(
+                    _multiInstAttr.getMIJoiningQuery(),
+                    _groupedMultiInstanceOutputData.getDataDoc(),
+                    result);
 	    _net.addData(pmgr, result);
 	    if (logger.isDebugEnabled())
 		generateExitReports3();
@@ -967,7 +1023,8 @@ public abstract class YTask extends YExternalNetElement {
 		if (_multiInstanceSpecificParamsIterator == null)
 		    continue;
 
-		Element specificMIData = (Element) _multiInstanceSpecificParamsIterator.next();
+                Element specificMIData = _multiInstanceSpecificParamsIterator.hasNext() ?
+                        (Element) _multiInstanceSpecificParamsIterator.next() : null;
 
 		if (specificMIData != null) {
 		    if (YEngine.getInstance().generateUIMetaData()) {
@@ -1148,10 +1205,14 @@ public abstract class YTask extends YExternalNetElement {
 
     private List evaluateListQuery(String query, Element element) throws YQueryException {
 
+    private List<Content> evaluateListQuery(String query, Element element)
+            throws YQueryException {
+
 	try {
 	    logger.debug("Evaluating XQuery: " + query);
 	    return SaxonUtil.evaluateListQuery(query, element);
-	} catch (SaxonApiException e) {
+        }
+        catch (SaxonApiException e) {
 	    YQueryException de = new YQueryException(e.getMessage());
 	    de.setStackTrace(e.getStackTrace());
 	    throw de;
