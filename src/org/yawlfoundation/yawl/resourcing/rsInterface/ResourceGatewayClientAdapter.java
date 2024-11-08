@@ -18,21 +18,36 @@
 
 package org.yawlfoundation.yawl.resourcing.rsInterface;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.resourcing.AbstractSelector;
 import org.yawlfoundation.yawl.resourcing.codelets.CodeletInfo;
 import org.yawlfoundation.yawl.resourcing.datastore.orgdata.ResourceDataSet;
 import org.yawlfoundation.yawl.resourcing.jsf.comparator.ParticipantNameComparator;
-import org.yawlfoundation.yawl.resourcing.resource.*;
+import org.yawlfoundation.yawl.resourcing.resource.AbstractResourceAttribute;
+import org.yawlfoundation.yawl.resourcing.resource.Capability;
+import org.yawlfoundation.yawl.resourcing.resource.OrgGroup;
+import org.yawlfoundation.yawl.resourcing.resource.Participant;
+import org.yawlfoundation.yawl.resourcing.resource.Position;
+import org.yawlfoundation.yawl.resourcing.resource.Role;
+import org.yawlfoundation.yawl.resourcing.resource.UserPrivileges;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanCategory;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanResource;
 import org.yawlfoundation.yawl.util.JDOMUtil;
 import org.yawlfoundation.yawl.util.XNode;
 import org.yawlfoundation.yawl.util.XNodeParser;
-
-import java.io.IOException;
-import java.util.*;
 
 /**
  * This adapter class adds a transformation layer to the resource gateway client,
@@ -1240,7 +1255,7 @@ public class ResourceGatewayClientAdapter {
     public String addParticipant(Participant p, boolean encryptPassword, String handle)
             throws IOException {
         return _rgclient.addParticipant(p.getUserID(), p.getPassword(), encryptPassword,
-                p.getLastName(), p.getFirstName(), p.isAdministrator(),
+                p.getLastName(), p.getFirstName(), p.getMail(), p.isAdministrator(),
                 p.getDescription(), p.getNotes(), handle);
     }
 
@@ -1385,7 +1400,7 @@ public class ResourceGatewayClientAdapter {
     public String updateParticipant(Participant p, boolean encryptPassword, String handle)
             throws IOException {
         return _rgclient.updateParticipant(p.getID(), p.getUserID(), p.getPassword(),
-                encryptPassword, p.getLastName(), p.getFirstName(), p.isAdministrator(),
+                encryptPassword, p.getLastName(), p.getFirstName(), p.getMail(), p.isAdministrator(),
                 p.getDescription(), p.getNotes(), handle);
     }
 
