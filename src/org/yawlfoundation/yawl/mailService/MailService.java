@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -20,11 +20,14 @@ package org.yawlfoundation.yawl.mailService;
 
 import java.io.IOException;
 
-import javax.mail.Message;
-
+import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Element;
+import org.simplejavamail.MailException;
 import org.simplejavamail.email.Email;
+import org.simplejavamail.email.EmailBuilder;
+import org.simplejavamail.email.EmailPopulatingBuilder;
 import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.mailer.config.TransportStrategy;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
@@ -32,7 +35,7 @@ import org.yawlfoundation.yawl.engine.interfce.interfaceB.InterfaceBWebsideContr
 import org.yawlfoundation.yawl.util.StringUtil;
 
 /**
- * A service that provides for emails to be sent by tasks
+ * A simple service that provides for status updates to the YAWL Twitter account
  *
  * @author Michael Adams
  * @date 25/07/2009
@@ -57,18 +60,23 @@ public class MailService extends InterfaceBWebsideController {
 
     public void handleEnabledWorkItemEvent(WorkItemRecord wir) {
 	_logger.debug(String.format("enter handleEnabledWorkItemEvent() with workitemId=%s", wir.getID()));
-	try {
 
+	try {
 	    // connect only if not already connected
 	    if (!connected())
 		_handle = connect(engineLogonName, engineLogonPassword);
 
+	    _logger.debug("[handleEnabledWorkItemEvent] connected");
+
 	    // checkout ... process ... checkin
 	    wir = checkOut(wir.getID(), _handle);
+
+	    _logger.debug("[handleEnabledWorkItemEvent] successfully checkout out {}", wir.getID());
 	    String result = sendMail(wir);
 	    checkInWorkItem(wir.getID(), wir.getDataList(), getOutputData(wir.getTaskID(), result), null, _handle);
-	} catch (Exception ioe) {
-	    ioe.printStackTrace();
+	} catch (Exception e) {
+	    // e.printStackTrace();
+	    _logger.catching(e);
 	}
     }
 
@@ -86,17 +94,17 @@ public class MailService extends InterfaceBWebsideController {
 	contentParam.addAttribute("isCDATA", "true");
 
 	params[0] = createParameter(YParameter._INPUT_PARAM_TYPE, "string", "senderName",
-		"The name of the person or system who is sending the email", false);
+		"The name of the person or system who is sending the email.", true);
 	params[1] = createParameter(YParameter._INPUT_PARAM_TYPE, "string", "senderAddress",
-		"The email address of the person or system who is sending the email", false);
+		"The email addr-spec of the person or system who is sending the email.", false);
 	params[2] = createParameter(YParameter._INPUT_PARAM_TYPE, "string", "recipientName",
-		"The name of the person to send the email to", true);
+		"The names of the people to send the email to, as a comma-separated list.", true);
 	params[3] = createParameter(YParameter._INPUT_PARAM_TYPE, "string", "recipientAddress",
-		"The email address to send the email to", false);
+		"The email addresses to send the email to, as an RFC5322 comma-separated list.", false);
 	params[4] = createParameter(YParameter._INPUT_PARAM_TYPE, "string", "CC",
-		"The email address to CC the email to", true);
+		"The email addresses to CC the email to, as an RFC5322 commas-separated address-list.", true);
 	params[5] = createParameter(YParameter._INPUT_PARAM_TYPE, "string", "BCC",
-		"The email address to BCC the email to", true);
+		"The email addresses to BCC the email to, as an RFC5322 comma-separated address-list.", true);
 	params[6] = createParameter(YParameter._INPUT_PARAM_TYPE, "string", "subject", "The subject of the email",
 		false);
 	params[7] = contentParam;
@@ -148,6 +156,7 @@ public class MailService extends InterfaceBWebsideController {
 
     private String sendMail(WorkItemRecord wir) {
 	_logger.debug(String.format("enter sendMail(WorkItemRecord) with workitemId=%s", wir.getID()));
+
 	MailSettings settings;
 	try {
 	    settings = buildSettings(wir);
@@ -157,20 +166,30 @@ public class MailService extends InterfaceBWebsideController {
 	}
 
 	Email email = buildEmail(settings);
+
 	return sendMail(email, settings);
     }
 
     private String sendMail(Email email, MailSettings settings) {
-        try {
-            new Mailer(settings.host, settings.port, settings.user,
-                    settings.password, settings.strategy)
-                    .sendMail(email);
-            return "Mail successfully sent.";
-        }
-        catch (Exception e) {
-            _logger.error("Error sending mail.", e.getCause());
-            return e.getMessage();
-        }
+	_logger.debug(String.format("Sending mail with host=%s, port=%s, user=%s, password=%s, strategy=%s",
+		settings.host, settings.port, settings.user,
+		StringUtils.isNotEmpty(settings.password) ? "***SECRET***" : "", settings.strategy));
+	try {
+	    Mailer m = MailerBuilder
+		    .withSMTPServer(settings.host, Integer.valueOf(settings.port), settings.user,
+			    StringUtils.stripToNull(settings.password))
+		    .withTransportStrategy(settings.strategy).buildMailer();
+	    _logger.debug("[sendMail] successfully built Mailer");
+	    m.sendMail(email);
+	    _logger.debug(String.format("[sendMail] successfully sent mail id %s", email.getId()));
+	    return String.format("Mail id <%s> successfully sent.", email.getId());
+	} catch (MailException me) {
+	    _logger.error("exception sending mail", me);
+	    return me.getMessage();
+	} catch (Exception e) {
+	    _logger.error("unknown exception sending mail", e);
+	    return e.getMessage();
+	}
     }
 
     private MailSettings buildSettings(WorkItemRecord wir) throws MailSettingsException {
@@ -179,6 +198,7 @@ public class MailService extends InterfaceBWebsideController {
 	Element data = wir.getDataList();
 	if (data == null)
 	    throw new MailSettingsException("Work item contains no data.");
+
 	MailSettings settings = new MailSettings();
 	settings.host = getSetting(data, "host");
 	settings.port = getPort(data);
@@ -197,31 +217,39 @@ public class MailService extends InterfaceBWebsideController {
     }
 
     private Email buildEmail(MailSettings settings) {
-	Email email = new Email();
-	addRecipients(email, settings);
-	email.setFromAddress(settings.fromName, settings.fromAddress);
-	email.setSubject(settings.subject);
-	if (settings.content.contains("<")) {
-	    email.setTextHTML(settings.content);
-	} else {
-	    email.setText(settings.content); // plain text
+
+	_logger.debug("start buildEmail(MailSettings)");
+	_logger.debug(String.format("[buildEmail] settings: from=%s, fromAddress=%s, to=%s, toAddress=%s, subject=%s",
+		settings.fromName, settings.fromAddress, settings.toName, settings.toAddress, settings.subject));
+
+	String[] toNames = StringUtils.split(StringUtils.defaultString(settings.toName), ",;");
+
+	String[] toAddresses = StringUtils.split(settings.toAddress, ",;");
+
+	EmailPopulatingBuilder emailBuilder = EmailBuilder.startingBlank();
+	Email email = new Email(emailBuilder);
+
+	try {
+	    emailBuilder = emailBuilder.from(StringUtils.defaultString(settings.fromName), settings.fromAddress)
+		    .withSubject(settings.subject).withPlainText(settings.content).withHTMLText(settings.content);
+	    for (int i = 0; i < toAddresses.length; i++) {
+		emailBuilder = emailBuilder.to(i < toNames.length ? toNames[i] : "", toAddresses[i]);
+	    }
+	    if (StringUtils.isNotBlank(settings.ccAddress)) {
+		emailBuilder = emailBuilder.ccMultiple(settings.ccAddress);
+	    }
+	    if (StringUtils.isNotBlank(settings.bccAddress)) {
+		emailBuilder = emailBuilder.bccMultiple(settings.bccAddress);
+	    }
+
+	    _logger.debug("[buildEmail] emailBuilder fully populated...building email");
+	    email = emailBuilder.buildEmail();
+	} catch (Exception e) {
+	    _logger.catching(e);
 	}
-	_logger.debug(String.format("Built email as:\n%s", email.toString()));
+
+	_logger.debug("returning from buildEmail(MailSettings)");
 	return email;
-    }
-
-    private void addRecipients(Email email, MailSettings settings) {
-	addRecipients(email, settings.toName, settings.toAddress, Message.RecipientType.TO);
-	addRecipients(email, null, settings.ccAddress, Message.RecipientType.CC);
-	addRecipients(email, null, settings.bccAddress, Message.RecipientType.BCC);
-    }
-
-    private void addRecipients(Email email, String name, String address,
-                              Message.RecipientType mailType) {
-        if (! StringUtil.isNullOrEmpty(address)) {
-            if (name == null) name = "";
-            email.addRecipients(name, mailType, address);
-        }
     }
 
     // settings not optional by default
@@ -251,9 +279,9 @@ public class MailService extends InterfaceBWebsideController {
 	if (StringUtil.isNullOrEmpty(strategyString))
 	    return _defaults.strategy;
 	if ("PLAIN".equalsIgnoreCase(strategyString))
-	    return TransportStrategy.SMTP_PLAIN;
+	    return TransportStrategy.SMTP;
 	if ("SSL".equalsIgnoreCase(strategyString))
-	    return TransportStrategy.SMTP_SSL;
+	    return TransportStrategy.SMTPS;
 	if ("TLS".equalsIgnoreCase(strategyString))
 	    return TransportStrategy.SMTP_TLS;
 
@@ -292,7 +320,7 @@ public class MailService extends InterfaceBWebsideController {
     private class MailSettings {
 	String host = null;
 	int port = 25;
-	TransportStrategy strategy = TransportStrategy.SMTP_SSL;
+	TransportStrategy strategy = TransportStrategy.SMTPS;
 	String user = null;
 	String password = null;
 	String fromName = null;
@@ -332,6 +360,8 @@ public class MailService extends InterfaceBWebsideController {
     }
 
     private class MailSettingsException extends Exception {
+	private static final long serialVersionUID = 1L;
+
 	MailSettingsException(String msg) {
 	    super(msg);
 	}
