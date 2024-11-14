@@ -20,6 +20,7 @@ package org.yawlfoundation.yawl.resourcing.rsInterface;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,13 +38,21 @@ import org.yawlfoundation.yawl.engine.interfce.Marshaller;
 import org.yawlfoundation.yawl.engine.interfce.ServletUtils;
 import org.yawlfoundation.yawl.engine.interfce.SpecificationData;
 import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
-import org.yawlfoundation.yawl.resourcing.*;
+import org.yawlfoundation.yawl.resourcing.QueueSet;
+import org.yawlfoundation.yawl.resourcing.ResourceManager;
+import org.yawlfoundation.yawl.resourcing.ResourceMap;
+import org.yawlfoundation.yawl.resourcing.TaskPrivileges;
+import org.yawlfoundation.yawl.resourcing.WorkQueue;
 import org.yawlfoundation.yawl.resourcing.datastore.orgdata.ResourceDataSet;
 import org.yawlfoundation.yawl.resourcing.resource.OrgGroup;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
 import org.yawlfoundation.yawl.resourcing.resource.UserPrivileges;
 import org.yawlfoundation.yawl.resourcing.util.GadgetFeeder;
-import org.yawlfoundation.yawl.util.*;
+import org.yawlfoundation.yawl.util.PasswordEncryptor;
+import org.yawlfoundation.yawl.util.StringUtil;
+import org.yawlfoundation.yawl.util.XNode;
+import org.yawlfoundation.yawl.util.XNodeParser;
+import org.yawlfoundation.yawl.util.YPredicateParser;
 
 /**
  * The WorkQueue Gateway provides a gateway (or a set of API) between the Resource
@@ -100,6 +109,14 @@ public class WorkQueueGateway extends HttpServlet {
         } else if (action.equalsIgnoreCase("connect")) {
             String userid = req.getParameter("userid");
             String password = req.getParameter("password");
+	    String encrypt = req.getParameter("encrypt");
+	    if ((encrypt != null) && encrypt.equalsIgnoreCase("true")) {
+		try {
+		    password = PasswordEncryptor.encrypt(password);
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+		    // nothing to do - call will return 'incorrect password'
+		}
+	    }
             int interval = req.getSession().getMaxInactiveInterval();
             result = _rm.serviceConnect(userid, password, interval);
         } else if (action.equalsIgnoreCase("userlogin")) {
@@ -258,9 +275,6 @@ public class WorkQueueGateway extends HttpServlet {
             result = _marshaller.marshallSpecificationData(specData);
         } else if (action.equals("getRunningCases")) {
             result = _rm.getClients().getRunningCases(
-                    new YSpecificationID(specid, specversion, specuri));
-        } else if (action.equals("getCases")) {
-            result = _rm.getClients().getCases(
                     new YSpecificationID(specid, specversion, specuri));
         } else if (action.equals("getDecompID")) {
             WorkItemRecord wir = _rm.getWorkItemCache().get(itemid);
