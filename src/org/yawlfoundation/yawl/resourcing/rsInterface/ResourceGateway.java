@@ -316,6 +316,10 @@ public class ResourceGateway extends YHttpServlet {
                 String lastName = req.getParameter("lastname");
                 String firstName = req.getParameter("firstname");
                 Participant p = new Participant(lastName, firstName, userid);
+		String mail = req.getParameter("mail");
+		if (mail != null) {
+		  p.setMail(mail);
+		}
                 p.setAdministrator(req.getParameter("admin").equalsIgnoreCase("true"));
                 String encrypt = req.getParameter("encrypt");
                 if (encrypt != null) {
