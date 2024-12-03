@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2020 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2024 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -18,17 +18,16 @@
 
 package org.yawlfoundation.yawl.resourcing.codelets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * @author Michael Adams
- * @date 7/03/2011
+ * @author Paul Tyson <paul.tyson@oberontech.com>
  */
 public class SupervisorInfo extends AbstractCodelet {
 

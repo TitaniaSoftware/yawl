@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2024 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -31,8 +31,7 @@ import org.yawlfoundation.yawl.resourcing.resource.Participant;
 import org.yawlfoundation.yawl.resourcing.resource.Position;
 
 /**
- * @author Paul Tyson paul.tyson@oberontech.com
- * @date 2020-02-24
+ * @author Paul Tyson <paul.tyson@oberontech.com>
  */
 public class DirectReports extends AbstractCodelet {
 
