@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,6 +35,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,7 +79,6 @@ import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.YVerificationHandler;
 
 import net.sf.saxon.s9api.SaxonApiException;
-import java.util.stream.Collectors;
 
 /**
  * A superclass of any type of task in the YAWL language.
@@ -1202,8 +1203,6 @@ public abstract class YTask extends YExternalNetElement {
 	    throw qe;
 	}
     }
-
-    private List evaluateListQuery(String query, Element element) throws YQueryException {
 
     private List<Content> evaluateListQuery(String query, Element element)
             throws YQueryException {
