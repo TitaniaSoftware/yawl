@@ -32,6 +32,7 @@ import org.simplejavamail.mailer.config.TransportStrategy;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
 import org.yawlfoundation.yawl.engine.interfce.interfaceB.InterfaceBWebsideController;
+import org.yawlfoundation.yawl.util.MailSettings;
 import org.yawlfoundation.yawl.util.StringUtil;
 
 /**
@@ -47,7 +48,7 @@ public class MailService extends InterfaceBWebsideController {
     private String _handle = null;
 
     private static MailService _instance;
-    private MailSettings _defaults = new MailSettings();
+    private final MailSettings _defaults = new MailSettings();
 
     private MailService() {
     }
@@ -152,6 +153,37 @@ public class MailService extends InterfaceBWebsideController {
 	_defaults.fromAddress = address;
     }
 
+    protected String sendMail(String toName, String toAddress, String ccAddress,
+                              String bccAddress, String subject, String content) {
+
+        // set settings from mix of defaults and above params
+        MailSettings settings = _defaults.copyOf();
+        settings.toName = toName;
+        settings.toAddress = toAddress;
+        settings.ccAddress = ccAddress;
+        settings.bccAddress = bccAddress;
+        settings.subject = subject;
+        settings.content = content;
+        
+        return sendMail(settings);
+    }
+
+
+    protected String sendMail(String settingsAsXml) {
+        MailSettings settings = new MailSettings();
+        settings.fromXML(settingsAsXml);
+        if (settings.host == null) settings.host = _defaults.host;
+        if (settings.port < 25) settings.port = _defaults.port;
+        if (settings.strategy == null) settings.strategy = _defaults.strategy;
+        if (settings.user == null) settings.user = _defaults.user;
+        if (settings.password == null) settings.password = _defaults.password;
+        if (settings.fromName == null) settings.fromName = _defaults.fromName;;
+        if (settings.fromAddress == null) settings.fromAddress = _defaults.fromAddress;
+
+        return sendMail(settings);
+    }
+
+
     // ********************* PRIVATE METHODS *************************************//
 
     private String sendMail(WorkItemRecord wir) {
@@ -165,10 +197,13 @@ public class MailService extends InterfaceBWebsideController {
 	    return mse.getMessage();
 	}
 
-	Email email = buildEmail(settings);
-
-	return sendMail(email, settings);
+        return sendMail(settings);
     }
+
+    private String sendMail(MailSettings settings) {
+        return sendMail(buildEmail(settings), settings);
+    }
+
 
     private String sendMail(Email email, MailSettings settings) {
 	_logger.debug(String.format("Sending mail with host=%s, port=%s, user=%s, password=%s, strategy=%s",
@@ -286,7 +321,7 @@ public class MailService extends InterfaceBWebsideController {
 	    return TransportStrategy.SMTP_TLS;
 
 	_logger.error("Unknown transport strategy ('" + strategyString + "'). " + "Fall back to default (SSL).");
-	return _defaults.strategy;
+        return null; //defaults.strategy;
     }
 
     private TransportStrategy getTransportStrategy(Element data) {
@@ -317,53 +352,8 @@ public class MailService extends InterfaceBWebsideController {
 	return param;
     }
 
-    private class MailSettings {
-	String host = null;
-	int port = 25;
-	TransportStrategy strategy = TransportStrategy.SMTPS;
-	String user = null;
-	String password = null;
-	String fromName = null;
-	String fromAddress = null;
-	String toName = null;
-	String toAddress = null;
-	String ccAddress = null;
-	String bccAddress = null;
-	String subject = null;
-	String content = null;
-
-	String getSetting(String name) {
-	    if (name.equals("host"))
-		return host;
-	    if (name.equals("user"))
-		return user;
-	    if (name.equals("password"))
-		return password;
-	    if (name.equals("senderName"))
-		return fromName;
-	    if (name.equals("senderAddress"))
-		return fromAddress;
-	    if (name.equals("recipientName"))
-		return toName;
-	    if (name.equals("recipientAddress"))
-		return toAddress;
-	    if (name.equals("CC"))
-		return ccAddress;
-	    if (name.equals("BCC"))
-		return bccAddress;
-	    if (name.equals("subject"))
-		return subject;
-	    if (name.equals("content"))
-		return content;
-	    return null;
-	}
-    }
-
-    private class MailSettingsException extends Exception {
-	private static final long serialVersionUID = 1L;
-
-	MailSettingsException(String msg) {
-	    super(msg);
+    private static class MailSettingsException extends Exception {
+        MailSettingsException(String msg) { super(msg); }
 	}
     }
 

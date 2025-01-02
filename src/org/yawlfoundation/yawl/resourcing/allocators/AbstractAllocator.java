@@ -124,8 +124,39 @@ public abstract class AbstractAllocator extends AbstractSelector {
         }
         return pMap;
     }
-            
 
+
+    public Participant allocateOnStatus(Set<Participant> participants,
+                                         WorkItemRecord wir, EventLogger.event status) {
+        if (participants == null || participants.isEmpty()) {
+            return null;                                        // none in set
+        }
+        else if (participants.size() == 1) {
+            return participants.iterator().next();              // only one in set
+        }
+        else {                                                  // more than one in set
+            List events = getLoggedEvents(wir, status);
+            if (!events.isEmpty()) {
+                events.sort(new TimeDescComparator());
+                Map<String, Participant> pMap = participantSetToMap(participants);
+                for (Object o : events) {
+                    ResourceEvent event = (ResourceEvent) o;
+                    pMap.remove(event.get_resourceID());
+
+                    // found the part who was allocated this wir the longest time ago
+                    if (pMap.size() == 1) {
+                        return pMap.values().iterator().next();
+                    }
+                }
+
+                // still more the one in the set means they have never been allocated
+                participants = new HashSet<>(pMap.values());
+            }
+            return new RandomChoice().performAllocation(participants, wir);
+        }
+    }
+
+    
     /**
      * Gets from the cost service the cost per msec of each of the participants ids
      * listed for the work item
@@ -265,6 +296,16 @@ public abstract class AbstractAllocator extends AbstractSelector {
         boolean hasPair() { return ! ((fromEvent == null) || (toEvent == null)); }
 
         long getDuration() { return toEvent.get_timeStamp() - fromEvent.get_timeStamp(); }
+    }
+
+
+    // sorts events on timestamp descending (instead of the default ascending)
+    static class TimeDescComparator<Object> implements Comparator<Object> {
+        @Override
+        public int compare(Object o1, Object o2) {
+            return (int) (((ResourceEvent) o2).get_timeStamp() -
+                    ((ResourceEvent) o1).get_timeStamp());
+        }
     }
 
 

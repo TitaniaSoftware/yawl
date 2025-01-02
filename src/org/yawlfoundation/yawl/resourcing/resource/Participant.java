@@ -43,6 +43,7 @@ public class Participant extends AbstractResource implements Cloneable {
     // participant descriptive data
     private String _lastname ;
     private String _firstname ;
+    private String _email;
     private String _userID ;
     private String _password ;
     private String _mail;
@@ -51,6 +52,8 @@ public class Participant extends AbstractResource implements Cloneable {
     private Set<Role> _roles = new HashSet<Role>();
     private Set<Capability> _capabilities = new HashSet<Capability>();
     private UserPrivileges _privileges = new UserPrivileges(_resourceID) ;
+    private boolean _emailOnAllocation;
+    private boolean _emailOnOffer;
 
     // participant's work queues
     private QueueSet _qSet ;
@@ -86,11 +89,12 @@ public class Participant extends AbstractResource implements Cloneable {
     }
 
     public Participant(String lastname, String firstname, String userID,
-                       boolean isAdministrator, Set<Position> positions,
+                       String email, boolean isAdministrator, Set<Position> positions,
                        Set<Role> roles, Set<Capability> capabilities) {
         this(true) ;
         _lastname = lastname;
         _firstname = firstname;
+        _email = email;
         setUserID(userID) ;
         _isAdministrator = isAdministrator;
         _positions = positions;
@@ -126,6 +130,9 @@ public class Participant extends AbstractResource implements Cloneable {
         super.merge(p);
         _lastname = p.getLastName();
         _firstname = p.getFirstName();
+        setEmail(p.getEmail());
+        _emailOnAllocation = p.isEmailOnAllocation();
+        _emailOnOffer = p.isEmailOnOffer();
         setUserID(p.getUserID());
         _isAdministrator = p.isAdministrator();
         _password = p.getPassword();
@@ -135,7 +142,7 @@ public class Participant extends AbstractResource implements Cloneable {
         setCapabilities(p.getCapabilities());
 
         if (_privileges == null) _privileges = new UserPrivileges(_resourceID) ; 
-         _privileges.setValues(p.getUserPrivileges());
+        _privileges.setValues(p.getUserPrivileges());
     }
 
 
@@ -176,6 +183,19 @@ public class Participant extends AbstractResource implements Cloneable {
     public String getFullName() {
         return String.format( "%s %s", _firstname, _lastname);
     }
+
+
+    public String getEmail() { return _email; }
+
+    public void setEmail(String email) { _email = email; }
+    
+    public boolean isEmailOnAllocation() { return _emailOnAllocation; }
+
+    public void setEmailOnAllocation(boolean b) { _emailOnAllocation = b; }
+
+    public boolean isEmailOnOffer() { return _emailOnOffer; }
+
+    public void setEmailOnOffer(boolean b) { _emailOnOffer = b; }
 
 
     public String getUserID() { return _userID; }
@@ -448,6 +468,9 @@ public class Participant extends AbstractResource implements Cloneable {
         xml.append(StringUtil.wrapEscaped(_userID, "userid"));
         xml.append(StringUtil.wrapEscaped(_firstname, "firstname"));
         xml.append(StringUtil.wrapEscaped(_lastname, "lastname"));
+        xml.append(StringUtil.wrapEscaped(_email, "email"));
+        xml.append(StringUtil.wrapEscaped(String.valueOf(_emailOnAllocation), "isEmailOnAllocation")) ;
+        xml.append(StringUtil.wrapEscaped(String.valueOf(_emailOnOffer), "isEmailOnOffer")) ;
         xml.append(StringUtil.wrapEscaped(String.valueOf(_isAdministrator), "isAdministrator")) ;
         xml.append(StringUtil.wrapEscaped(String.valueOf(_mail), "mail")) ;
         xml.append(StringUtil.wrapEscaped(_description, "description"));
@@ -479,7 +502,10 @@ public class Participant extends AbstractResource implements Cloneable {
         setUserID(JDOMUtil.decodeEscapes(e.getChildText("userid")));
         setFirstName(JDOMUtil.decodeEscapes(e.getChildText("firstname")));
         setLastName(JDOMUtil.decodeEscapes(e.getChildText("lastname")));
-        setAdministrator(e.getChildText("isAdministrator").equals("true"));
+        setEmail(JDOMUtil.decodeEscapes(e.getChildText("email")));
+        setEmailOnAllocation(StringUtil.strToBoolean(e.getChildText("isEmailOnAllocation")));
+        setEmailOnOffer(StringUtil.strToBoolean(e.getChildText("isEmailOnOffer")));
+        setAdministrator(StringUtil.strToBoolean(e.getChildText("isAdministrator")));
         setDescription(JDOMUtil.decodeEscapes(e.getChildText("description")));
         setNotes(JDOMUtil.decodeEscapes(e.getChildText("notes")));
         setMail(e.getChildText("mail"));
@@ -492,5 +518,18 @@ public class Participant extends AbstractResource implements Cloneable {
     public String getMail() {
 	return _mail;
     }
+
+
+    protected void set_emailOnAllocation(Boolean b) {
+        _emailOnAllocation = b != null ? b : false;
+    }
+
+    protected Boolean get_emailOnAllocation() { return _emailOnAllocation; }
+
+    protected void set_emailOnOffer(Boolean b) {
+        _emailOnOffer = b != null ? b : false;
+    }
+
+    protected Boolean get_emailOnOffer() { return _emailOnOffer; }
 
 }

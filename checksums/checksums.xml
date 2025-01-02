@@ -2,9 +2,11 @@
 <!-- This file is used for auto-updating. PLEASE DO NOT MODIFY OR DELETE -->
 <checksums>
   <version>5.1</version>
-  <timestamp>2024-11-21 18.18.04</timestamp>
-  <lib hash="865cd9c8b965c077db85552a20df265b">
+  <timestamp>2024-12-30 08.04.15</timestamp>
+  <lib hash="56465b6f2ca7d30ab41551bbef9b9faf">
+    <file name="java-sdk-1.0.1.jar" md5="b9aa0aed59e34be1259c7444cc3558bb" size="159271" timestamp="2024-12-13T08:43:05" path="A"/>
     <file name="mail.jar" md5="ba58e757512f63775522d8e96f7a8e54" size="305434" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="courier-java-3.3.0.jar" md5="e7a93219b9c1d43e02f7b53fd5d0899f" size="1386836" timestamp="2024-12-14T08:40:32" path="A"/>
     <file name="jboss-logging-3.4.3.Final.jar" md5="b298d4b79e591843c1eb1458ea79f070" size="60782" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="json.jar" md5="66341753d595567be62f37135f6cd6ae" size="52032" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="axis-1.1RC2.jar" md5="d1a15dfa6c601013a79b22a4e5e05a65" size="1224774" timestamp="2024-02-26T14:47:25" path="A"/>
@@ -12,19 +14,24 @@
     <file name="webui.jar" md5="3a7164094815ac3d22d4de5716989229" size="4070046" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="hibernate-core-5.6.14.Final.jar" md5="ec54e7703232f55bdf9e340309ef6556" size="7502584" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="standard.jar" md5="65351d0487ad57edda9171bb3b46b98c" size="393259" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="jackson-datatype-jsr310-2.18.2.jar" md5="aaf3adb28aa9de74b3bb87118f93113f" size="132690" timestamp="2024-12-18T09:37:24" path="A"/>
     <file name="concurrent-1.3.4.jar" md5="f29b9d930d3426ebc56919eba10fbd4d" size="189284" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="mchange-commons-java-0.2.3.4.jar" md5="cc99f685b11309071e1e94fd758c372b" size="581295" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="xdb.jar" md5="fd036c0e7dd606c2582af783c2f61d8e" size="224750" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jaxb-impl.jar" md5="f97631ad1a29f726b5f81a670ecaed4a" size="787619" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="saxon9-dom.jar" md5="43b292289250700524ddd21d82e23f79" size="126167" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="gson-2.11.0.jar" md5="0c69b9199d3a4e6c34dc03619ff7feee" size="298435" timestamp="2024-12-13T09:15:17" path="A"/>
     <file name="saxon9-s9api.jar" md5="a6547f2d9f839978cf4c9c92ed01cf9f" size="127765" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jaxb-runtime-2.3.1.jar" md5="848098e3eda0d37738d51a7acacd8e95" size="1093432" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="jackson-annotations-2.18.2.jar" md5="79d38d3c51068a2bbc40268d02f80763" size="78494" timestamp="2024-12-18T10:46:04" path="A"/>
     <file name="saxon9.jar" md5="cfb820253feef53ab606601b6435870c" size="5024396" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="jackson-databind-2.18.2.jar" md5="1b56887bcd3eaea1ff710eb673e610b0" size="1658755" timestamp="2024-12-18T10:44:30" path="A"/>
     <file name="commons-logging-1.1.1.jar" md5="e2c390fe739b2550a218262b28f290ce" size="60841" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="bcprov-jdk15-139.jar" md5="8d3c68ef47e8b73a77b7db1b5bfcc784" size="1598015" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="wsdl4j-20030807.jar" md5="74cf0d930a3fe733e092ce6ca71ebf64" size="114412" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="defaulttheme-gray.jar" md5="2f46174f730374bd7ce7a35e17a4bc67" size="295285" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="junit-4.10.jar" md5="972c3b8fb2cc26008cbceb01ff889ec4" size="253160" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="kotlin-stdlib-2.1.0.jar" md5="895fde81aafd572b5853c1b4a250a94d" size="1690048" timestamp="2024-12-18T09:42:14" path="A"/>
     <file name="appbase.jar" md5="d82763edc5bae004fba39d9cdb5a8ceb" size="51348" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jboss-logging-annotations-1.2.0.Beta1.jar" md5="938e552e319015a8863dd91284aada54" size="11558" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="ehcache.xml" md5="2e594cc46c0620bf73600a6a484ca047" size="4695" timestamp="2024-02-26T14:47:25" path="A"/>
@@ -34,6 +41,7 @@
     <file name="javax.activation-api-1.2.0.jar" md5="5e50e56bcf4a3ef3bc758f69f7643c3b" size="56674" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="dataprovider.jar" md5="3c0f74c8833b7fc830b10a2eb7a164d2" size="101495" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jung-algorithms-2.0.jar" md5="c466f6e6bcc9f955dbfa330b39e3f320" size="234967" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="okhttp-4.12.0.jar" md5="6acba053af88fed87e710c6c29911d7c" size="789531" timestamp="2024-12-18T09:33:15" path="A"/>
     <file name="ojdbc6_9.jar" md5="6cd651cf8fc1cd203aa0b334cb69fbea" size="1977267" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="hawkular.jar" md5="ef00b0972c9e79ab74daa39c31e20ee0" size="74731" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="cos.jar" md5="a0e00d3b6d24e6085bceea5384881903" size="48585" timestamp="2024-02-26T14:47:25" path="A"/>
@@ -62,8 +70,10 @@
     <file name="hibernate-jpa-2.1-api-1.0.0.Final.jar" md5="01b091825023c97fdfd6d2bceebe03ff" size="113371" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="javax.persistence-api-2.2.jar" md5="e6520b3435f5b6d58eee415b5542abf8" size="164556" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jsr173_1.0_api.jar" md5="2f2b2a2065808b2c8c44888ba14306f5" size="46047" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="jackson-datatype-jdk8-2.18.2.jar" md5="54d2dc0c44a7188884e8f22fddd947f6" size="36161" timestamp="2024-12-18T09:37:46" path="A"/>
     <file name="jaxb-xjc.jar" md5="108abd6d0fbff92780166dbea046ec26" size="2989016" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="wsif.jar" md5="b9b4e33c405817909955ac07d58577e1" size="394879" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="okio-jvm-3.9.1.jar" md5="8017bd41eff99c440380b364e9ad7e5e" size="372276" timestamp="2024-12-18T09:52:19" path="A"/>
     <file name="guava-21.0.jar" md5="ddc91fd850fa6177c91aab5d4e4d1fa6" size="2521113" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="apache_soap-2_3_1.jar" md5="aa1845e01fee94fe4a63bbcaa55ad486" size="232498" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="colt-1.2.0.jar" md5="f6be558e44de25df08b9f515b2a7ffee" size="581945" timestamp="2024-02-26T14:47:25" path="A"/>
@@ -77,6 +87,7 @@
     <file name="commons-math3-3.6.1.jar" md5="5b730d97e4e6368069de1983937c508e" size="2213560" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="postgresql-42.2.8.jar" md5="e6dcc1898639407bf530b7a34e870b55" size="900064" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jung-3d-demos-2.0.jar" md5="5efbde413fb4c4e99d52e0f4a7f04a20" size="2050" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="okio-3.9.1.jar" md5="6e0028edc5f85df9bce75393828cf916" size="48109" timestamp="2024-12-18T09:52:06" path="A"/>
     <file name="jsf-impl.jar" md5="22b35b6fc58290bd2be57f2f728d974c" size="750443" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="xercesImpl.jar" md5="da09b75b562ca9a8e9a535d2148be8e4" size="1229289" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="macify-1.4.jar" md5="0e25f516b113033b2da4591161f1e117" size="11684" timestamp="2024-02-26T14:47:25" path="A"/>
@@ -97,6 +108,7 @@
     <file name="antlr-2.7.7.jar" md5="f8f1352c52a4c6a500b597596501fc64" size="445288" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jaxrpc.jar" md5="36cec9bd0bc8a757d56a2b7d76c05d57" size="35658" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jstl.jar" md5="c2ced5f8505fe9d1cae685201e9cba07" size="20682" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="jackson-core-2.18.2.jar" md5="bf935e6eca3a57defa13918661905cb0" size="597807" timestamp="2024-12-18T09:35:08" path="A"/>
     <file name="jung-api-2.0-tests.jar" md5="09b8c6e78cf6def73d9c9795eae0c0b0" size="28470" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="errorhandler.jar" md5="7b0490c2158669d4ad70432418150b7e" size="29543" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="ecore.jar" md5="67f985f03eca639fdea2ff2a3f537777" size="692868" timestamp="2024-02-26T14:47:25" path="A"/>
@@ -114,7 +126,7 @@
     <file name="commons-lang3-3.6.jar" md5="5d18f68b5122fd398c118df53ab4cf55" size="494856" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jung-jai-samples-2.0.jar" md5="0401252ab703ba7c44b07244cacb03f8" size="2067" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="c3p0-0.9.2.1.jar" md5="35085ff8cfaf6576d118ad4492236ae6" size="423876" timestamp="2024-02-26T14:47:25" path="A"/>
-    <file name="simple-java-mail-4.4.5.jar" md5="d7d07d8f3e0e83855b35b1646e785f4a" size="189587" timestamp="2024-02-26T14:47:25" path="A"/>
+    <file name="simple-java-mail-4.4.5.jar" md5="d7d07d8f3e0e83855b35b1646e785f4a" size="189587" timestamp="2022-12-16T12:05:32" path="A"/>
     <file name="saaj.jar" md5="84e8f72a75171a6b4b0d0639f3726b65" size="18402" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="jung-visualization-2.0.jar" md5="abf99e893cdcd9cd4916d72c599faf58" size="322128" timestamp="2024-02-26T14:47:25" path="A"/>
     <file name="hibernate-c3p0-5.6.14.Final.jar" md5="eb0379be1520a155a2852476019b815e" size="11941" timestamp="2024-02-26T14:47:25" path="A"/>
@@ -125,12 +137,12 @@
   </lib>
   <webapps>
     <yawl>
-      <build>1696</build>
+      <build>1709</build>
       <files>
-        <file name="WEB-INF/classes/hibernate.cfg.xml" md5="b1314d5778fb00be1e7cf49000facb1b" size="491" timestamp="2024-11-21T18:18:02" path="AW"/>
-        <file name="WEB-INF/classes/version.properties" md5="f5d73af4f794ad177f93314b6a5a4e7d" size="186" timestamp="2024-11-21T18:18:03" path="B"/>
-        <file name="WEB-INF/classes/defaultClients.properties" md5="f5871581817867266a3a3997e7082649" size="1257" timestamp="2024-11-21T18:18:02" path="C"/>
-        <file name="WEB-INF/web.xml" md5="ae0b6cad2997b06cb4e79d58797241bf" size="11797" timestamp="2024-11-21T18:18:02" path="B"/>
+        <file name="WEB-INF/classes/hibernate.cfg.xml" md5="b1314d5778fb00be1e7cf49000facb1b" size="491" timestamp="2024-12-11T21:32:55" path="AW"/>
+        <file name="WEB-INF/classes/version.properties" md5="59422a5997856d6dc1c27f34fab236c7" size="186" timestamp="2024-12-11T21:32:55" path="B"/>
+        <file name="WEB-INF/classes/defaultClients.properties" md5="f5871581817867266a3a3997e7082649" size="1257" timestamp="2024-12-11T21:32:55" path="C"/>
+        <file name="WEB-INF/web.xml" md5="ae0b6cad2997b06cb4e79d58797241bf" size="11797" timestamp="2024-12-11T21:32:55" path="B"/>
       </files>
       <lib>
         <file name="antlr-2.7.7.jar"/>
@@ -890,512 +902,22 @@
       </lib>
     </workletService>
     <resourceService>
-      <build>4158</build>
+      <build>4180</build>
       <files>
-        <file name="graphics\bg01.gif" md5="45268fa75e5992b96983eed8f9ae9abc" size="82" timestamp="2024-10-02T16:52:30"/>
-        <file name="graphics\common.css" md5="cebb397e37f82800b8d96672e1534c55" size="2782" timestamp="2024-10-02T16:52:30"/>
-        <file name="graphics\logobig.jpg" md5="8e2e8fe313e7af29c44fa84551297815" size="11662" timestamp="2024-10-02T16:52:30"/>
-        <file name="graphics\logosmall.jpg" md5="050677df96ab6793a39e4d59f4fe0578" size="2062" timestamp="2024-10-02T16:52:30"/>
-        <file name="graphics\subtext.jpg" md5="af8aae0c419d1945a35ec47b4b95692f" size="1179" timestamp="2024-10-02T16:52:30"/>
-        <file name="graphics\Thumbs.db" md5="eb936b9acc99b18871e86d669ddad40a" size="16384" timestamp="2024-10-02T16:52:30"/>
-        <file name="graphics\wsText.jpg" md5="aaf9275d974ea1b4a30d12dae5e87c03" size="1274" timestamp="2024-10-02T16:52:30"/>
-        <file name="graphics\yawl.swf" md5="3849953b829c6032dc645cf5b01188e3" size="8660" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\hibernate.cfg.xml" md5="4ea4c33cc045d0aa2c9e20442756898d" size="505" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\LDAPSource.properties" md5="ed86c0f52ccfaab3cd3b1c0945af7867" size="4003" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\authentication\ISessionCache.class" md5="5f9ad80881da0cb3102849c122db29b5" size="462" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\authentication\YAbstractSession.class" md5="4834934673868688bf191d4e40de8a3d" size="944" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\authentication\YClient.class" md5="b5e36db9b5df41ba998ff96affc8b37a" size="2231" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\authentication\YExternalClient.class" md5="128759dff6357ea0e6c3434792ad0139" size="969" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\authentication\YSessionTimer$TimeOut.class" md5="faeba07fadd18290811955ccf1be8baf" size="975" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\authentication\YSessionTimer.class" md5="5f90a9d628b14c56d1a87690f75e81c8" size="2711" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\cost\interfce\CostGatewayClient.class" md5="e7849a7656cccfa37e15b5fa12181670" size="6443" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\documentStore\DocumentStoreClient.class" md5="93457131a974a3a17c5a6fb4008370bd" size="6602" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\documentStore\YDocument.class" md5="ad1d874cc3bc7cf6403e912d0684cff1" size="2961" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\data\YParameter.class" md5="d2b7daa69345f6a0139b5c401c470e1c" size="5871" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\data\YVariable.class" md5="e4940defe85b3e7681ec365707974d03" size="14133" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\package-info.class" md5="47005acf87473e24b0600701fc5011c9" size="138" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\state\YIdentifier.class" md5="08f845c321cdc75b508767cb4b519a58" size="9811" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YAtomicTask.class" md5="578fc81fe36798d5913c4c84506dcd67" size="8718" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YAttributeMap.class" md5="aacb098a2ad2342822ef7cf8c2b3f77c" size="5808" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YAWLServiceGateway.class" md5="aba8becabd598bdd0c50b0942f3294bd" size="4124" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YAWLServiceReference.class" md5="213da81cddd63f1ed55690831be2db33" size="7512" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YCompositeTask.class" md5="6e2b0165e497a11a7f03aa982aa5caaf" size="8769" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YCondition.class" md5="077d6858243c623ba8a0e38baabfe648" size="5045" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YConditionInterface.class" md5="a107cefc5874ca5c3d52af4e98ffbb0a" size="1185" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YDecomposition.class" md5="8d7563e978a5551731ad8330e68b45f8" size="14388" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YEnabledTransitionSet$TaskGroup.class" md5="de2b906d6e3b534cae1aa3fed58b4a69" size="4522" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YEnabledTransitionSet.class" md5="41b6b2c8ca37d73b87e2afd0cc728905" size="3413" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YExternalNetElement.class" md5="77dff0745efa7578f59f46fb2d3478de" size="12387" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YFlow.class" md5="e18c28b75f8b9418f4c8ac7287bd46bd" size="7643" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YInputCondition.class" md5="a1edf69e4a7cfd97290f8edb66108daa" size="2473" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YMultiInstanceAttributes.class" md5="cb21122f2261dfdc930b18bb5f04cca7" size="8659" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YNet$1.class" md5="7e42d409947c6529cac62c2477d6a9d8" size="1401" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YNet$2.class" md5="75bb1cfdb65c4db44404374b5570a993" size="1216" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YNet.class" md5="05fa6a3af876faacb822fdcfdb94ae4c" size="21141" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YNetElement.class" md5="5b6cd9771616bd05af9398cfab7e5708" size="1832" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YNetLocalVarVerifier$LocalTaskMap.class" md5="f1749d3c05b84ff6e459e06ed962c5c3" size="3522" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YNetLocalVarVerifier.class" md5="4d8d658dc43b38460d6967077a828253" size="13392" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YOutputCondition.class" md5="0e1766b74244d825e61034c1e78bbf7f" size="2520" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YSpecification$1.class" md5="b1182fc202df14d3ffb8dc9e2b6198c0" size="1453" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YSpecification.class" md5="b71a514acb17ceb10e8b34ccb4eb47c6" size="17726" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YSpecVersion.class" md5="d5a41599e7b9544a9716c55596847ea8" size="3618" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YTask$1.class" md5="a67552c2977f57c628878967eabb4155" size="1004" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YTask.class" md5="b8cf06565ba0f545c49d96ea8bfd48fd" size="57349" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YTimerParameters$1.class" md5="71a9114b2d8c800b24586b65491f20ee" size="1495" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YTimerParameters$TimerType.class" md5="7f7add6a47a85b8e043514ad05b7fa23" size="1440" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YTimerParameters.class" md5="9fba75658e17f7f0e5d4d7141f64a699" size="9042" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\elements\YVerifiable.class" md5="5e57d8ece4780188710320a6544c84ca" size="210" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\AuthenticationConfig.class" md5="9f6687e1dab7bb7bc405b884de14e342" size="1409" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\AuthenticationResponseServlet.class" md5="d030279ac74cba01a9ff0efb72f18fb3" size="6861" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\EngineGateway.class" md5="6c96024dd6a827ffcab8c45e3f255eb3" size="5029" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\EngineGatewayImpl.class" md5="8884a9b44307062570c05e2b886e306b" size="46293" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\ErrorServlet.class" md5="e84666013d9d3adfb495714e0f4801cc" size="827" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceA\InterfaceADesign.class" md5="bb578c63ccf9bed145321603d209f6f2" size="164" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceA\InterfaceAManagement.class" md5="755dfe8ef6b98066a75aad7f97e32cff" size="3562" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceA\InterfaceAManagementObserver.class" md5="04b594c611b694a1c5e5caeace9a7c53" size="188" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceA\InterfaceA_EngineBasedServer.class" md5="584e59cde4520c27a1ff1ff17e54cc76" size="9474" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceA\InterfaceA_EnvironmentBasedClient.class" md5="0c0ff97f414ee1f66838f303c195d94e" size="11030" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceA\package-info.class" md5="81e6bc282e28586b33856a1d2ade0de6" size="156" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\IBControllerCache.class" md5="6fccd42045ea00cd6cae9eed1e8f4c5e" size="5676" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceBClient.class" md5="74ca5df07b0ea999433a5c6411d90ff8" size="2507" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceBClientObserver.class" md5="64a38806c787d784fbbbce141082d79d" size="316" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceBInterop.class" md5="bcd1f94655ed32882efd00b0b4768147" size="166" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceBWebsideController.class" md5="11420399ea40a75e8952918a07d8ace5" size="16631" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceB_EngineBasedClient$Handler.class" md5="64fa1560135ecf33b20adc146bde0ee5" size="5026" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceB_EngineBasedClient.class" md5="dc4f72fcd3698c5c373d7876a6f68ae2" size="13513" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceB_EngineBasedServer.class" md5="5806f544696b880783984bf682605a7b" size="19006" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceB_EnvironmentBasedClient.class" md5="8418ec52ae282bd1f75d782cc758f5b4" size="19565" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceB_EnvironmentBasedServer$EventHandler.class" md5="f7c5846781e297280ad640840f524b1e" size="4393" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceB_EnvironmentBasedServer.class" md5="a188b3b579adb4a1ea4d55b5fcfdadf8" size="6408" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\InterfaceB_HttpsEngineBasedClient.class" md5="c2ea9e3a210567f9f3620a6c7984344f" size="594" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceB\package-info.class" md5="dc5779f952424e1bd5f5a63e90c30dfb" size="156" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceE\package-info.class" md5="c0419bc28c8ed4956a4cd3e69256ff5c" size="156" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceE\YLogGateway.class" md5="1cc4ed7966008cce0749e4bcd1793d79" size="7446" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceE\YLogGatewayClient.class" md5="c0899bb7ee227e6b2f13d32592df0a74" size="8202" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\ExceptionGateway.class" md5="a41814040ee740192940d252afabbc3d" size="742" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\InterfaceX_EngineSideClient$Handler.class" md5="b22a7c4ba52074666bb0ee1922e3606b" size="4498" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\InterfaceX_EngineSideClient.class" md5="8e053d19b9331c70a1350f6b6423f75f" size="4906" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\InterfaceX_EngineSideServer.class" md5="edc12bee693243f914e538577291391a" size="5987" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\InterfaceX_Service.class" md5="c93f4ba534257de4fb184b3665c58074" size="1110" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\InterfaceX_ServiceSideClient.class" md5="bf76142331d2d3be1bd789f7c0703e8c" size="4121" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\InterfaceX_ServiceSideServer.class" md5="49ff65ee1e85e592d79eba11f721e9ab" size="6198" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\interfaceX\package-info.class" md5="a7c1a7d54790f64e3b7e96313ec8f4b6" size="156" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\Interface_Client.class" md5="26c57beb3a87e1d210c727b755d03bf2" size="5833" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\Marshaller.class" md5="49e1aee5b064d4110379601650b9a153" size="12482" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\package-info.class" md5="ebfd1741f90894cc0019f20ed23537c7" size="145" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\PerfReporter$TimeSpan.class" md5="2a95cd26a8733aee9b78c1a4a404300c" size="951" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\PerfReporter.class" md5="d19e2994b6f01ffcd3c5f4f181e6f5c2" size="3009" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\ServletUtils.class" md5="449d8ebfdc578156cab294fe7399f09f" size="6081" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\SpecificationData.class" md5="0f45ef9832c8def4c94a533d8de410f0" size="7521" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\TaskInformation.class" md5="b6bbafdcf10b7854c517b1d1ccc6208b" size="2737" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\WorkItemRecord.class" md5="d3d0a5b60dae23b0162ad45ccf575dc6" size="16866" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\WorkItemRecord.hbm.xml" md5="4db8ee4cd759e640e05ad64738000459" size="3636" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\YHttpServlet.class" md5="06965e7f3272e470ccc8e907c5d035ad" size="4417" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\interfce\YParametersSchema.class" md5="e29b12a2a26882223062364ee044b4f1" size="4805" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\engine\YSpecificationID.class" md5="582ec04d666abeccc5cb2b868b6bcd80" size="7228" timestamp="2024-10-02T16:52:16"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YAuthenticationException.class" md5="027a1d956d04a49b6c95022dfd77cd58" size="637" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YAWLException.class" md5="e24239347c63f8069d2fc8cf7fd73a8c" size="3793" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YDataQueryException.class" md5="b273420c992b1afec27bd4390458dff1" size="1884" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YDataStateException.class" md5="753c581f1b8746f99cbae2bb68383a42" size="5210" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YDataValidationException.class" md5="eca7858a1b724d5344127ef098bacbfc" size="898" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YLogException.class" md5="0cb6ac4e75985f64093730a60ca8c4d7" size="507" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YPersistenceException.class" md5="e689522c72b204f6a684e7a084bec7e4" size="741" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YQueryException.class" md5="95a1ed957e29c3926fdd122fa8120598" size="436" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YSchemaBuildingException.class" md5="f210b61fa7b5692e896f65a0658eb4b9" size="459" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YStateException.class" md5="5fc0a8adc8baea898d996b146b146813" size="432" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\exceptions\YSyntaxException.class" md5="0bb315f8eae7a919aceebc99338f7e24" size="1244" timestamp="2024-10-02T16:52:17"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\logging\XESTimestampComparator.class" md5="e574a84c055660877277b9ec3c72b963" size="2288" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\logging\YLogDataItem.class" md5="42bf251c371f1bfe2edb86d136b50c57" size="3523" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\logging\YLogDataItemList.class" md5="8c6f1010f067463484a5b177d4710e1f" size="2074" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\logging\YLogPredicate.class" md5="db47ceb7c26e2287a69521eefb9dc07e" size="4088" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\logging\YXESBuilder.class" md5="8d6349fb5ef9ff604b0a03fab8d482ea" size="15329" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\AbstractSelector.class" md5="c5785748444a1ff14690adad90edfadc" size="9669" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\AbstractAllocator$EventPair.class" md5="89f857c57d82e106e2235f97fe7e9efe" size="1140" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\AbstractAllocator.class" md5="1ddfb04840f13dac12508ee6e8ae1f7a" size="11479" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\CheapestCompleter.class" md5="71817ce7f5be314150cc65c2f8d89d55" size="4239" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\CheapestResource.class" md5="4edce32a11fa70e9e4bc21c8a42fddce" size="3359" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\CheapestStarter.class" md5="bab2e51893e7b36bc6a3c9640440e715" size="4242" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\CheapestToAllocate.class" md5="c3cc31e1fc052f71579f6ca55905b58a" size="4255" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\DearestResource.class" md5="329ba583650b97081439af8d1b2527a6" size="3365" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\FastestResource.class" md5="4876e65fc23e72c640d7b00ea2bdde09" size="5571" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\FastestToAllocate.class" md5="484bb665b1cdb4d5dcdf941a34a91ea5" size="3983" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\FastestToComplete.class" md5="a93b06b03599afb13c1fb1966880d14c" size="3983" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\FastestToStart.class" md5="0d26393570ec99a79837d95c8f3e542f" size="3971" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\GenericAllocator.class" md5="ad5125b492c74a181377aaf9911c6947" size="1204" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\RandomChoice.class" md5="c38c22d067d616291dff744ced259c2c" size="1769" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\RiskAssessment.class" md5="228e8a363722ee9d920f71c451a77eda" size="8832" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\RoundRobinByExperience.class" md5="a91c6c6f272f4855e91597d0be59d34f" size="3428" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\RoundRobinByLeastFrequency.class" md5="c437227ef6b943fe32b125be2458252d" size="3495" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\RoundRobinByTime.class" md5="067a472fce0898533303a68de18970d1" size="3488" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\allocators\ShortestQueue.class" md5="ca04725cee255cf68f0f9197acbc6fca" size="2537" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\CalendarEntry.class" md5="86ca44d5b37122b0fa03d47f134e7438" size="5218" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\CalendarEntry.hbm.xml" md5="6c182454bd769707eaa071acda3d7e5e" size="1721" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\CalendarException.class" md5="a88e2ee4cc92fb278ac8a5216a2c40ed" size="723" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\CalendarLogEntry.class" md5="982172564374c8be18b8c3617020ba6a" size="3643" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\CalendarLogEntry.hbm.xml" md5="fce272e53b70225bf32f94489681d58a" size="1729" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\CalendarLogger.class" md5="2725749802db2158800162b497567d15" size="5324" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\CalendarRow.class" md5="b1c61b3264feb6cfdb5a8c011aad71f0" size="2720" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\ResourceCalendar$1.class" md5="13084a0c22204b8ced952650cba189ce" size="1781" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\ResourceCalendar$ResourceGroup.class" md5="2dfbd320834f826480bdedb79a000a70" size="1468" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\ResourceCalendar$Status.class" md5="aa3ec16c10c45991e904c37d0fbf5be0" size="1722" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\ResourceCalendar.class" md5="d4630bb9f124a3eb5bb1fdd2de64e861" size="29181" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\ResourceScheduler$1.class" md5="9f68298e85adb6de03e2522d928b2bbe" size="1227" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\ResourceScheduler.class" md5="78918349d60deb873208e1a585942a2c" size="32433" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\ScheduleStateException.class" md5="2561a913ce46eaf7009fdfcd197aead5" size="523" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\TimeSlot.class" md5="7cf041bf1a48f2c513eacd98819174bf" size="3281" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\Activity$Phase.class" md5="3addf027f396cfa135a23222d43d8440" size="1398" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\Activity.class" md5="38bdad01d5c9b3103b74b0108d8a04e4" size="9088" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\Reservation.class" md5="6d277a54fe920038e9f5f7ca8926968c" size="4920" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\StatusMessage.class" md5="fc96d6c4d7a5fc0ce3a617787397b581" size="2043" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\StringWithMessage.class" md5="2d51f4b89ae048057b8cd750f45eae26" size="2409" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\UtilisationPlan.class" md5="268be5d4b67c8764aeaa7d884338629e" size="4357" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\UtilisationReconstructor.class" md5="fe9ed937e7a8882d58109501b288a849" size="3744" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\calendar\utilisation\UtilisationResource.class" md5="3a484b120d7b4527e2c3e06b14775891" size="4205" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\client\CostClient.class" md5="03decafc30f8229a2127ea4aea6f2405" size="1317" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\client\DocStoreClient.class" md5="85e14ef46b3a23f3333e8a01a5f98f5b" size="1224" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\AbstractCodelet.class" md5="89a354e861e6d62e9ad303ee4afefd86" size="9323" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\CodeletExecutionException.class" md5="facef1692e5c86528365456aa4ef1fcd" size="532" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\CodeletInfo.class" md5="9792ba198fc5f2c62585dca9cbeeea87" size="4940" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\DirectReports.class" md5="6145b5ee39566be851d4ce61cbee26c0" size="5911" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\ExampleCodelet.class" md5="9b1ed37900c5ae5a99eb86637077d79a" size="2980" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\ItemMetaData.class" md5="4c346f4d41ad89b733ab4c4c978c2b82" size="2823" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\ParticipantInfo.class" md5="9cf0aa51e334d197098417a3f99f2e46" size="3715" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\RandomWait.class" md5="17096a7425f8664ba8f3245041d86d9e" size="3827" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\ShellExecution.class" md5="a789848300c419d9a0355f4ba50fcdf6" size="5979" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\SupervisorInfo.class" md5="ba9b2fb5f7b5370f231453748df39e46" size="4386" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\TaskCompleterInfo.class" md5="6dfb29fe3b1d7f798852ebf1c083d84f" size="4209" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\UsersWithPosition.class" md5="c801dac3e05d3454dfc1d8ca37fc0bbf" size="4843" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\UsersWithRole.class" md5="44724e6087995bda2f1801bc7067145e" size="4789" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\codelets\XQueryEvaluator.class" md5="951a1f099e5e9a95252550e71280e92d" size="4166" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\constraints\AbstractConstraint.class" md5="81e8ddff36e470bf456116e677d2d2a8" size="2056" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\constraints\GenericConstraint.class" md5="0f8cbc74ab5ebca35eba40b1d7190601" size="1512" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\constraints\PiledExecution.class" md5="4fb9005081c0ef3665ff46a29caf4347" size="1490" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\constraints\SeparationOfDuties.class" md5="355715ebf0b126b24fece4d3ec1d13de" size="2474" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\AuditEvent.class" md5="cf0cb13575e34aaa9fc8e1f30baf1d5f" size="2092" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\AuditEvent.hbm.xml" md5="62c48e987462c696a4e5183f2c130434" size="1507" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\BaseEvent.class" md5="8225fb7e6fcbdba16287e26e18a24626" size="2661" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\EventLogger$1.class" md5="4ce248fa73a0b1568366df31817c5b19" size="934" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\EventLogger$audit.class" md5="01210b0ea5d2171afebbb84039f61b76" size="1844" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\EventLogger$event.class" md5="f684716696fc03b0c58f1a1e1856d523" size="2630" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\EventLogger.class" md5="c75102e4f11f2667fcf5124ab1685d40" size="10731" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\LogMiner.class" md5="f4fed7ddafc5e7fcdc3c17d609eab611" size="32099" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\ResourceEvent.class" md5="b7e89919055e4ccddab2a7887337ae78" size="4297" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\ResourceEvent.hbm.xml" md5="e9cf7907035e91aa5f122e024851b283" size="1755" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\ResourceEventListener.class" md5="055ef60f9456fd0f5fe23d96fd689fe1" size="325" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\ResourceXESLog$1.class" md5="0a16a3588b4f4c24e06be6f23b67d470" size="1689" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\ResourceXESLog.class" md5="66f8184c35d530e033e672a1f5bf977e" size="9548" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\SpecLog.class" md5="971ea0e68c60328b2eccf2cc177ae9ca" size="1363" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\SpecLog.hbm.xml" md5="a3866173ee1b9446fd92413829016efa" size="1802" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\TaskStatistics$1.class" md5="cb0edcff52fa89021f2183211fd0f4c6" size="1874" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\TaskStatistics$Counter.class" md5="a3c4287938c708f52ba549a3b45d4fb2" size="2332" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\TaskStatistics$TaskSubTally.class" md5="a75b67e494ddcc05a6a9a8b0eb5c5dee" size="2103" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\TaskStatistics$TaskSubTallyList.class" md5="fa3e451d4f2d522b25ff781054c5f13c" size="2872" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\TaskStatistics$TaskSummary.class" md5="7210721de859342b7835ab3c7d259958" size="7168" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\eventlog\TaskStatistics.class" md5="a8b376dd34c57517c2e68801b83ed3bc" size="14458" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\HibernateEngine.class" md5="8af5c2c65536218bf9800f2ffdcbd38e" size="2648" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\DataBackupEngine.class" md5="b8e08b1e6e5e276e20f187c1863a2e56" size="20044" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\DataSource.class" md5="fff4eda6f6060045e05572dc06a1c390" size="1850" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\EmptyDataSource.class" md5="8c8278ce272f966dec5f9f54f9a3f0eb" size="1724" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\HibernateImpl.class" md5="cc22e76b9dee9243d0b7779a42bd96b1" size="9690" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\jdbcImpl$1.class" md5="1a0414b1fd2f200827ca4a896b074dc4" size="1309" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\jdbcImpl$tbl.class" md5="25bf1edb62721be001b66a55f70a07a4" size="1709" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\jdbcImpl.class" md5="07c5d79f9f75136210f003713b214bfb" size="29245" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\LDAPConstants.class" md5="c58579ea5417e61646033d806abe52a3" size="3264" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\LDAPSource.class" md5="6a64766c29535fde6c9392ddc9f098ea" size="16987" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\LDAPSourceExtended.class" md5="87b8befc69f22a6115ec3c747c7c49a0" size="23708" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\ldap_schema\LDAP_schema_installation.txt" md5="e6afa3c1fdff7dac0ead4b9b34854e36" size="450" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\ldap_schema\yawl.ldif" md5="c08739ede364086f3f2e4b2661e000ee" size="4526" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\ldap_schema\yawl.schema" md5="913cb0b409d64bcd30cefae0f66c6fbb" size="4499" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\ResourceDataSet$1.class" md5="90a6e6ce7350a8cc96731727c669001d" size="1085" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\ResourceDataSet$Identifier.class" md5="ebfa9c901ca37af349b88870aaeaf819" size="1539" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\ResourceDataSet$ResUnit.class" md5="4fa9f88c432d79836d257a63a7277550" size="1694" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\ResourceDataSet.class" md5="e74f2f566d11a4c5aa5ad866344f773d" size="53913" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\util\OrgDataRefresher$RefreshRunnable.class" md5="a28cac5106c863884b9ccd5c94afa863" size="4319" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\orgdata\util\OrgDataRefresher.class" md5="97feeef4bbd8d3e233ffc68bb925290f" size="2123" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\PersistedAutoTask.class" md5="0d2639ffcce860ed66b11efa173b50db" size="2006" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\PersistedAutoTask.hbm.xml" md5="5cdb864bd3dce4cb7625592784071fc7" size="1453" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\persistence\Persister.class" md5="1bcc716cd26c28b768684201be7e1fbe" size="7015" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\WorkItemCache$Cleanser$CleanseRunnable.class" md5="536c150f351632eac66bd13d20e7efb2" size="2646" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\WorkItemCache$Cleanser.class" md5="e166a83afd49f0f33f8454f2a10ec6fa" size="1762" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\datastore\WorkItemCache.class" md5="4a383dbea4307ab2248b1dd54d2d7814" size="4557" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\DynamicForm.class" md5="9b4721b8e01d3ed9e0b73a975ef71fdf" size="647" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\filters\AbstractFilter.class" md5="f00ad88e7a2450856d33708ad2798cb4" size="2331" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\filters\CapabilityFilter.class" md5="28fdb134626a8499dc321484868a3ad6" size="3667" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\filters\GenericFilter.class" md5="b3fb3b61190f60cb258dd30d5c2232db" size="1285" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\filters\OrgFilter.class" md5="cd571b691270e5928fdb4d1fccf2bd51" size="5022" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\interactions\AbstractInteraction.class" md5="fba8cb10b73de70308d3030ec2e792f9" size="3743" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\interactions\AllocateInteraction.class" md5="7cfd6bd64c322b505f14f592bb87d8ab" size="3995" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\interactions\OfferInteraction$DynParam.class" md5="5ec67c594add454d852aa1fbe825abb0" size="5666" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\interactions\OfferInteraction.class" md5="47660ce78b825ced702b0f139196faca" size="18124" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\interactions\ResourceParseException.class" md5="d031520c5a6952aac8240b78a8d2eb21" size="535" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\interactions\StartInteraction.class" md5="00139b5cf1615df32dea2ec3c64eaa2a" size="1414" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\InterfaceClients.class" md5="cad48e3fc2ec0762ddf4e3beb6e7fb25" size="9175" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\addInstance.class" md5="d392c49ba6c4a9e63269871880c16992" size="7345" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\adminQueues.class" md5="82a4faac997ac7f1ad3135a14127ab72" size="22250" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\ApplicationBean$DynFormType.class" md5="4f806055c8a35dfb08b5e8ea90e23ddc" size="1342" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\ApplicationBean$PageRef.class" md5="17bf69165531a141632ef9e08d337172" size="2644" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\ApplicationBean$TabRef.class" md5="b8ba087c354eabde6abaa9e749adccff" size="1514" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\ApplicationBean.class" md5="dd84d325ad533abcd1e10a957e4c4046" size="20408" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\CachePhaseListener.class" md5="88efe8252885064ae0c7c5aa270c532b" size="1685" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\calendarMgt$Mode.class" md5="d347cb863662a4e535948e7d87960742" size="1251" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\calendarMgt.class" md5="acefa9f13215b14b6695f6618a18a6a4" size="32895" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\caseMgt.class" md5="614e56c96aaafa2f1a2f1f1816f5a4cf" size="41632" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\CalendarRowComparator.class" md5="52ed223679c57b8823f6156314441763" size="1305" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\NonHumanSubCategoryComparator.class" md5="117277ea5a235ab0d2985f41bf91c3a5" size="1276" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\OptionComparator.class" md5="e0c1efe8c76b3b7e7eb593408ba9385f" size="1123" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\ParticipantNameComparator.class" md5="4fbd61ffa196d580494f9d5e06b25c81" size="1821" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\ParticipantUserIDComparator.class" md5="d848bfbdad951bb25289a3a3e709449a" size="1260" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\ResourceAttributeNameComparator.class" md5="fbee1ab36d8179e8e4ad2155ae289ac7" size="1807" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\SpecificationDataComparator.class" md5="f1960d0cd771c3ba1dc40265a4ec5248" size="1593" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\WorkItemAgeComparator.class" md5="16eefef262a032dd5d00e3fbcdf4a115" size="2200" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\YAWLServiceComparator.class" md5="1b0d2c8f3cd16231da534456038c2a66" size="1241" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\comparator\YExternalClientComparator.class" md5="cee4347400647f372c10da4cff668e98" size="1253" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\customServices.class" md5="2d3736236fef407d8fc41393547cec2b" size="17113" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DataListGenerator$SelectedChoiceBounds.class" md5="8cadf6d5fa2892641df97d162d302fc4" size="1251" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DataListGenerator.class" md5="d48131fba2bf82b43fe742bfa7650204" size="7714" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DocComponent.class" md5="5b0b1d01683bca0943a4a5243629fa54" size="11195" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\dynattributes\AbstractDynAttribute.class" md5="6882ca95643338f3fdbd4f6422d7ce35" size="971" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\dynattributes\DynAttributeFactory.class" md5="3bde56c3ffa5d39f896002c486eed037" size="2467" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormComponentBuilder.class" md5="6b707809fdb500bea115b67ab6f21a9a" size="23602" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormComponentList.class" md5="1b0880fecd939bc664d692014cb7cc98" size="1451" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormException.class" md5="4ddaf5d2511fdd3c44eb4fe2f4610e6b" size="509" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFactory.class" md5="256872452b5552ab6a639c8437a1d624" size="38228" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormField.class" md5="da89f4fd73ff4c66522b032cf846c528" size="18853" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFieldAssembler.class" md5="95cb6228d98d598f316693d285497ddc" size="18158" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFieldListFacet.class" md5="451e6eeb386a0bf0dcb6879d490f4c15" size="2017" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFieldRestriction$1.class" md5="31a464354ceb3bab9aaff8bda6625d32" size="1468" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFieldRestriction.class" md5="5d994752fe32ba3299a46e44cacf6295" size="13956" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFieldUnion.class" md5="c82900645b8235f781d9fe1bb8a07aa8" size="4031" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFileUpload.class" md5="119cb80df7d06a6d6cdb01bd8e4d01f4" size="5283" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormFont.class" md5="71d003b386e0b3500c2316cacaf83a67" size="2742" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormUserAttributes.class" md5="d3d17d3df4a0832b2f11932c264056d7" size="7518" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynFormValidator.class" md5="ace9d593a3a919888f0c9fe62fd39e18" size="15791" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\DynTextParser.class" md5="c90dc3e617641e18cc3af9e18466b913" size="954" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\FlatPanel.class" md5="7cd1f04012c361e3ae3880328924d116" size="590" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\FormParameter.class" md5="f777076ac1a5d78cf420055980a7d274" size="3047" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\IdGenerator.class" md5="f81fca7069c39c03f46d0b1e2ddff005" size="1913" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\StaticTextBlock.class" md5="4aba8943c395c0f7347d547f207d7dd2" size="773" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\SubPanel.class" md5="4050d96d77693c75711e556d1ec3c430" size="7428" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\SubPanelCloner.class" md5="17ba1f268b0ba3df698c998b2b6c71a7" size="10648" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynform\SubPanelController.class" md5="83deff16e4f5e2b9832a3bd2ccfee2f7" size="7750" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\dynForm.class" md5="591f951e1a3c985f65285babb31fbb6e" size="11859" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\externalClients$Mode.class" md5="fe9e3d907de222279325f8f05852b9c4" size="1283" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\externalClients.class" md5="c21804f55b99c05bbf4d912fc7e951d6" size="18359" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\FontUtil$FontBox.class" md5="c762dab6329a4f4299c59ff518730e45" size="951" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\FontUtil.class" md5="0955d4f29e93f4bb18369ebb392f280c" size="1016" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\FormViewer.class" md5="a55f2777a1c340dc1c8ed72a5c236428" size="10019" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\Login.class" md5="dc5fe31d2cce39e8e7ed40f8a58d0db7" size="11759" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\LoginFilter.class" md5="2638581df3d53a664ae38bae6b2d5eef" size="3467" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\MessagePanel$1.class" md5="16410ad653d12e1130f1045c7b730035" size="995" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\MessagePanel$MsgType.class" md5="58eb1f6535638ecdee7b35a235cb2e68" size="1379" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\MessagePanel.class" md5="c97613829eeda5d0e5385ccbeaf8d0a5" size="14512" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\nonHumanMgt$1.class" md5="70c3274fa82459934b4e1971edcaeed3" size="902" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\nonHumanMgt$SelType.class" md5="6b1d2ce16133bca539b73671abadc417" size="1281" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\nonHumanMgt.class" md5="c71acb55a7c3167c8879ca5b289599f4" size="18693" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\orgDataMgt$1.class" md5="d21442becc0d8922ae7bd6ac1ccc9bdd" size="1006" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\orgDataMgt$AttribType.class" md5="02412af952a3b132bac606e555afc349" size="1394" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\orgDataMgt.class" md5="1ba8146f88449b476fa6b85f2de6f897" size="24213" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\PageFilter.class" md5="b5009c1ddda650a1fae1fab631d9e14e" size="3389" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\participantData$Mode.class" md5="34d3886c0afd62168f4e9c332d7db825" size="1283" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\participantData.class" md5="0033b87c3fa871b98fb1066abc69be8a" size="29985" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfAddRemove.class" md5="0bdd30aafb19bc73754caa75562e765b" size="5986" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfHeader.class" md5="7480ba92fc10bb4328bd8785f9cd72ef" size="1386" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfMenubar.class" md5="35ee49f8c731759db1c8120e45036c88" size="10935" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfNHResources$1.class" md5="62fa318397b3c0da6fa1b65abcfb2d88" size="964" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfNHResources.class" md5="6fd8674cb2b5c29e767f40ff710156d5" size="21958" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfOrgData$1.class" md5="8fec2833b5aa1a424eaa6d29e94e1dbf" size="1058" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfOrgData.class" md5="dd237a9b0b27a17b46e1a079243cb544" size="18384" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfQueueUI.class" md5="4b469058fd807a24aa174d4cf796f83a" size="10402" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\pfRSSHeader.class" md5="09ddec52d1d15dfa6398eb7f13440283" size="980" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\RequestBean.class" md5="ae7efd48e24cda86183627ab4db83a81" size="2692" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\rssFormViewer.class" md5="0e9fd4a1d1788e8fc9316d931114732b" size="15402" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\secResourceMgt.class" md5="efa8b6c25c995d29f9ec785caea8ddd9" size="13157" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\selectUser.class" md5="58492ab431dfa95332b595b26775b4e2" size="7082" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\SessionBean$1.class" md5="847c7dd6cb390aad6c92f7ccb2b722f5" size="1666" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\SessionBean$Mode.class" md5="f9d944e3acf9d2ca534f884ea085693f" size="1251" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\SessionBean.class" md5="d855bd42e551b2d655cbbcf65e4642de" size="83889" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\SessionListener.class" md5="38df35ef375e0fcdcdc3d5cf5434c0fa" size="1769" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\SessionTimeoutFilter.class" md5="da62a582b162ba76d41770f6b5b640f8" size="3105" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\teamQueues$qSet.class" md5="67d56f9d6b91f4b13fe7457b44d3cd3f" size="1248" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\teamQueues.class" md5="2d654e808ff3bde3bfcdba28060a07ec" size="14315" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\ThemeFilter.class" md5="419b9b33e524f52cc1ff28c81c9c1d61" size="2042" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\userWorkQueues.class" md5="d00e8f6af9f0abcf7a7e1245ec9a9d0a" size="36382" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\viewProfile.class" md5="c3f4de3b855666f7659313bc130dd278" size="20011" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\visualiser.class" md5="7e235b860b8057e84441d2ae775d9ca6" size="13801" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\jsf\YawlUI.properties" md5="d13ad7cd079ce311a1120d6883cfc62d" size="1026" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\QueueSet$setType.class" md5="d5d3d4ad0e9a6041165b182111572cb5" size="1235" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\QueueSet.class" md5="8d9f927f0e7b8de96bf66eef714ca520" size="9903" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\AbstractResource$BlockType.class" md5="9197458d5f35d613f61049c21d4c3b99" size="1362" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\AbstractResource.class" md5="3b002c0b71efd05def1a2260bc8cf793" size="4345" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\AbstractResourceAttribute.class" md5="e7befdb5f3643842fe34d0a426976538" size="4355" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Capability.class" md5="e99e21f7a24b53e40988a13cd8a5bf50" size="2767" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Capability.hbm.xml" md5="cfb9741589b5aa05db83368f807f88a5" size="1913" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\nonhuman\NonHumanCategory.class" md5="40768b9a32c2d0475dac6c35a1b10c7f" size="8496" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\nonhuman\NonHumanCategory.hbm.xml" md5="817898269ddecdecba295bd55d5d0558" size="2041" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\nonhuman\NonHumanResource.class" md5="acaaf8d6954071e429c0396fdd0fd854" size="6404" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\nonhuman\NonHumanResource.hbm.xml" md5="dd793bfc9f7d11368086b8cc9b6e624b" size="2386" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\nonhuman\NonHumanSubCategory.class" md5="6d4ca17cb80d0d3b571d7731704d74e4" size="4305" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\nonhuman\NonHumanSubCategory.hbm.xml" md5="3e9f9c6097ce6e6e2ac36f93f0a26552" size="1715" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\OrgGroup$GroupType.class" md5="534931c726553cf92142aae99fabd33e" size="1556" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\OrgGroup.class" md5="3e825421e1381d4e88287598d61f3e38" size="5749" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\OrgGroup.hbm.xml" md5="c50dcb99c9f7b1c7221609dc947997f4" size="1983" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Participant.class" md5="2800c88c03724213d9fed9d990d6587d" size="18094" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Participant.hbm.xml" md5="25dbacc55dcbbacf6b1ce701f0a0d2ce" size="3740" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Position.class" md5="81cb945a6a57cd06628d8ccc377ec1b8" size="5543" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Position.hbm.xml" md5="332329bf2f48c94e3233a49b709100c7" size="2341" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Role.class" md5="f57a9fb1c8ff884a91d2ea4fd27a7fe8" size="3837" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\Role.hbm.xml" md5="8c48446df9e1ca67be74c59d728ca966" size="2016" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\SecondaryResources$CategoryStack.class" md5="7beefe298b44fda5e66970f2619f803d" size="1964" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\SecondaryResources$SecResDataSet.class" md5="57e246d256585b8be42edf2fde4cc528" size="21557" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\SecondaryResources.class" md5="f977ccb4f44a1dec9ba419b9f4c8706e" size="8611" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\UserPrivileges.class" md5="3e312861fa4d61f8e2fdf3aa568b33c8" size="6445" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\resource\UserPrivileges.hbm.xml" md5="086d31cd5dc7337c7b91938afd2941e0" size="2256" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\ResourceAdministrator.class" md5="0670c24ebc2fb412e09c00857fd97975" size="4636" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\ResourceManager.class" md5="8a30282658426598e84dfaee0cf528a2" size="90363" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\ResourceMap.class" md5="19dd93a149e2fd04bcb15c022aebc3cc" size="19398" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\ResourceMap.hbm.xml" md5="88db42ce95c41b86ad10f08aa7bec531" size="1951" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ConnectionCache.class" md5="d483f6d9fe466758fde4c50931ca1114" size="6414" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceCalendarGateway.class" md5="5fe0f99d1352508c31bca4af1e6a280d" size="14257" timestamp="2024-10-02T16:52:29"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceCalendarGatewayClient.class" md5="138d9e678b1dc5f858ad1ecf0065c7bb" size="7448" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceGateway.class" md5="8c7f5f7b70dca0dc2c167a4860b02fd4" size="39511" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceGatewayClient.class" md5="134cebaaccdf4b0c6d742d4128acf378" size="26568" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceGatewayClientAdapter.class" md5="707c293ed31e8d26a7804a387df88ef3" size="38478" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceGatewayException.class" md5="cb6f385cc03da1ebed808a8eb65e1858" size="713" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceGatewayServer.class" md5="25089c4ea6fb2e1962dddc0fa5984b37" size="6520" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceLogGateway.class" md5="694ce1fd2f60081169447e1be68381cb" size="10035" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceLogGatewayClient.class" md5="f2a34d89fc2eb63d45abef6831b44e37" size="19670" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ResourceMarshaller.class" md5="a17d46aa68f2c319c525763982bdef2c" size="13021" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\scheduling\InterfaceSController.class" md5="6acfb2fbc9b3c96f0c71f520940b858e" size="4154" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\scheduling\InterfaceS_Service.class" md5="6d5c769a88d2d8e14a7dbb9bebfe29e3" size="431" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ServiceConnection.class" md5="ed1d7d3d3d9d5c6dda914f32ea457429" size="644" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ServiceConnectionTimer$TimeOut.class" md5="d9f92f75b302592b16ae4cf93dd7bc1e" size="1276" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\ServiceConnectionTimer.class" md5="87444658a14937e0d8b2fc9358953ec6" size="1716" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\UserConnection.class" md5="4c641555e7f1da6c6e8c9d0742303054" size="1066" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\UserConnectionCache.class" md5="87adec3a97b39d920626bac347a8fee0" size="5208" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\WorkQueueGateway.class" md5="2c06e552319767d9420c60bd5cb36bb6" size="29669" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\WorkQueueGatewayClient.class" md5="cc488447c8874ba59876d006c7468121" size="18054" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\rsInterface\WorkQueueGatewayClientAdapter.class" md5="045facb9f6d15f4d7c9fca8a8400ecc0" size="21427" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\RuntimeCache.class" md5="f56834ea365b9ffd933c3d1ade84916d" size="20071" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\TaskPrivileges.class" md5="20f139bf70784af0efbc9a0d7b762eea" size="15962" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\CodeletRunner.class" md5="2f23d2ad029eef858250b86d04c2cb6c" size="4313" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\DataSchemaBuilder.class" md5="abc9e6fb3fd1f11e2b0becd1494a00c9" size="10350" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\DataSchemaCache.class" md5="303cbdb471af99b9086ed2c5319611cb" size="1029" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\DelayedLaunchRecord.class" md5="15bf477ea9b6193080a63607dedea18e" size="3108" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\ExampleAdapter.class" md5="3a649da12dbe377e76f6e32e4139b763" size="2625" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\FourEyesCache$TaskCompleterSet.class" md5="b4a6f34d1b0f1763cb049678004d5559" size="1597" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\FourEyesCache.class" md5="841c41e9a34197f45c4792095f1e8287" size="2417" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\GadgetFeeder.class" md5="5d712fcc645f3aa1847a119617cff65c" size="9264" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\KeyValuePair.class" md5="41571dbdfd6aeb961ab6db2946b9bd14" size="1594" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\LogPredicateParser.class" md5="e7f89eeeccc317d71402d0536c4853f5" size="6925" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\PluginFactory.class" md5="10778f8cd26d6e51db439075d83ac30a" size="9447" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\RandomOrgDataGenerator.class" md5="66424e539217555ccf05715927a6a56c" size="10239" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\ResourceMapCache.class" md5="1d9ed50a08cd6e5914c0f8b0362b786e" size="3853" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\SpecDataCache$SpecList.class" md5="e9142da141e4d3a6d31d28c2066e7e84" size="2833" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\SpecDataCache.class" md5="41a1c7fcebaf39cdf2e0809af4add75a" size="3384" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\TaggedStringList.class" md5="3199fa299b39a967c1e61873d7af3090" size="1431" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\util\VersionToMapTable.class" md5="b7a292b93c341150bed17f82cd4d50d2" size="1461" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\WorkQueue.class" md5="c4639ac3a9dac2bec1677f058911e935" size="10236" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\resourcing\WorkQueue.hbm.xml" md5="0af382df183bc8f0e81d9e3aa3be3738" size="1880" timestamp="2024-10-02T16:52:28"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\ErrorHandler.class" md5="e97ed71142f5b36c4175e344b364801b" size="2254" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\Input.class" md5="0a89e864f9a54e2566a1c358d92d93f3" size="3456" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\internal\YDataType.class" md5="5213cc02770c74ebf9ebbe869c1d27e1" size="568" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\internal\YDocumentType.class" md5="94b7dc04e203ebb304ff040cf056d869" size="1780" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\internal\YInternalType.class" md5="5a4b30a9521801917b67bf9e63b699d3" size="2868" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\internal\YStringListType.class" md5="db9f90a224ab8789c3b6d10957ee0b04" size="1741" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\internal\YTimerType.class" md5="dd455fb587fa01df68138a14a100976b" size="2296" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\ResourceResolver.class" md5="f2459e4f3ec78484e47cdf904c78c440" size="3188" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\SchemaHandler.class" md5="8862636ad53d183567d21da04093f941" size="6940" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\XSDType$RestrictionFacet.class" md5="b1467670308b9e38ca2464255e76a785" size="1820" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\XSDType.class" md5="25cd814b0efc6aa0b2aebd7d27fe99b0" size="7750" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\YDataSchemaCache$SchemaMap.class" md5="20671b00a0dd347c91cf97c13e649c9e" size="713" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\YDataSchemaCache.class" md5="a22a3d0a2ec01cb32e45d5e443a6ebf7" size="4143" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\YDataValidator.class" md5="12384b157fe54eb4b865062818bd7a20" size="6338" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\YSchemaVersion$1.class" md5="87867b75f03f3a878322564bf9a7f276" size="942" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\schema\YSchemaVersion.class" md5="4786eececac27373b7b7ab5114b75d10" size="6633" timestamp="2024-10-02T16:52:18"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_Schema.xsd" md5="ad17baa4191b33dea3995ba301c58d2c" size="26341" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_Schema2.0.xsd" md5="b3ecdab362907305e6d700a3df2b3ec1" size="46236" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_Schema2.1.xsd" md5="db2e3c8857f8f4881247c89770bfa241" size="46526" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_Schema2.2.xsd" md5="1d8df77a7f8a1622e53f89d465fb6bb4" size="49292" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_Schema3.0.xsd" md5="860446df0e99b7c5b02a52464ffbf894" size="48887" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_Schema4.0.xsd" md5="62a135584db8dc5f4b9d7dde247c9644" size="47720" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_SchemaBeta3.xsd" md5="13f89df1583e04da0d1d093d472b3365" size="24459" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_SchemaBeta4.xsd" md5="3d0ec6bc96ee2bb858233c1adc0c79b4" size="24460" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_SchemaBeta6.xsd" md5="e5b1bfa41d1e44f0702fa12e22cb8b0d" size="25388" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YAWL_SchemaBeta7.1.xsd" md5="8fd23cdc17130672ff83f8e66a731b94" size="25115" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\unmarshal\YDecompositionParser.class" md5="def326ee7115f6ff1e16da9d3e3d0d34" size="27288" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\AbstractCheckSumTask$FileLocations.class" md5="2643ff01e71739b43f808370cbd1d49c" size="1867" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\AbstractCheckSumTask.class" md5="2fdfaee9a9df91d12764c2b107319904" size="7563" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\AbstractEngineClient.class" md5="2cd856721f20f9ded0570d3f62fcfca8" size="18153" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\CharsetFilter.class" md5="40bb9a7577614384111bfc400d9338e1" size="2028" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\CheckSummer.class" md5="fa7eadcc3ca42e65c242dd130e162c03" size="3733" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\CheckSumTask$YFileLocations.class" md5="5a53a00e7321945846120e211a67d8d4" size="2667" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\CheckSumTask.class" md5="b04882f63f36a37700c9b74df0b01725" size="9220" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\DOMUtil.class" md5="e95f1ea4a4deffa908ce1b95ab5f9a3a" size="10155" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\DynamicValue.class" md5="968e714422432fa7983ae7cafb87bf73" size="2592" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\HibernateEngine.class" md5="721adb0d868aa46e60ec2f558284cf4d" size="13311" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\HibernateStatistics.class" md5="7fd0e29350cdbd7527dfa0a5e6c941ff" size="7644" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\HttpURLValidator$OnlineChecker.class" md5="fd17663b1568ba249a378c2b8e59c7bc" size="1403" timestamp="2024-10-02T16:52:19"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\HttpURLValidator.class" md5="e44ed87364ea4d72c940eebe85ece11a" size="4864" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\HttpUtil.class" md5="c00062ea92e933cffbc1fcbf5a7901bd" size="3094" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\JDOMUtil.class" md5="d717b24f1c5d7318de6f4ffef123d9ec" size="9580" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\NamedThreadFactory.class" md5="b2fc00d674b097443737caff5dd7b6ca" size="1496" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\PasswordEncryptor.class" md5="0da4b4699434bd5243ae2e49efb468ab" size="1328" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\PluginLoaderUtil.class" md5="c2a1da028afbe809c2eb5e8eb77a9e85" size="2404" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\SaxonErrorListener.class" md5="8502c19dd4a4a5f9c1ba8db80bc894e4" size="2512" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\SaxonUtil.class" md5="52257031b40e759c801bb0833eb15627" size="5504" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\SoapClient.class" md5="230c8fa4fb1b1de01a924ab8340f3307" size="5862" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\StringUtil.class" md5="758256223bbfa5987b788e79764a569f" size="19791" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\XNode$ContentType.class" md5="5fd253b6eac52de68883a203045e21f4" size="1234" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\XNode.class" md5="75fd30a4ba20044a3dfed5fd7a346c13" size="21128" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\XNodeIO.class" md5="71182e31039bb069ca78eaea7a9c27ca" size="346" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\XNodeParser.class" md5="ac5698c4925c500b011b8be441eeef9e" size="9586" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\YBuildProperties.class" md5="78dfa5474131be39d19e17808506cb0a" size="2427" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\YPluginLoader.class" md5="c8e6d2d36e18dfaf9b62df3747d4e614" size="10717" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\YPredicateParser.class" md5="ec8a6c72d18e13355111873fa1c9ed8b" size="5080" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\YVerificationHandler$1.class" md5="8f2c8d9d50c4f4e593ab3fedd7cc46ab" size="921" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\YVerificationHandler$MessageType.class" md5="9e4faec7932f188ea362f33a0bdf813f" size="1307" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\YVerificationHandler.class" md5="ce62801bf0f9af30bb5c35a32f7f2c4f" size="4000" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\org\yawlfoundation\yawl\util\YVerificationMessage.class" md5="9537a78d3ad357e73034f7d772cfa3cf" size="846" timestamp="2024-10-02T16:52:20"/>
-        <file name="WEB-INF\classes\version.properties" md5="bc83e43009fe46e66b8147e354b75fab" size="198" timestamp="2024-10-02T16:52:30"/>
-        <file name="WEB-INF\lib\antlr-2.7.7.jar" md5="f8f1352c52a4c6a500b597596501fc64" size="445288" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\byte-buddy-1.12.23.jar" md5="bdf44dc7543f6bf2728b6e7d32e3bf8c" size="3948911" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\c3p0-0.9.2.1.jar" md5="35085ff8cfaf6576d118ad4492236ae6" size="423876" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\classmate-1.5.1.jar" md5="e91fcd30ba329fd1b0b6dc5321fd067c" size="67815" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\common.jar" md5="b39420f2b597357f143181c67e141c5a" size="119342" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\commons-codec-1.9.jar" md5="75615356605c8128013da9e3ac62a249" size="263965" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\commons-collections-3.2.1.jar" md5="13bc641afd7fd95e09b260f69c1e4c91" size="575389" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\commons-lang-2.3.jar" md5="dcdcbb47176603907c9f79a1349193eb" size="245274" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\ecore.jar" md5="67f985f03eca639fdea2ff2a3f537777" size="692868" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\ehcache-core-2.4.3.jar" md5="9d4b1464a2fcbc16ae46740669a0dab8" size="1006424" timestamp="2024-10-02T16:52:13"/>
-        <file name="WEB-INF\lib\hibernate-c3p0-5.6.14.Final.jar" md5="eb0379be1520a155a2852476019b815e" size="11941" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\hibernate-commons-annotations-5.1.2.Final.jar" md5="2a2490b3eb8e7585a6a899d27d7ed43f" size="78948" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\hibernate-core-5.6.14.Final.jar" md5="ec54e7703232f55bdf9e340309ef6556" size="7502584" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\hibernate-ehcache-5.6.14.Final.jar" md5="b57429c90f9c14a2ed71d0dc013eb254" size="54790" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\hibernate-jpa-2.1-api-1.0.0.Final.jar" md5="01b091825023c97fdfd6d2bceebe03ff" size="113371" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\hibernate.cfg.xml" md5="4ea4c33cc045d0aa2c9e20442756898d" size="505" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\istack-commons-runtime-4.1.1.jar" md5="8a0b5fe40f96b22dbf7a2d971bf21964" size="26147" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\jandex-2.4.2.Final.jar" md5="489f7a97d2ed7ae34ea56d01b3566d57" size="230776" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\javax.activation-api-1.2.0.jar" md5="5e50e56bcf4a3ef3bc758f69f7643c3b" size="56674" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\javax.persistence-api-2.2.jar" md5="e6520b3435f5b6d58eee415b5542abf8" size="164556" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\jaxb-api-2.3.1.jar" md5="bcf270d320f645ad19f5edb60091e87f" size="128076" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\jaxb-runtime-2.3.1.jar" md5="848098e3eda0d37738d51a7acacd8e95" size="1093432" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\jboss-logging-3.4.3.Final.jar" md5="b298d4b79e591843c1eb1458ea79f070" size="60782" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\jboss-transaction-api_1.2_spec-1.1.1.Final.jar" md5="1e633c47138aba999d39692a31a1a124" size="26290" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\jdom-2.0.5.jar" md5="302db3c65c38d3c10ef31bca76bd76b4" size="299658" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\log4j-1.2-api-2.17.1.jar" md5="937a348ff730ec6ed54ef28576808ad3" size="208005" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\log4j-api-2.18.0.jar" md5="38d29af13312d716f8d1d8fd79736f05" size="315115" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\log4j-core-2.18.0.jar" md5="8869945da3b66916542b9fdd2e2605f2" size="1861441" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\log4j-slf4j-impl-2.17.1.jar" md5="edbf8a5cea0bc0cd0ada9c3c2cb78d50" size="24276" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\mchange-commons-java-0.2.3.4.jar" md5="cc99f685b11309071e1e94fd758c372b" size="581295" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\mssql-jdbc-10.2.1.jre8.jar" md5="23279b7fb565419d46e65ea5e8afc11b" size="1390758" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\saxon9-dom.jar" md5="43b292289250700524ddd21d82e23f79" size="126167" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\saxon9-jdom.jar" md5="ec6f0f16d513e1bf5a67a9671e46c7d6" size="36793" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\saxon9-s9api.jar" md5="a6547f2d9f839978cf4c9c92ed01cf9f" size="127765" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\saxon9.jar" md5="cfb820253feef53ab606601b6435870c" size="5024396" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\slf4j-api-1.7.12.jar" md5="5de95ad1ae22d0b4c1dfea1101826a6e" size="32127" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\lib\xercesImpl.jar" md5="da09b75b562ca9a8e9a535d2148be8e4" size="1229289" timestamp="2024-10-02T16:52:14"/>
-        <file name="WEB-INF\web.xml" md5="870303847ca6c2740d4b8c9c057c070d" size="18660" timestamp="2024-10-02T16:52:30"/>
-        <file name="welcome.htm" md5="a3dfe9a0fc668b839258b33667a229bc" size="778" timestamp="2024-10-02T16:52:30" path="Q"/>
+        <file name="welcome.htm" md5="a3dfe9a0fc668b839258b33667a229bc" size="778" timestamp="2024-12-30T08:04:13" path="Q"/>
+        <file name="WEB-INF/classes/hibernate.cfg.xml" md5="b1314d5778fb00be1e7cf49000facb1b" size="491" timestamp="2024-12-30T08:04:13" path="AW"/>
+        <file name="WEB-INF/classes/version.properties" md5="69c610fe801928e7eee8af0a5d16eb89" size="186" timestamp="2024-12-30T08:04:13" path="P"/>
+        <file name="WEB-INF/classes/mail.properties" md5="43caa1ba4cb0cd20bc5cf161855f5ed2" size="850" timestamp="2024-12-30T08:04:13" path="P"/>
+        <file name="WEB-INF/classes/LDAPSource.properties" md5="0a728e6f530ea3ca666e45a5a00f26ce" size="3864" timestamp="2024-12-30T08:04:13" path="S"/>
+        <file name="WEB-INF/web.xml" md5="a95b3b6caed2d8f316dd9188f4c1bbdb" size="18506" timestamp="2024-12-30T08:04:13" path="P"/>
+        <file name="graphics/Thumbs.db" md5="eb936b9acc99b18871e86d669ddad40a" size="16384" timestamp="2024-12-30T08:04:13" path="N"/>
+        <file name="graphics/logosmall.jpg" md5="050677df96ab6793a39e4d59f4fe0578" size="2062" timestamp="2024-12-30T08:04:13" path="N"/>
+        <file name="graphics/bg01.gif" md5="45268fa75e5992b96983eed8f9ae9abc" size="82" timestamp="2024-12-30T08:04:13" path="N"/>
+        <file name="graphics/logobig.jpg" md5="8e2e8fe313e7af29c44fa84551297815" size="11662" timestamp="2024-12-30T08:04:13" path="N"/>
+        <file name="graphics/subtext.jpg" md5="af8aae0c419d1945a35ec47b4b95692f" size="1179" timestamp="2024-12-30T08:04:13" path="G"/>
+        <file name="graphics/common.css" md5="cebb397e37f82800b8d96672e1534c55" size="2782" timestamp="2024-12-30T08:04:13" path="G"/>
+        <file name="graphics/wsText.jpg" md5="aaf9275d974ea1b4a30d12dae5e87c03" size="1274" timestamp="2024-12-30T08:04:13" path="N"/>
+        <file name="graphics/yawl.swf" md5="3849953b829c6032dc645cf5b01188e3" size="8660" timestamp="2024-12-30T08:04:13" path="G"/>
       </files>
       <lib>
         <file name="antlr-2.7.7.jar"/>
@@ -1430,11 +952,25 @@
         <file name="mssql-jdbc-10.2.1.jre8.jar"/>
         <file name="commons-lang-2.3.jar"/>
         <file name="commons-codec-1.9.jar"/>
+        <file name="java-sdk-1.0.1.jar"/>
+        <file name="gson-2.11.0.jar"/>
         <file name="xercesImpl.jar"/>
         <file name="saxon9.jar"/>
         <file name="saxon9-dom.jar"/>
         <file name="saxon9-s9api.jar"/>
         <file name="saxon9-jdom.jar"/>
+        <file name="courier-java-3.3.0.jar"/>
+        <file name="gson-2.11.0.jar"/>
+        <file name="jackson-annotations-2.18.2.jar"/>
+        <file name="jackson-core-2.18.2.jar"/>
+        <file name="jackson-databind-2.18.2.jar"/>
+        <file name="jackson-datatype-jdk8-2.18.2.jar"/>
+        <file name="jackson-datatype-jsr310-2.18.2.jar"/>
+        <file name="kotlin-stdlib-2.1.0.jar"/>
+        <file name="okhttp-4.12.0.jar"/>
+        <file name="okio-3.9.1.jar"/>
+        <file name="okio-jvm-3.9.1.jar"/>
+        <file name="java-sdk-1.0.1.jar"/>
       </lib>
     </resourceService>
     <monitorService>
@@ -3390,7 +2926,7 @@
       </lib>
     </mailSender>
     <mailService>
-      <build>172</build>
+      <build>195</build>
       <files>
         <file name="WEB-INF/web.xml" md5="a226455872f299f11eb979ab74b6e67c" size="6531" timestamp="2021-06-04T15:35:47" path="AK"/>
       </files>
@@ -3936,11 +3472,11 @@
     </orderfulfillment>
   </webapps>
   <yawllib>
-    <file name="yawl-lib-5.1.jar" md5="eded0d6f62fe9a506490eae15b2a6a95" size="2979832" timestamp="2024-11-21T18:18:02" path="AM"/>
+    <file name="yawl-lib-5.1.jar" md5="f639423c54ebe218636ca29467076ef6" size="2999665" timestamp="2024-12-30T08:04:12" path="AM"/>
   </yawllib>
   <controlpanel>
-    <build>434</build>
-    <file name="YawlControlPanel-5.1.jar" md5="f999593766e1986812848f3f7ebcc0aa" size="427881" timestamp="2024-07-06T15:51:43" path="AM"/>
+    <build>448</build>
+    <file name="YawlControlPanel-5.1.jar" md5="a4c2538210f9e9bb5a6ea195d8e670ed" size="428515" timestamp="2024-12-22T13:11:54" path="AM"/>
   </controlpanel>
   <paths>
     <path id="host">https://raw.githubusercontent.com/</path>

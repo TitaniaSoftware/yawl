@@ -63,8 +63,8 @@
                   type="string"
                   access="field"/>
 
-         <property name="_mail"
-                  column="Mail"
+        <property name="_email"
+                  column="Email"
                   type="string"
                   access="field"/>
 
@@ -83,6 +83,14 @@
                   column="Administrator"
                   type="boolean"
                   access="field"/>
+
+        <property name="_emailOnAllocation"
+                  column="EmailOnAllocation"
+                  type="boolean"/>
+
+        <property name="_emailOnOffer"
+                  column="EmailOnOffer"
+                  type="boolean"/>
 
          <set name="_positions" table="rs_Participant_Position" access="field" lazy="false">
     		 <key column="ParticipantID"/>

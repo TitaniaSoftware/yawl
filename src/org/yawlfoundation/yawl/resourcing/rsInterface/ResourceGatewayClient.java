@@ -1297,48 +1297,36 @@ public class ResourceGatewayClient extends Interface_Client {
      * @throws IOException
      *             if the service can't be reached
      */
-    public String addParticipant(String userid, String password, boolean encrypt, String lastname, String firstname,
-	    boolean admin, String description, String notes, String handle) throws IOException {
-	return addParticipant(userid, password, encrypt, lastname, firstname, "", admin, description, notes, handle);
-    }
-
-    /**
-     * Adds a new Participant to the Resource Service's org data
-     * 
-     * @param userid
-     *            - must not already exist in the service's org data
-     * @param password
-     * @param encrypt
-     *            - if true, will encrypt the password before it is stored
-     * @param lastname
-     * @param firstname
-     * @param mail
-     *            Participant's email address
-     * @param admin
-     *            - if true, will set this Participant as an administrator
-     * @param description
-     * @param notes
-     * @param handle
-     *            a current sessionhandle with admin privileges
-     * @return if successful, the id of the newly added participant; if not, an
-     *         explanatory error message
-     * @throws IOException
-     *             if the service can't be reached
-     */
-    public String addParticipant(String userid, String password, boolean encrypt, String lastname, String firstname,
-	    String mail, boolean admin, String description, String notes, String handle) throws IOException {
+    public String addParticipant(String userid, String password, boolean encrypt,
+                                 String lastname, String firstname, String email,
+                                 boolean onAllocation, boolean onOffer, boolean admin,
+                                 String description, String notes, String handle)
+            throws IOException {
 	Map<String, String> params = prepareParamMap("addParticipant", handle);
 	params.put("userid", userid);
 	params.put("password", password);
 	params.put("encrypt", String.valueOf(encrypt));
 	params.put("lastname", lastname);
 	params.put("firstname", firstname);
-	params.put("mail", mail);
+        params.put("email", email);
 	params.put("admin", String.valueOf(admin));
+        params.put("emailOnAllocation", String.valueOf(onAllocation));
+        params.put("emailOnOffer", String.valueOf(onOffer));
 	params.put("description", description);
 	params.put("notes", notes);
 	return executeGet(_serviceURI, params);
     }
+
+    /** @deprecated */
+    public String addParticipant(String userid, String password, boolean encrypt,
+                                     String lastname, String firstname, boolean admin,
+                                     String description, String notes, String handle)
+                throws IOException {
+        return addParticipant(userid, password, encrypt, lastname, firstname, null,
+                false, false, admin, description, notes, handle);
+    }
+
+
 
     /**
      * Adds a new NonHumanResource to the Resource Service's org data
@@ -1660,8 +1648,10 @@ public class ResourceGatewayClient extends Interface_Client {
      * @throws IOException
      *             if the service can't be reached
      */
-    public String updateParticipant(String participantID, String userid, String password, boolean encrypt,
-	    String lastname, String firstname, String mail, boolean admin, String description, String notes,
+    public String updateParticipant(String participantID, String userid, String password,
+                                    boolean encrypt, String lastname, String firstname,
+                                    String email, boolean onAllocation, boolean onOffer,
+                                    boolean admin, String description, String notes,
 	    String handle) throws IOException {
 	Map<String, String> params = prepareParamMap("updateParticipant", handle);
 	params.put("participantid", participantID);
@@ -1670,12 +1660,25 @@ public class ResourceGatewayClient extends Interface_Client {
 	params.put("encrypt", String.valueOf(encrypt));
 	params.put("lastname", lastname);
 	params.put("firstname", firstname);
-	params.put("mail", mail);
+        params.put("email", email);
+        params.put("emailOnAllocation", String.valueOf(onAllocation));
+        params.put("emailOnOffer", String.valueOf(onOffer));
 	params.put("admin", String.valueOf(admin));
 	params.put("description", description);
 	params.put("notes", notes);
 	return executeGet(_serviceURI, params);
     }
+
+    /** @deprecated */
+    public String updateParticipant(String participantID, String userid, String password,
+                                    boolean encrypt, String lastname,String firstname,
+                                    boolean admin, String description, String notes,
+                                    String handle) throws IOException {
+        return updateParticipant(participantID, userid, password, encrypt, lastname,
+                firstname, null, false, false, admin, description, notes, handle);
+    }
+
+
 
     /**
      * Updates a NonHumanResource with the specified values. Note that besides

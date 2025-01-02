@@ -76,8 +76,11 @@ public class ResourceGateway extends YHttpServlet {
 
 		// set the engine uri and the exception service uri (if enabled)
 		_rm.getClients().initClients(context.getInitParameter("InterfaceB_BackEnd"),
-			context.getInitParameter("InterfaceX_BackEnd"), context.getInitParameter("InterfaceS_BackEnd"),
-			context.getInitParameter("CostService_BackEnd"), context.getInitParameter("DocStore_BackEnd"));
+                        context.getInitParameter("InterfaceX_BackEnd"),
+                        context.getInitParameter("InterfaceS_BackEnd"),
+                        context.getInitParameter("CostService_BackEnd"),
+                        context.getInitParameter("DocStore_BackEnd"),
+                        context.getInitParameter("MailService_BackEnd"));
 
 		// set the path to external plugin classes (if any)
 		String pluginPath = context.getInitParameter("ExternalPluginsPath");
@@ -143,6 +146,10 @@ public class ResourceGateway extends YHttpServlet {
 
 		// read the current version properties
 		_rm.initBuildProperties(context.getResourceAsStream("/WEB-INF/classes/version.properties"));
+
+                // init the email notifier
+                _rm.initEmailer(context.getResourceAsStream(
+                        "/WEB-INF/classes/mail.properties"));
 
 		// now that we have all the settings, complete the init
 		_rm.finaliseInitialisation();
@@ -329,6 +336,9 @@ public class ResourceGateway extends YHttpServlet {
                 else {
                     p.setPassword(req.getParameter("password"));
                 }
+                p.setEmail(req.getParameter("email"));
+                p.setEmailOnAllocation(req.getParameter("emailOnAllocation").equalsIgnoreCase("true"));
+                p.setEmailOnOffer(req.getParameter("emailOnOffer").equalsIgnoreCase("true"));
                 p.setDescription(req.getParameter("description"));
                 p.setNotes(req.getParameter("notes"));
                 result = _rm.addParticipant(p);
@@ -449,9 +459,17 @@ public class ResourceGateway extends YHttpServlet {
                     if (lastName != null) p.setLastName(lastName);
                     String firstName = req.getParameter("firstname");
                     if (firstName != null) p.setFirstName(firstName);
-		    String mail = req.getParameter("mail");
-		    if (mail != null)
-			p.setMail(mail);
+                    String email = req.getParameter("email");
+                    if (email != null) p.setEmail(email);
+                    String onAllocation = req.getParameter("emailOnAllocation");
+                    if (onAllocation != null) {
+                        p.setEmailOnAllocation(onAllocation.equalsIgnoreCase("true"));
+                    }
+                    String onOffer = req.getParameter("emailOnOffer");
+                    if (onOffer != null) {
+                        p.setEmailOnOffer(onOffer.equalsIgnoreCase("true"));
+                    }
+                    
                     String admin = req.getParameter("admin");
                     if (admin != null) p.setAdministrator(admin.equalsIgnoreCase("true"));
                     String password = req.getParameter("password");

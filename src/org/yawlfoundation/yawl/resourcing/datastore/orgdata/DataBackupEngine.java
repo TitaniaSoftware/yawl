@@ -102,12 +102,16 @@ public class DataBackupEngine {
                 xml.append(StringUtil.wrapEscaped(p.getPassword(), "password")) ;
                 xml.append(StringUtil.wrapEscaped(p.getFirstName(), "firstname"));
                 xml.append(StringUtil.wrapEscaped(p.getLastName(), "lastname"));
-                xml.append(StringUtil.wrapEscaped(p.getMail(), "mail"));
+                xml.append(StringUtil.wrapEscaped(p.getEmail(), "email"));
                 xml.append(StringUtil.wrapEscaped(p.getDescription(), "description"));
                 xml.append(StringUtil.wrapEscaped(p.getNotes(), "notes"));
 
                 xml.append(StringUtil.wrapEscaped(String.valueOf(p.isAdministrator()),
                         "isAdministrator")) ;
+                xml.append(StringUtil.wrapEscaped(String.valueOf(p.isEmailOnAllocation()),
+                        "isEmailOnAllocation")) ;
+                xml.append(StringUtil.wrapEscaped(String.valueOf(p.isEmailOnOffer()),
+                        "isEmailOnOffer")) ;
 
                 xml.append("<roles>");
                 for (Role role : p.getRoles())
@@ -155,13 +159,18 @@ public class DataBackupEngine {
             if (n.getDescription() != null) {
                 resource.addChild("description", n.getDescription(), true);
             }
-            if (n.getNotes() != null) resource.addChild("notes", n.getNotes(), true);
-            XNode category = resource.addChild("category");
-            category.addAttribute("id", n.getCategory().getID());
+            if (n.getNotes() != null) {
+                resource.addChild("notes", n.getNotes(), true);
+            }
+            NonHumanCategory category = n.getCategory();
+            if (category != null) {
+                XNode nCategory = resource.addChild("category");
+                nCategory.addAttribute("id", n.getCategory().getID());
             String subcat = n.getSubCategoryName();
             if (! StringUtil.isNullOrEmpty(subcat)) {
                 resource.addChild("subcategory", subcat, true);
             }
+        }
         }
         return top.toString();
     }
@@ -263,7 +272,9 @@ public class DataBackupEngine {
                     if ((r == null) && (! orgDataSet.isKnownNonHumanResourceName(
                             nhr.getChildText("name")))) {
                         r = new NonHumanResource(nhr);
-                        String catID = nhr.getChild("category").getAttributeValue("id");
+                        Element eCategory = nhr.getChild("category");
+                        if (eCategory != null) {
+                            String catID = eCategory.getAttributeValue("id");
                         NonHumanCategory category = orgDataSet.getNonHumanCategory(catID);
                         if (category != null) {
                             r.setCategory(category);
@@ -272,6 +283,7 @@ public class DataBackupEngine {
                                 r.setSubCategory(subcat);
                             }
                         }    
+                        }
                         orgDataSet.importNonHumanResource(r);
                         added++;
                     }
@@ -424,8 +436,6 @@ public class DataBackupEngine {
                         p = new Participant();
                         p.reconstitute(part);
                         p.setPassword(part.getChildText("password"));
-                        p.setDescription(part.getChildText("description"));
-                        p.setNotes(part.getChildText("notes"));
                         addParticipantToResourceGroup(p, part, "roles");
                         addParticipantToResourceGroup(p, part, "positions");
                         addParticipantToResourceGroup(p, part, "capabilities");
