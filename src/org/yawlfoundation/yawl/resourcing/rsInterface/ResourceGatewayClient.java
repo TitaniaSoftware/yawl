@@ -1604,38 +1604,6 @@ public class ResourceGatewayClient extends Interface_Client {
      *            - if true, will encrypt the password before it is stored
      * @param lastname
      * @param firstname
-     * @param admin
-     *            - if true, will set this Participant as an administrator
-     * @param description
-     * @param notes
-     * @param handle
-     *            a current sessionhandle with admin privileges
-     * @return a message indicating success, or if not successful, an explanatory
-     *         error message
-     * @throws IOException
-     *             if the service can't be reached
-     */
-    public String updateParticipant(String participantID, String userid, String password, boolean encrypt,
-	    String lastname, String firstname, boolean admin, String description, String notes, String handle)
-	    throws IOException {
-	return updateParticipant(participantID, userid, password, encrypt, lastname, firstname, (String) null, admin,
-		description, notes, handle);
-    }
-
-    /**
-     * Updates a Participant record with the specified values. Note that besides
-     * participantid and handle, all other String parameters may be null, which will
-     * indicate that the current value for that field is not to be updated (ie. the
-     * existing value is maintained).
-     * 
-     * @param participantID
-     *            the (existing) id of the Participant
-     * @param userid
-     * @param password
-     * @param encrypt
-     *            - if true, will encrypt the password before it is stored
-     * @param lastname
-     * @param firstname
      * @oaran mail
      * @param admin
      *            - if true, will set this Participant as an administrator
