@@ -92,7 +92,7 @@
                   column="EmailOnOffer"
                   type="boolean"/>
 
-         <set name="_positions" table="rs_Participant_Position" access="field" lazy="false">
+        <set name="_positions" table="rs_Participant_Position" access="field" lazy="false">
     		 <key column="ParticipantID"/>
              <many-to-many class="Position" column="P_ID" lazy="false"/>
 	     </set>

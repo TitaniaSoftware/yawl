@@ -33,17 +33,16 @@ import java.util.List;
 
 
 /**
-  *  Initialises the Simple Mail Service with values from 'web.xml'.
-  *
-  *  @author Michael Adams
-  *  @date 24/06/2011
-  *
-  */
+ *  Initialises the Simple Mail Service with values from 'web.xml'.
+ *
+ *  @author Michael Adams
+ *  @date 24/06/2011
+ *
+ */
 
 public class MailServiceGateway extends YHttpServlet {
-	
-    private Sessions _sessions;            // maintains sessions with external services
 
+    private Sessions _sessions;            // maintains sessions with external services
 
     /** Read settings from web.xml and use them to initialise the service */
     public void init() {
@@ -77,7 +76,7 @@ public class MailServiceGateway extends YHttpServlet {
     }
 
 
-   public void doPost(HttpServletRequest req, HttpServletResponse res)
+    public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
         MailService service = MailService.getInstance();
         String result = "<success/>";
@@ -199,7 +198,7 @@ public class MailServiceGateway extends YHttpServlet {
 
 
     public void doGet(HttpServletRequest req, HttpServletResponse res)
-                                throws IOException, ServletException {
+            throws IOException, ServletException {
         doPost(req, res);                                // redirect all GETs to POSTs
     }
 
@@ -208,14 +207,14 @@ public class MailServiceGateway extends YHttpServlet {
         String value = System.getProperty("yawl.mail." + name);
         if (value == null) {
             value = getServletContext().getInitParameter(name);
-}
+        }
         return value;
     }
-    
+
 
     private String nullMsg(String param) {
         return errMsg("Value for " + param + "parameter cannot be null");
-}
+    }
 
 
     private String errMsg(String msg) {

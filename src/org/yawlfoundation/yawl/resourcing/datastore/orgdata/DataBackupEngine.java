@@ -19,21 +19,12 @@
 package org.yawlfoundation.yawl.resourcing.datastore.orgdata;
 
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
-import org.yawlfoundation.yawl.resourcing.resource.Capability;
-import org.yawlfoundation.yawl.resourcing.resource.OrgGroup;
-import org.yawlfoundation.yawl.resourcing.resource.Participant;
-import org.yawlfoundation.yawl.resourcing.resource.Position;
-import org.yawlfoundation.yawl.resourcing.resource.Role;
+import org.yawlfoundation.yawl.resourcing.resource.*;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanCategory;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanResource;
 import org.yawlfoundation.yawl.resourcing.resource.nonhuman.NonHumanSubCategory;
@@ -166,11 +157,11 @@ public class DataBackupEngine {
             if (category != null) {
                 XNode nCategory = resource.addChild("category");
                 nCategory.addAttribute("id", n.getCategory().getID());
-            String subcat = n.getSubCategoryName();
-            if (! StringUtil.isNullOrEmpty(subcat)) {
-                resource.addChild("subcategory", subcat, true);
+                String subcat = n.getSubCategoryName();
+                if (!StringUtil.isNullOrEmpty(subcat)) {
+                    resource.addChild("subcategory", subcat, true);
+                }
             }
-        }
         }
         return top.toString();
     }
@@ -275,14 +266,14 @@ public class DataBackupEngine {
                         Element eCategory = nhr.getChild("category");
                         if (eCategory != null) {
                             String catID = eCategory.getAttributeValue("id");
-                        NonHumanCategory category = orgDataSet.getNonHumanCategory(catID);
-                        if (category != null) {
-                            r.setCategory(category);
-                            String subcat = nhr.getChildText("subcategory");
-                            if (! StringUtil.isNullOrEmpty(subcat)) {
-                                r.setSubCategory(subcat);
+                            NonHumanCategory category = orgDataSet.getNonHumanCategory(catID);
+                            if (category != null) {
+                                r.setCategory(category);
+                                String subcat = nhr.getChildText("subcategory");
+                                if (!StringUtil.isNullOrEmpty(subcat)) {
+                                    r.setSubCategory(subcat);
+                                }
                             }
-                        }    
                         }
                         orgDataSet.importNonHumanResource(r);
                         added++;
