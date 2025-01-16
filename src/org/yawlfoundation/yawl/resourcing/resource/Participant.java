@@ -18,9 +18,6 @@
 
 package org.yawlfoundation.yawl.resourcing.resource;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.resourcing.QueueSet;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
@@ -29,6 +26,9 @@ import org.yawlfoundation.yawl.resourcing.rsInterface.ResourceGatewayException;
 import org.yawlfoundation.yawl.util.JDOMUtil;
 import org.yawlfoundation.yawl.util.PasswordEncryptor;
 import org.yawlfoundation.yawl.util.StringUtil;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a single participant (i.e. human) resource. Also manages the participant's
@@ -46,7 +46,6 @@ public class Participant extends AbstractResource implements Cloneable {
     private String _email;
     private String _userID ;
     private String _password ;
-    private String _mail;
     private boolean _isAdministrator;
     private Set<Position> _positions = new HashSet<Position>();
     private Set<Role> _roles = new HashSet<Role>();
@@ -136,7 +135,6 @@ public class Participant extends AbstractResource implements Cloneable {
         setUserID(p.getUserID());
         _isAdministrator = p.isAdministrator();
         _password = p.getPassword();
-        _mail = p.getMail();
         setRoles(p.getRoles());
         setPositions(p.getPositions());
         setCapabilities(p.getCapabilities());
@@ -472,7 +470,6 @@ public class Participant extends AbstractResource implements Cloneable {
         xml.append(StringUtil.wrapEscaped(String.valueOf(_emailOnAllocation), "isEmailOnAllocation")) ;
         xml.append(StringUtil.wrapEscaped(String.valueOf(_emailOnOffer), "isEmailOnOffer")) ;
         xml.append(StringUtil.wrapEscaped(String.valueOf(_isAdministrator), "isAdministrator")) ;
-        xml.append(StringUtil.wrapEscaped(String.valueOf(_mail), "mail")) ;
         xml.append(StringUtil.wrapEscaped(_description, "description"));
         xml.append(StringUtil.wrapEscaped(_notes, "notes"));
 
@@ -508,15 +505,6 @@ public class Participant extends AbstractResource implements Cloneable {
         setAdministrator(StringUtil.strToBoolean(e.getChildText("isAdministrator")));
         setDescription(JDOMUtil.decodeEscapes(e.getChildText("description")));
         setNotes(JDOMUtil.decodeEscapes(e.getChildText("notes")));
-        setMail(e.getChildText("mail"));
-    }
-
-    public void setMail(String mail) {
-	this._mail = mail;
-    }
-    
-    public String getMail() {
-	return _mail;
     }
 
 

@@ -18,6 +18,10 @@
 
 package org.yawlfoundation.yawl.mailService;
 
+import java.io.IOException;
+
+import javax.mail.Message;
+
 import org.jdom2.Element;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.mailer.Mailer;
@@ -27,9 +31,6 @@ import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
 import org.yawlfoundation.yawl.engine.interfce.interfaceB.InterfaceBWebsideController;
 import org.yawlfoundation.yawl.util.MailSettings;
 import org.yawlfoundation.yawl.util.StringUtil;
-
-import javax.mail.Message;
-import java.io.IOException;
 
 /**
  * A service that provides for emails to be sent by tasks
@@ -54,7 +55,6 @@ public class MailService extends InterfaceBWebsideController {
         return _instance;
     }
 
-
     public void handleEnabledWorkItemEvent(WorkItemRecord wir) {
         try {
 
@@ -68,7 +68,7 @@ public class MailService extends InterfaceBWebsideController {
                             getOutputData(wir.getTaskID(), result), null,  _handle);
         }
         catch (Exception ioe) {
-            ioe.printStackTrace();
+            _logger.catching(ioe);
         }
     }
 
@@ -127,10 +127,9 @@ public class MailService extends InterfaceBWebsideController {
 
     protected void setFromAddress(String address) { _defaults.fromAddress = address; }
 
-
     protected String sendMail(String toName, String toAddress, String ccAddress,
                               String bccAddress, String subject, String content) {
-
+	
         // set settings from mix of defaults and above params
         MailSettings settings = _defaults.copyOf();
         settings.toName = toName;
@@ -165,11 +164,11 @@ public class MailService extends InterfaceBWebsideController {
         MailSettings settings;
         try {
             settings = buildSettings(wir);
-        }
-        catch (MailSettingsException mse) {
+        } catch (MailSettingsException mse) {
+            _logger.error("sendMail(WorkItemRecord): mail settings exception {}", mse.getMessage());
             return mse.getMessage();
         }
-
+        
         return sendMail(settings);
     }
 
@@ -187,22 +186,29 @@ public class MailService extends InterfaceBWebsideController {
             return "Mail successfully sent.";
         }
         catch (Exception e) {
-            _logger.error("Error sending mail.", e.getCause());
+            _logger.catching(e);
             return e.getMessage();
         }
     }
 
 
     private MailSettings buildSettings(WorkItemRecord wir) throws MailSettingsException {
-        if (wir == null) throw new MailSettingsException("Work item is null.");
+	
+        if (wir == null) {
+            _logger.throwing(new MailSettingsException("Work item is null."));
+        }
+        
+	MailSettings settings = new MailSettings();
+        
         Element data = wir.getDataList();
-        if (data == null) throw new MailSettingsException("Work item contains no data.");
-        MailSettings settings = new MailSettings();
+        if (data == null) {
+            _logger.throwing(new MailSettingsException("Work item contains no data."));
+        }
         settings.host = getSetting(data, "host");
         settings.port = getPort(data);
         settings.strategy = getTransportStrategy(data);
-        settings.user = getSetting(data, "user");
-        settings.password = getSetting(data, "password");
+        settings.user = getSetting(data, "user", true);
+        settings.password = getSetting(data, "password", true);
         settings.fromName = getSetting(data, "senderName");
         settings.fromAddress = getSetting(data, "senderAddress");
         settings.toName = getSetting(data, "recipientName", true);
@@ -211,6 +217,7 @@ public class MailService extends InterfaceBWebsideController {
         settings.bccAddress = getSetting(data, "BCC", true);
         settings.subject = getSetting(data, "subject");
         settings.content = getSetting(data, "content");
+            
         return settings;
     }
 
@@ -255,9 +262,11 @@ public class MailService extends InterfaceBWebsideController {
     private String getSetting(Element data, String name, boolean optional)
             throws MailSettingsException {
         String setting = getDataValue(data, name);
+        if (StringUtil.isNullOrEmpty(setting)) setting = System.getProperty("yawl.mail." + name);
         if (StringUtil.isNullOrEmpty(setting)) setting = _defaults.getSetting(name);
-        if (StringUtil.isNullOrEmpty(setting) && ! optional) throw new MailSettingsException(
-                "Required value for '" + name + "' not supplied.");
+        if (StringUtil.isNullOrEmpty(setting) && ! optional) {
+            _logger.throwing(new MailSettingsException("Required value for '" + name + "' not supplied."));
+        }
         return setting;
     }
 

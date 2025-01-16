@@ -20,6 +20,7 @@ package org.yawlfoundation.yawl.resourcing.codelets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.elements.data.YParameter;
@@ -27,47 +28,126 @@ import org.yawlfoundation.yawl.resourcing.ResourceManager;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
 
 /**
- * @author Michael Adams
- * @date 7/03/2011
+ * @author Paul Tyson <paul.tyson@oberontech.com> 2025-01-08
  */
 public class ParticipantInfo extends AbstractCodelet {
 
     public ParticipantInfo() {
 	super();
-	setDescription("This codelet gets name and email of the participant with the given user id<br> "
-		+ "Input: userid (string type).<br>" + "Output: username (string type), usermail (string type)");
+	setDescription("This codelet gets all the properties of the participant with the given user id<br> "
+		+ "Input: userid , delimiter.<br>" + "Output: userid, firstname, lastname, fullname, email, "
+		+ "emailOnAllocation, emailOnOffer, isAdministrator, description, notes, "
+		+ "positions, roles, capabilities");
     }
 
+    @Override
     public Element execute(Element inData, List<YParameter> inParams, List<YParameter> outParams)
 	    throws CodeletExecutionException {
 	ResourceManager rm = ResourceManager.getInstance();
 	setInputs(inData, inParams, outParams);
 	String userid = getValue("userid");
+	String delimiter = getValue("delimiter");
+
 	Participant p = rm.getParticipantFromUserID(userid);
 	if (p == null) {
 	    throw new CodeletExecutionException("Unknown userid: " + userid);
 	}
-	setParameterValue("username", p.getFullName());
-	setParameterValue("usermail", p.getMail());
+	setParameterValue("userid", p.getUserID());
+	setParameterValue("firstname", p.getFirstName());
+	setParameterValue("lastname", p.getLastName());
+	setParameterValue("fullname", p.getFullName());
+	setParameterValue("email", p.getEmail());
+	setParameterValue("emailOnAllocation", Boolean.toString(p.isEmailOnAllocation()));
+	setParameterValue("emailOnOffer", Boolean.toString(p.isEmailOnOffer()));
+	setParameterValue("isAdministrator", Boolean.toString(p.isAdministrator()));
+	setParameterValue("description", p.getDescription());
+	setParameterValue("notes", p.getNotes());
+	setParameterValue("positions",
+		p.getPositions().stream().map(pos -> pos.getTitle()).collect(Collectors.joining(delimiter)));
+	setParameterValue("roles",
+		p.getPositions().stream().map(r -> r.getTitle()).collect(Collectors.joining(delimiter)));
+	setParameterValue("capabilities",
+		p.getPositions().stream().map(c -> c.getTitle()).collect(Collectors.joining(delimiter)));
 	return getOutputData();
     }
 
+    @Override
     public List<YParameter> getRequiredParams() {
 	List<YParameter> params = new ArrayList<YParameter>();
 
-	YParameter param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);
+	YParameter param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);	
 	param.setDataTypeAndName("string", "userid", XSD_NAMESPACE);
 	param.setDocumentation("The userid of a participant");
 	params.add(param);
 
+	param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "delimiter", XSD_NAMESPACE);
+	param.setDocumentation("The character sequence to delimit items in list.");
+	params.add(param);
+
 	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
-	param.setDataTypeAndName("string", "username", XSD_NAMESPACE);
+	param.setDataTypeAndName("string", "userid", XSD_NAMESPACE);
+	param.setDocumentation("The userid of the given participant");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "firstname", XSD_NAMESPACE);
+	param.setDocumentation("The first name of the given participant");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "lastname", XSD_NAMESPACE);
+	param.setDocumentation("The last name of the given participant");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "fullname", XSD_NAMESPACE);
 	param.setDocumentation("The full name of the given participant");
 	params.add(param);
 
 	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
-	param.setDataTypeAndName("string", "usermail", XSD_NAMESPACE);
+	param.setDataTypeAndName("string", "email", XSD_NAMESPACE);
 	param.setDocumentation("The email address of the given participant");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("boolean", "emailOnAllocation", XSD_NAMESPACE);
+	param.setDocumentation("Whether or not to send email when workitem is allocated to given participant");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("boolean", "emailOnOffer", XSD_NAMESPACE);
+	param.setDocumentation("Whether or not to send email when workitem is offered to given participant");
+	params.add(param);
+	
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("boolean", "isAdministrator", XSD_NAMESPACE);
+	param.setDocumentation("Indicates if given participant is an administrator.");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "description", XSD_NAMESPACE);
+	param.setDocumentation("The description of the given participant.");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "notes", XSD_NAMESPACE);
+	param.setDocumentation("Notes about the given participant.");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "positions", XSD_NAMESPACE);
+	param.setDocumentation("Names of the positions held by the given participant, separated by the delimiter string.");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "roles", XSD_NAMESPACE);
+	param.setDocumentation("Names of the roles of the given participant, separated by the delimiter string.");
+	params.add(param);
+
+	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+	param.setDataTypeAndName("string", "capabilities", XSD_NAMESPACE);
+	param.setDocumentation("Names of the capabilities of the given participant, separated by the delimiter string.");
 	params.add(param);
 
 	return params;

@@ -18,12 +18,38 @@
 
 package org.yawlfoundation.yawl.elements;
 
-import net.sf.saxon.s9api.SaxonApiException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.Vector;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.CDATA;
+import org.jdom2.Comment;
 import org.jdom2.Content;
+import org.jdom2.DocType;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.EntityRef;
+import org.jdom2.ProcessingInstruction;
+import org.jdom2.Text;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.elements.data.YVariable;
 import org.yawlfoundation.yawl.elements.data.external.ExternalDataGateway;
@@ -32,10 +58,19 @@ import org.yawlfoundation.yawl.elements.e2wfoj.E2WFOJNet;
 import org.yawlfoundation.yawl.elements.predicate.PredicateEvaluatorCache;
 import org.yawlfoundation.yawl.elements.state.YIdentifier;
 import org.yawlfoundation.yawl.elements.state.YInternalCondition;
-import org.yawlfoundation.yawl.engine.*;
+import org.yawlfoundation.yawl.engine.YEngine;
+import org.yawlfoundation.yawl.engine.YNetRunner;
+import org.yawlfoundation.yawl.engine.YNetRunnerRepository;
+import org.yawlfoundation.yawl.engine.YPersistenceManager;
+import org.yawlfoundation.yawl.engine.YWorkItemRepository;
 import org.yawlfoundation.yawl.engine.time.YTimerVariable;
 import org.yawlfoundation.yawl.engine.time.YWorkItemTimer;
-import org.yawlfoundation.yawl.exceptions.*;
+import org.yawlfoundation.yawl.exceptions.YDataQueryException;
+import org.yawlfoundation.yawl.exceptions.YDataStateException;
+import org.yawlfoundation.yawl.exceptions.YDataValidationException;
+import org.yawlfoundation.yawl.exceptions.YPersistenceException;
+import org.yawlfoundation.yawl.exceptions.YQueryException;
+import org.yawlfoundation.yawl.exceptions.YStateException;
 import org.yawlfoundation.yawl.logging.YLogDataItemList;
 import org.yawlfoundation.yawl.schema.YDataValidator;
 import org.yawlfoundation.yawl.util.JDOMUtil;
@@ -43,9 +78,7 @@ import org.yawlfoundation.yawl.util.SaxonUtil;
 import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.YVerificationHandler;
 
-import java.net.URL;
-import java.util.*;
-import java.util.stream.Collectors;
+import net.sf.saxon.s9api.SaxonApiException;
 
 /**
  * A superclass of any type of task in the YAWL language.
@@ -1140,6 +1173,51 @@ public abstract class YTask extends YExternalNetElement {
                 (result.getContentSize() == 0)) {
             return null;
         }
+
+	// if the parameter is CDATA, mark contents as CDATA
+	if (inputParam.getAttributes().getBoolean("isCDATA")) {
+	    XMLOutputter outputter = new XMLOutputter(Format.getRawFormat());
+	    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+	    for (Content c : result.getContent()) {
+		try {
+		    switch (c.getCType()) {
+		    case Element:
+			outputter.output((Element) c, bytes);
+			break;
+		    case Text:
+			outputter.output((Text) c, bytes);
+			break;
+		    case CDATA:
+			bytes.write(((CDATA) c).getText().getBytes("UTF-8"));
+			break;
+		    case Comment:
+			outputter.output((Comment) c, bytes);
+			break;
+		    case DocType:
+			outputter.output((DocType) c, bytes);
+			break;
+		    case EntityRef:
+			outputter.output((EntityRef) c, bytes);
+			break;
+		    case ProcessingInstruction:
+			outputter.output((ProcessingInstruction) c, bytes);
+			break;
+		    default:
+			break;
+		    }
+		} catch (IOException e) {
+		    throw new YQueryException("Exception building CDATA element: " + e.getMessage());
+		}
+
+	    }
+	    CDATA cdata;
+	    try {
+		cdata = new CDATA(bytes.toString("UTF-8"));
+	    } catch (UnsupportedEncodingException e) {
+		cdata = new CDATA(bytes.toString());
+	    }
+	    result.setContent(cdata);
+	}
 
         /**
          * AJH: Allow option to inhibit schema validation for outbound data.
