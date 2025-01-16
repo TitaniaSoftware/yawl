@@ -34,10 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.yawlfoundation.yawl.authentication.YExternalClient;
 import org.yawlfoundation.yawl.elements.YAWLServiceReference;
 import org.yawlfoundation.yawl.engine.YSpecificationID;
-import org.yawlfoundation.yawl.engine.interfce.Marshaller;
-import org.yawlfoundation.yawl.engine.interfce.ServletUtils;
-import org.yawlfoundation.yawl.engine.interfce.SpecificationData;
-import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
+import org.yawlfoundation.yawl.engine.interfce.*;
 import org.yawlfoundation.yawl.resourcing.QueueSet;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
 import org.yawlfoundation.yawl.resourcing.ResourceMap;
@@ -48,11 +45,19 @@ import org.yawlfoundation.yawl.resourcing.resource.OrgGroup;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
 import org.yawlfoundation.yawl.resourcing.resource.UserPrivileges;
 import org.yawlfoundation.yawl.resourcing.util.GadgetFeeder;
-import org.yawlfoundation.yawl.util.PasswordEncryptor;
 import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.XNode;
 import org.yawlfoundation.yawl.util.XNodeParser;
 import org.yawlfoundation.yawl.util.YPredicateParser;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The WorkQueue Gateway provides a gateway (or a set of API) between the Resource
@@ -64,7 +69,7 @@ import org.yawlfoundation.yawl.util.YPredicateParser;
  *         Last Date: 20/09/2007
  */
 
-public class WorkQueueGateway extends HttpServlet {
+public class WorkQueueGateway extends YHttpServlet {
 
     private ResourceManager _rm = ResourceManager.getInstance();
     private ResourceMarshaller _marshaller = new ResourceMarshaller();
@@ -109,27 +114,17 @@ public class WorkQueueGateway extends HttpServlet {
         } else if (action.equalsIgnoreCase("connect")) {
             String userid = req.getParameter("userid");
             String password = req.getParameter("password");
-	    String encrypt = req.getParameter("encrypt");
-	    if ((encrypt != null) && encrypt.equalsIgnoreCase("true")) {
-		try {
-		    password = PasswordEncryptor.encrypt(password);
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-		    // nothing to do - call will return 'incorrect password'
-		}
-	    }
+            if (StringUtil.strToBoolean(req.getParameter("encrypt"))) {
+                password = encryptPassword(password);
+            }
             int interval = req.getSession().getMaxInactiveInterval();
             result = _rm.serviceConnect(userid, password, interval);
         } else if (action.equalsIgnoreCase("userlogin")) {
             String userid = req.getParameter("userid");
             String password = req.getParameter("password");
-            String encrypt = req.getParameter("encrypt");
-            if ((encrypt != null) && encrypt.equalsIgnoreCase("true")) {
-                try {
-                    password = PasswordEncryptor.encrypt(password);
-                } catch (NoSuchAlgorithmException nsae) {
-                    // nothing to do - call will return 'incorrect password'
+            if (StringUtil.strToBoolean(req.getParameter("encrypt"))) {
+                password = encryptPassword(password);
                 }
-            }
             result = _rm.login(userid, password, req.getSession().getId()); // user connect
         } else if (action.equalsIgnoreCase("checkConnection")) {
             result = _rm.checkServiceConnection(handle) ? success :
@@ -710,11 +705,6 @@ public class WorkQueueGateway extends HttpServlet {
     }
 
 
-    private String fail(String msg) {
-        return "<failure>" + msg + "</failure>";
-    }
-
-
     private String fail(String reqStatus, String action, WorkItemRecord wir) {
         return fail(reqStatus, action, wir.getID(), wir.getResourceStatus());
     }
@@ -726,9 +716,4 @@ public class WorkQueueGateway extends HttpServlet {
                 reqStatus, action, itemid, hasStatus));
     }
 
-
-    private String response(String inner) {
-        return StringUtil.wrap(inner, "response");
     }
-
-}

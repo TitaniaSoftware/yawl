@@ -31,10 +31,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.yawlfoundation.yawl.engine.YSpecificationID;
 import org.yawlfoundation.yawl.engine.interfce.EngineGatewayImpl;
+import org.yawlfoundation.yawl.engine.interfce.YHttpServlet;
 import org.yawlfoundation.yawl.exceptions.YPersistenceException;
 import org.yawlfoundation.yawl.logging.YLogServer;
-import org.yawlfoundation.yawl.util.PasswordEncryptor;
+import org.yawlfoundation.yawl.util.StringUtil;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *  The Log Gateway class acts as an API gateway between YAWL and its process logs.
@@ -45,7 +51,7 @@ import org.yawlfoundation.yawl.util.PasswordEncryptor;
  *  Last Date: 1/2009
  */
 
-public class YLogGateway extends HttpServlet {
+public class YLogGateway extends YHttpServlet {
 
     private YLogServer _logSvr = YLogServer.getInstance() ;
     private EngineGatewayImpl _engine ;
@@ -77,13 +83,8 @@ public class YLogGateway extends HttpServlet {
         else if (action.equalsIgnoreCase("connect")) {
             String userid = req.getParameter("userid");
             String password = req.getParameter("password");
-            String encrypt = req.getParameter("encrypt");
-            if ((encrypt != null) && encrypt.equalsIgnoreCase("true")) {
-                try {
-                    password = PasswordEncryptor.encrypt(password);
-                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                    // nothing to do - call will return 'incorrect password'
-                }
+            if (StringUtil.strToBoolean(req.getParameter("encrypt"))) {
+                password = encryptPassword(password);
             }
             if (_engine != null) {
                 int interval = req.getSession().getMaxInactiveInterval();

@@ -255,14 +255,9 @@ public class InterfaceB_EngineBasedServer extends YHttpServlet {
 		} else if (action.equals("connect")) {
 		    String userID = request.getParameter("userid");
 		    String password = request.getParameter("password");
-		    String encrypt = request.getParameter("encrypt");
-		    if ((encrypt != null) && encrypt.equalsIgnoreCase("true")) {
-			try {
-			    password = PasswordEncryptor.encrypt(password);
-			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			    // nothing to do - call will return 'incorrect password'
-			}
-		    }
+                    if (StringUtil.strToBoolean(request.getParameter("encrypt"))) {
+                        password = encryptPassword(password);
+                    }
 		    int interval = request.getSession().getMaxInactiveInterval();
 		    msg.append(_engine.connect(userID, password, interval));
 		} else if ("disconnect".equals(action)) {
@@ -307,9 +302,11 @@ public class InterfaceB_EngineBasedServer extends YHttpServlet {
 		    msg.append(_engine.cancelCase(caseID, sessionHandle));
 		} else if (action.equals("getWorkItem")) {
 		    msg.append(_engine.getWorkItem(workItemID, sessionHandle));
-		} else if (action.equals("startOne")) {
-		    msg.append(_engine.startWorkItem(workItemID, null, sessionHandle));
-		} else if (action.equals("getLiveItems")) {
+                }
+                else if (action.equals("startOne")) {
+                    msg.append(_engine.startWorkItem(workItemID, null, sessionHandle));
+                }
+                else if (action.equals("getLiveItems")) {
 		    msg.append(_engine.describeAllWorkItems(sessionHandle));
 		} else if (action.equals("getAllRunningCases")) {
 		    msg.append(_engine.getAllRunningCases(sessionHandle));
