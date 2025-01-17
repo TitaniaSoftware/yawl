@@ -18,28 +18,11 @@
 
 package org.yawlfoundation.yawl.resourcing.rsInterface;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.yawlfoundation.yawl.authentication.YExternalClient;
 import org.yawlfoundation.yawl.elements.YAWLServiceReference;
 import org.yawlfoundation.yawl.engine.YSpecificationID;
 import org.yawlfoundation.yawl.engine.interfce.*;
-import org.yawlfoundation.yawl.resourcing.QueueSet;
-import org.yawlfoundation.yawl.resourcing.ResourceManager;
-import org.yawlfoundation.yawl.resourcing.ResourceMap;
-import org.yawlfoundation.yawl.resourcing.TaskPrivileges;
-import org.yawlfoundation.yawl.resourcing.WorkQueue;
+import org.yawlfoundation.yawl.resourcing.*;
 import org.yawlfoundation.yawl.resourcing.datastore.orgdata.ResourceDataSet;
 import org.yawlfoundation.yawl.resourcing.resource.OrgGroup;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
@@ -124,7 +107,7 @@ public class WorkQueueGateway extends YHttpServlet {
             String password = req.getParameter("password");
             if (StringUtil.strToBoolean(req.getParameter("encrypt"))) {
                 password = encryptPassword(password);
-                }
+            }
             result = _rm.login(userid, password, req.getSession().getId()); // user connect
         } else if (action.equalsIgnoreCase("checkConnection")) {
             result = _rm.checkServiceConnection(handle) ? success :
@@ -716,4 +699,4 @@ public class WorkQueueGateway extends YHttpServlet {
                 reqStatus, action, itemid, hasStatus));
     }
 
-    }
+}
