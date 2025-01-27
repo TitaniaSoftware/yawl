@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2012 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2025 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -34,7 +34,8 @@ public class ParticipantInfo extends AbstractCodelet {
 
     public ParticipantInfo() {
 	super();
-	setDescription("This codelet gets all the properties of the participant with the given user id<br> "
+	setDescription("This codelet gets properties of the participant with the given user id.<br> "
+		+ "Multi-valued property values are separated by the value of input parameter, 'delimiter'.<br> "
 		+ "Input: userid , delimiter.<br>" + "Output: userid, firstname, lastname, fullname, email, "
 		+ "emailOnAllocation, emailOnOffer, isAdministrator, description, notes, "
 		+ "positions, roles, capabilities");
@@ -75,7 +76,7 @@ public class ParticipantInfo extends AbstractCodelet {
     public List<YParameter> getRequiredParams() {
 	List<YParameter> params = new ArrayList<YParameter>();
 
-	YParameter param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);	
+	YParameter param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);
 	param.setDataTypeAndName("string", "userid", XSD_NAMESPACE);
 	param.setDocumentation("The userid of a participant");
 	params.add(param);
@@ -119,7 +120,7 @@ public class ParticipantInfo extends AbstractCodelet {
 	param.setDataTypeAndName("boolean", "emailOnOffer", XSD_NAMESPACE);
 	param.setDocumentation("Whether or not to send email when workitem is offered to given participant");
 	params.add(param);
-	
+
 	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
 	param.setDataTypeAndName("boolean", "isAdministrator", XSD_NAMESPACE);
 	param.setDocumentation("Indicates if given participant is an administrator.");
@@ -137,7 +138,8 @@ public class ParticipantInfo extends AbstractCodelet {
 
 	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
 	param.setDataTypeAndName("string", "positions", XSD_NAMESPACE);
-	param.setDocumentation("Names of the positions held by the given participant, separated by the delimiter string.");
+	param.setDocumentation(
+		"Names of the positions held by the given participant, separated by the delimiter string.");
 	params.add(param);
 
 	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
@@ -147,7 +149,8 @@ public class ParticipantInfo extends AbstractCodelet {
 
 	param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
 	param.setDataTypeAndName("string", "capabilities", XSD_NAMESPACE);
-	param.setDocumentation("Names of the capabilities of the given participant, separated by the delimiter string.");
+	param.setDocumentation(
+		"Names of the capabilities of the given participant, separated by the delimiter string.");
 	params.add(param);
 
 	return params;

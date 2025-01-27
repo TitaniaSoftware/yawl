@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024 The YAWL Foundation. All rights reserved.
+ * Copyright (c) 2004-2025 The YAWL Foundation. All rights reserved.
  * The YAWL Foundation is a collaboration of individuals and
  * organisations who are committed to improving workflow technology.
  *
@@ -29,14 +29,14 @@ import org.yawlfoundation.yawl.resourcing.resource.Participant;
 /**
  * @author Paul Tyson <paul.tyson@oberontech.com>
  */
-public class SupervisorInfo extends AbstractCodelet {
+public class GetSupervisor extends AbstractCodelet {
 
-    public SupervisorInfo() {
+    public GetSupervisor() {
         super();
         setDescription("This codelet gets the userid of the participant who is the<br> " +
                        "supervisor of the participant with the userid specified.<br> " +
                        "Input: userid (string type).<br>" +
-                       "Output: supervisorid (string type)");
+                       "Output: supervisorid (string type, possibly empty)");
     }
 
 
@@ -50,10 +50,8 @@ public class SupervisorInfo extends AbstractCodelet {
             throw new CodeletExecutionException("Unknown userid: " + userid);
         }
         Participant supervisor = rm.getOrgDataSet().getImmediateSupervisor(p);
-        if (supervisor == null) {
-            throw new CodeletExecutionException("No supervisor found for userid: " + userid);
-        }
-        setParameterValue("supervisorid", supervisor.getUserID());
+        String supervisorId = null == supervisor ? "" : supervisor.getUserID();
+        setParameterValue("supervisorid", supervisorId);
         return getOutputData();
     }
 
