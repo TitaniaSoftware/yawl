@@ -35,7 +35,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -78,8 +77,7 @@ import org.yawlfoundation.yawl.util.SaxonUtil;
 import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.YVerificationHandler;
 
-import java.net.URL;
-import java.util.*;
+import net.sf.saxon.s9api.SaxonApiException;
 
 /**
  * A superclass of any type of task in the YAWL language.
