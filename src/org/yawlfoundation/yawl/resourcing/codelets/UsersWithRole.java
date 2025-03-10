@@ -18,6 +18,7 @@
 
 package org.yawlfoundation.yawl.resourcing.codelets;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,16 +26,25 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+=======
+>>>>>>> upstream/master
 import org.jdom2.Element;
 import org.yawlfoundation.yawl.elements.data.YParameter;
 import org.yawlfoundation.yawl.resourcing.ResourceManager;
 import org.yawlfoundation.yawl.resourcing.resource.Participant;
 
+<<<<<<< HEAD
+=======
+import java.util.*;
+import java.util.stream.Collectors;
+
+>>>>>>> upstream/master
 /**
  * @author Paul Tyson <paul.tyson@oberontech.com>
  */
 public class UsersWithRole extends AbstractCodelet {
 
+<<<<<<< HEAD
     public UsersWithRole() {
 	super();
 	setDescription("This codelet gets the userid of the user ids with role name specified.<br> "
@@ -69,5 +79,41 @@ public class UsersWithRole extends AbstractCodelet {
 
 	return params;
     }
+=======
+	public UsersWithRole() {
+		super();
+		setDescription("This codelet gets the userid of the user ids with role name specified.<br> "
+				+ "Input: rolename (string type).<br>"
+				+ "Output: userids (string type, comma-separated list of userids)");
+	}
+
+	public Element execute(Element inData, List<YParameter> inParams, List<YParameter> outParams)
+			throws CodeletExecutionException {
+		ResourceManager rm = ResourceManager.getInstance();
+		setInputs(inData, inParams, outParams);
+		String rolename = getValue("rolename");
+		Set<Participant> participants = Optional.ofNullable(rm.getOrgDataSet().getParticipantsWithRole(rolename))
+				.orElse(Collections.emptySet());
+		String userids = participants.stream().map(p -> p.getUserID()).collect(Collectors.joining(","));
+		setParameterValue("userids", userids);
+		return getOutputData();
+	}
+
+	public List<YParameter> getRequiredParams() {
+		List<YParameter> params = new ArrayList<YParameter>();
+
+		YParameter param = new YParameter(null, YParameter._INPUT_PARAM_TYPE);
+		param.setDataTypeAndName("string", "rolename", XSD_NAMESPACE);
+		param.setDocumentation("The name of a role.");
+		params.add(param);
+
+		param = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
+		param.setDataTypeAndName("string", "userids", XSD_NAMESPACE);
+		param.setDocumentation("Comma-separated list of user ids having this role.");
+		params.add(param);
+
+		return params;
+	}
+>>>>>>> upstream/master
 
 }
