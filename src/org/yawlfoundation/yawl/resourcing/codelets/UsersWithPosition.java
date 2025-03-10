@@ -19,7 +19,9 @@
 package org.yawlfoundation.yawl.resourcing.codelets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,19 +38,18 @@ public class UsersWithPosition extends AbstractCodelet {
     public UsersWithPosition() {
 	super();
 	setDescription("This codelet gets the userids of the users with specified position name.<br> "
-		 + "Input: positionname (string type).<br>"
+		+ "Input: positionname (string type).<br>"
 		+ "Output: userids (string type, comma-separated list of userids)");
     }
 
     public Element execute(Element inData, List<YParameter> inParams, List<YParameter> outParams)
-	    throws CodeletExecutionException { 
+	    throws CodeletExecutionException {
 	ResourceManager rm = ResourceManager.getInstance();
 	setInputs(inData, inParams, outParams);
 	String positionName = getValue("positionname");
-	Set<Participant> participants = rm.getOrgDataSet().getParticipantsWithPosition(positionName);
-	if (participants == null) {
-	    throw new CodeletExecutionException("Unknown position name: " + positionName);
-	}
+	Set<Participant> participants = Optional
+		.ofNullable(rm.getOrgDataSet().getParticipantsWithPosition(positionName))
+		.orElse(Collections.emptySet());
 	String userids = participants.stream().map(p -> p.getUserID()).collect(Collectors.joining(","));
 	setParameterValue("userids", userids);
 	return getOutputData();

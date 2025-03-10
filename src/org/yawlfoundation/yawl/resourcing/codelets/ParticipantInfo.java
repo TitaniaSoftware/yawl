@@ -20,6 +20,7 @@ package org.yawlfoundation.yawl.resourcing.codelets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.jdom2.Element;
@@ -35,7 +36,7 @@ public class ParticipantInfo extends AbstractCodelet {
     public ParticipantInfo() {
 	super();
 	setDescription("This codelet gets properties of the participant with the given user id.<br> "
-		+ "Multi-valued property values are separated by the value of input parameter, 'delimiter'.<br> "
+		+ "Multi-valued property values are separated by the value of input parameter, 'delimiter' (default ',').<br> "
 		+ "Input: userid , delimiter.<br>" + "Output: userid, firstname, lastname, fullname, email, "
 		+ "emailOnAllocation, emailOnOffer, isAdministrator, description, notes, "
 		+ "positions, roles, capabilities");
@@ -47,29 +48,38 @@ public class ParticipantInfo extends AbstractCodelet {
 	ResourceManager rm = ResourceManager.getInstance();
 	setInputs(inData, inParams, outParams);
 	String userid = getValue("userid");
-	String delimiter = getValue("delimiter");
+	String delimiter = ",";
+	try {
+	    delimiter = getValue("delimiter");
+	} catch (CodeletExecutionException cee) {
+	    ; // no-op
+	}
 
 	Participant p = rm.getParticipantFromUserID(userid);
-	if (p == null) {
-	    throw new CodeletExecutionException("Unknown userid: " + userid);
-	}
-	setParameterValue("userid", p.getUserID());
-	setParameterValue("firstname", p.getFirstName());
-	setParameterValue("lastname", p.getLastName());
-	setParameterValue("fullname", p.getFullName());
-	setParameterValue("email", p.getEmail());
-	setParameterValue("emailOnAllocation", Boolean.toString(p.isEmailOnAllocation()));
-	setParameterValue("emailOnOffer", Boolean.toString(p.isEmailOnOffer()));
-	setParameterValue("isAdministrator", Boolean.toString(p.isAdministrator()));
-	setParameterValue("description", p.getDescription());
-	setParameterValue("notes", p.getNotes());
+	boolean haveParticipant = Optional.ofNullable(p).isPresent();
+	setParameterValue("userid", haveParticipant ? p.getUserID() : "");
+	setParameterValue("firstname", haveParticipant ? p.getFirstName() : "");
+	setParameterValue("lastname", haveParticipant ? p.getLastName() : "");
+	setParameterValue("fullname", haveParticipant ? p.getFullName() : "");
+	setParameterValue("email", haveParticipant ? p.getEmail() : "");
+	setParameterValue("emailOnAllocation", Boolean.toString(haveParticipant ? p.isEmailOnAllocation() : false));
+	setParameterValue("emailOnOffer", Boolean.toString(haveParticipant ? p.isEmailOnOffer() : false));
+	setParameterValue("isAdministrator", Boolean.toString(haveParticipant ? p.isAdministrator() : false));
+	setParameterValue("description", haveParticipant ? p.getDescription() : "");
+	setParameterValue("notes", haveParticipant ? p.getNotes() : "");
 	setParameterValue("positions",
-		p.getPositions().stream().map(pos -> pos.getTitle()).collect(Collectors.joining(delimiter)));
+		haveParticipant
+			? p.getPositions().stream().map(pos -> pos.getName()).collect(Collectors.joining(delimiter))
+			: "");
 	setParameterValue("roles",
-		p.getPositions().stream().map(r -> r.getTitle()).collect(Collectors.joining(delimiter)));
+		haveParticipant ? p.getRoles().stream().map(r -> r.getName()).collect(Collectors.joining(delimiter))
+			: "");
 	setParameterValue("capabilities",
-		p.getPositions().stream().map(c -> c.getTitle()).collect(Collectors.joining(delimiter)));
+		haveParticipant
+			? p.getCapabilities().stream().map(c -> c.getName()).collect(Collectors.joining(delimiter))
+			: "");
 	return getOutputData();
+
     }
 
     @Override

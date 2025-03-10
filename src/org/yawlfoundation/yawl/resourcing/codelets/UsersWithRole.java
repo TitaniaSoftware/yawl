@@ -19,7 +19,9 @@
 package org.yawlfoundation.yawl.resourcing.codelets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,25 +32,23 @@ import org.yawlfoundation.yawl.resourcing.resource.Participant;
 
 /**
  * @author Paul Tyson <paul.tyson@oberontech.com>
-  */
+ */
 public class UsersWithRole extends AbstractCodelet {
 
     public UsersWithRole() {
 	super();
 	setDescription("This codelet gets the userid of the user ids with role name specified.<br> "
-		 + "Input: rolename (string type).<br>"
+		+ "Input: rolename (string type).<br>"
 		+ "Output: userids (string type, comma-separated list of userids)");
     }
 
     public Element execute(Element inData, List<YParameter> inParams, List<YParameter> outParams)
-	    throws CodeletExecutionException { 
+	    throws CodeletExecutionException {
 	ResourceManager rm = ResourceManager.getInstance();
 	setInputs(inData, inParams, outParams);
 	String rolename = getValue("rolename");
-	Set<Participant> participants = rm.getOrgDataSet().getParticipantsWithRole(rolename);
-	if (participants == null) {
-	    throw new CodeletExecutionException("Unknown rolename: " + rolename);
-	}
+	Set<Participant> participants = Optional.ofNullable(rm.getOrgDataSet().getParticipantsWithRole(rolename))
+		.orElse(Collections.emptySet());
 	String userids = participants.stream().map(p -> p.getUserID()).collect(Collectors.joining(","));
 	setParameterValue("userids", userids);
 	return getOutputData();
